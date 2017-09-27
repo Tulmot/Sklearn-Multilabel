@@ -28,6 +28,24 @@ class DisturbingNeigbors:
     
     #Reducimos los datos obtenidos a las caracteristicas que vamos a evaluar, que
     #seran las que hemos obtenido segun el array aleatorio boolean
-    def reducir_datos(X,RndDimensions):
+    def reducir_Datos(X,RndDimensions):
         X2=X[:, RndDimensions]
         return X2
+    
+    #Calculamos los vecinos mas cercanos a las instancias escogidas antes
+    #aleatoriamente
+    def matriz_Distancia(X2,RndNeighbors,mDistancia):
+        cont=-1
+        for i in X2:
+            dist=999
+            cont+=1
+            cont2=-1
+            for j in RndNeighbors:
+                cont2+=1
+                dist2=distance.euclidean(i,X2[j,:])
+                if dist2<dist:
+                    dist=dist2
+                    a=cont
+                    b=cont2
+            mDistancia[a][b]=1
+        return mDistancia
