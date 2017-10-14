@@ -4,6 +4,8 @@ from random import shuffle
 from sklearn.metrics.pairwise import euclidean_distances
 from sklearn.tree import DecisionTreeClassifier
 #from sklearn import tree
+#import graphviz
+import math
 
 class DisturbingNeigbors:
     #Inicializamos variables
@@ -14,12 +16,15 @@ class DisturbingNeigbors:
         self.base_estimator =base_estimator 
         self.n_vecinos=n_vecinos
         self.n_caracteristicas=n_caracteristicas*n_vecinos
+        self.rnd_dimensions
+        self.rnd_neighbors
+        
     
    
     
     #Calculamos un array random boolean que es el que nos indicara que 
     #caracteristicas que valoraremos
-    def _random_boolean(self,rnd_dimensions):
+    def _random_boolean(self):
         rnd_dimensions=np.random.randint(0, 2,self.n_caracteristicas)
         return rnd_dimensions.astype(bool)
      
@@ -32,18 +37,18 @@ class DisturbingNeigbors:
     #Reducimos los datos obtenidos a las caracteristicas que vamos a evaluar,
     #que seran las que hemos obtenido segun el array random boolean
     def _reduce_data(self,X):
-        return X[:, rnd_dimensions]
+        return X[:, self.rnd_dimensions]
     
     #Calculamos los vecinos mas cercanos a las instancias escogidas antes
     #aleatoriamente
     def _nearest_neighbor(self,m_reducida):
-        m_vecinos=np.zeros((self.n_vecinos,len(rnd_neighbors)))
+        m_vecinos=np.zeros((self.n_vecinos,len(self.rnd_neighbors)))
         cont=-1
         for i in m_reducida:
-            dist=999
+            dist=math.inf
             cont+=1
             cont2=-1
-            for j in rnd_neighbors:
+            for j in self.rnd_neighbors:
                 cont2+=1
                 dist2=euclidean_distances([i],[m_reducida[j,:]])
                 if dist2<dist:
@@ -60,8 +65,8 @@ class DisturbingNeigbors:
     
     #Funcion que llama a los metodos necesarios para devolver el fit
     def fit(self,X,Y):
-        rnd_dimensions=_random_boolean(self)
-        rnd_neighbors=_random_array(self)
+        self.rnd_dimensions=_random_boolean(self)
+        self.rnd_neighbors=_random_array(self)
         m_reducida=_reduce_data(self,X)
         m_vecinos=_nearest_neighbor(self,m_reducida)
         return _clasificate(self,X,Y,m_vecinos)
