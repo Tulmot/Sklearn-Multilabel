@@ -12,27 +12,29 @@ class DisturbingNeigbors:
     def __init__(self,
                  base_estimator=DecisionTreeClassifier,
                  n_vecinos=10,
-                 n_caracteristicas=0.5):
+                 n_features=0.5):
         self.base_estimator =base_estimator 
         self.n_vecinos=n_vecinos
-        self.n_caracteristicas=n_caracteristicas*n_vecinos
+        self.n_features=n_features
         self.rnd_dimensions
         self.rnd_neighbors
         
-    
-   
+    #Calculamos el numero de caracteristicas que usaremos
+    def _calculate_features(self,X):
+        return X.shape[1]*self.n_features
     
     #Calculamos un array random boolean que es el que nos indicara que 
     #caracteristicas que valoraremos
     def _random_boolean(self):
-        rnd_dimensions=np.random.randint(0, 2,self.n_caracteristicas)
-        return rnd_dimensions.astype(bool)
+        self.rnd_dimensions=np.random.randint(0, 2,self.n_features)
+        return self.rnd_dimensions.astype(bool)
      
     #Calculamos un array random para seleccionar unas instancias aleatorias    
-    def _random_array(self):
-        s=list(range(self.n_vecinos))
+    def _random_array(self,X):
+        tam=X.shape[0]
+        s=list(range(tam))
         shuffle(s)
-        return np.array(s[:(int(len(s)/2))])
+        return np.array(s[:(self.n_vecinos)])
     
     #Reducimos los datos obtenidos a las caracteristicas que vamos a evaluar,
     #que seran las que hemos obtenido segun el array random boolean
@@ -58,24 +60,21 @@ class DisturbingNeigbors:
             m_vecinos[a][b]=1
         return m_vecinos
     
-    #CLasificador que vamos a usar para entrenar
-    def _clasificate(self,X,Y,m_vecinos):
-        m_entrenamiento=np.concatenate((X,m_vecinos),axis=1)
-        return self.base_estimator.fit(m_entrenamiento,Y)
-    
     #Funcion que llama a los metodos necesarios para devolver el fit
     def fit(self,X,Y):
-        self.rnd_dimensions=_random_boolean(self)
-        self.rnd_neighbors=_random_array(self)
-        m_reducida=_reduce_data(self,X)
-        m_vecinos=_nearest_neighbor(self,m_reducida)
-        return _clasificate(self,X,Y,m_vecinos)
+        self.n_features=self._calculate_features(X)
+        self.rnd_dimensions=self._random_boolean(self)
+        self.rnd_neighbors=self._random_array(self,X)
+        m_reducida=self._reduce_data(self,X)
+        m_vecinos=self._nearest_neighbor(self,m_reducida)
+        m_entrenamiento=np.concatenate((X,m_vecinos),axis=1)
+        return self.base_estimator.fit(m_entrenamiento,Y)
     
     #Recibe la otra parte del conjunto de datos, a partir de la cual vamos
     #a poder predecir luego
     def predict(self,X1):
-        m_reducida2=_reduce_data(self,X1)
-        m_vecinos2=_nearest_neighbor(self,m_reducida2)
+        m_reducida2=self._reduce_data(self,X1)
+        m_vecinos2=self._nearest_neighbor(self,m_reducida2)
         m_entrenamiento2=np.concatenate((X1,m_vecinos2),axis=1)
         return self.base_estimator.predict(m_entrenamiento2)
     
