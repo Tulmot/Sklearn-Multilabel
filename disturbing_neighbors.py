@@ -13,7 +13,8 @@ import math
 
 class DisturbingNeighbors:
     """A Disturbing Neighbors.
-     Parameters
+    
+     Parámetros
     ----------
     base_estimator : Es el clasificador que usaremos para entrenar nuestro
         conjunto de datos, lo que recibe es o vacio o un objeto, si es vacio
@@ -57,28 +58,28 @@ class DisturbingNeighbors:
             return self.n_features
     
     def _random_boolean(self):
-        #Calculamos un array random boolean que es el que nos indicara que 
-        #caracteristicas que valoraremos
+        """Calculamos un array random boolean que es el que nos indicara que 
+        caracteristicas que valoraremos"""
         self.rnd_dimensions=np.random.randint(0, 2,self.n_features)
         return self.rnd_dimensions.astype(bool)
         
     def _random_array(self,X):
-        #Calculamos un array random para seleccionar unas instancias 
-        #aleatorias 
+        """Calculamos un array random para seleccionar unas instancias 
+        aleatorias""" 
         tam=X.shape[0]
         s=list(range(tam))
         shuffle(s)
         return np.array(s[:(self.n_neighbors)])
     
     def _reduce_data(self,X):
-        #Reducimos los datos obtenidos a las caracteristicas que vamos a 
-        #evaluar, que seran las que hemos obtenido segun el array random 
-        #boolean
+        """Reducimos los datos obtenidos a las caracteristicas que vamos a 
+        evaluar, que seran las que hemos obtenido segun el array random 
+        boolean"""
         return X[:, self.rnd_dimensions]
     
     def _nearest_neighbor(self,m_reducida):
-        #Calculamos los vecinos mas cercanos a las instancias escogidas antes
-        #aleatoriamente
+        """Calculamos los vecinos mas cercanos a las instancias escogidas 
+        antes aleatoriamente"""
         m_neighbors=np.zeros((self.n_neighbors,len(self.rnd_neighbors)))
         cont=-1
         for i in m_reducida:
@@ -95,8 +96,24 @@ class DisturbingNeighbors:
             m_neighbors[a][b]=1
         return m_neighbors
     
-    #Funcion que llama a los metodos necesarios para devolver el fit
     def fit(self,X,Y):
+        """Construyendo un ensemble de estimadores del entrenamiento del
+        conjunto (X, y).
+        
+        Parámetros
+        ----------
+        X : Es una matriz de forma = [n_instances, n_features]
+            Es la muestra de entrada para el entranmiento. Solo se acepta
+            si es compatible con el estimador base.
+            
+        y : matriz de la forma = [n_class]
+            Los valores que contiene esta matriz son 0 y 1.
+            
+        Returns
+        -------
+        self : object
+            Returns self.
+        """
         self.n_features=self._calculate_features(X)
         self.rnd_dimensions=self._random_boolean(self)
         self.rnd_neighbors=self._random_array(self,X)
@@ -105,9 +122,22 @@ class DisturbingNeighbors:
         m_entrenamiento=np.concatenate((X,m_neighbors),axis=1)
         return self.base_estimator.fit(m_entrenamiento,Y)
     
-    #Recibe la otra parte del conjunto de datos, a partir de la cual vamos
-    #a poder predecir luego
     def predict(self,X1):
+        """Predecir clase para X.
+        La clase se predice según una muestra de entrada, calcula la clase
+        con la mayor probabilidad, que mas media tiene de predicicción.
+        
+        Parameters
+        ----------
+        X : Es una matriz de forma = [n_instances, n_features]
+            Es la muestra de entrada para el entranmiento. Solo se acepta
+            si es compatible con el estimador base.
+            
+        Returns
+        -------
+        y : matriz de forma = [n_class]
+            Predice las clases.
+        """
         m_reducida2=self._reduce_data(self,X1)
         m_neighbors2=self._nearest_neighbor(self,m_reducida2)
         m_entrenamiento2=np.concatenate((X1,m_neighbors2),axis=1)
