@@ -1,4 +1,4 @@
-"""Bagging meta-estimator."""
+"""   """
 
 # Author: Eduardo Tubilleja Calvo
 
@@ -11,8 +11,8 @@ from sklearn.tree import DecisionTreeClassifier
 #import graphviz
 import math
 
-class DisturbingNeigbors:
-    """A Disturbing Neigbors.
+class DisturbingNeighbors:
+    """A Disturbing Neighbors.
      Parameters
     ----------
     base_estimator : Es el clasificador que usaremos para entrenar nuestro
@@ -39,7 +39,6 @@ class DisturbingNeigbors:
         del conjunto de datos, es lo que llamaremos vecinos molestones.
         
     """
-    #Inicializamos variables
     def __init__(self,
                  base_estimator=DecisionTreeClassifier,
                  n_neighbors=10,
@@ -50,34 +49,36 @@ class DisturbingNeigbors:
         self.rnd_dimensions
         self.rnd_neighbors
         
-    #Calculamos el numero de caracteristicas que usaremos
     def _calculate_features(self,X):
+        """Calculamos el numero de caracteristicas que usaremos"""
         if  self.n_features<1:
             return X.shape[1]*self.n_features
         else:
             return self.n_features
     
-    #Calculamos un array random boolean que es el que nos indicara que 
-    #caracteristicas que valoraremos
     def _random_boolean(self):
+        #Calculamos un array random boolean que es el que nos indicara que 
+        #caracteristicas que valoraremos
         self.rnd_dimensions=np.random.randint(0, 2,self.n_features)
         return self.rnd_dimensions.astype(bool)
-     
-    #Calculamos un array random para seleccionar unas instancias aleatorias    
+        
     def _random_array(self,X):
+        #Calculamos un array random para seleccionar unas instancias 
+        #aleatorias 
         tam=X.shape[0]
         s=list(range(tam))
         shuffle(s)
         return np.array(s[:(self.n_neighbors)])
     
-    #Reducimos los datos obtenidos a las caracteristicas que vamos a evaluar,
-    #que seran las que hemos obtenido segun el array random boolean
     def _reduce_data(self,X):
+        #Reducimos los datos obtenidos a las caracteristicas que vamos a 
+        #evaluar, que seran las que hemos obtenido segun el array random 
+        #boolean
         return X[:, self.rnd_dimensions]
     
-    #Calculamos los vecinos mas cercanos a las instancias escogidas antes
-    #aleatoriamente
     def _nearest_neighbor(self,m_reducida):
+        #Calculamos los vecinos mas cercanos a las instancias escogidas antes
+        #aleatoriamente
         m_neighbors=np.zeros((self.n_neighbors,len(self.rnd_neighbors)))
         cont=-1
         for i in m_reducida:
