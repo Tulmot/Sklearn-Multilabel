@@ -3,13 +3,10 @@
 # Author: Eduardo Tubilleja Calvo
 
 import numpy as np
-from random import shuffle
-#from sklearn.datasets import make_multilabel_classification
 from sklearn.metrics.pairwise import euclidean_distances
 from sklearn.tree import DecisionTreeClassifier
-#from sklearn import tree
-#import graphviz
 import math
+from sklearn.utils import check_random_state
 
 class DisturbingNeighbors:
     """A Disturbing Neighbors.
@@ -43,10 +40,12 @@ class DisturbingNeighbors:
     def __init__(self,
                  base_estimator=DecisionTreeClassifier,
                  n_neighbors=10,
-                 n_features=0.5):
+                 n_features=0.5,
+                 random_state=None):
         self.base_estimator =base_estimator 
         self.n_neighbors=n_neighbors
         self.n_features=n_features
+        self.random_state=random_state
         self.rnd_dimensions
         self.rnd_neighbors
         
@@ -60,16 +59,15 @@ class DisturbingNeighbors:
     def _random_boolean(self):
         """Calculamos un array random boolean que es el que nos indicara que 
         caracteristicas que valoraremos"""
-        self.rnd_dimensions=np.random.randint(0, 2,self.n_features)
+        self.rnd_dimensions=self.random_state.randint(0, 2,self.n_features)
         return self.rnd_dimensions.astype(bool)
         
     def _random_array(self,X):
         """Calculamos un array random para seleccionar unas instancias 
         aleatorias""" 
         tam=X.shape[0]
-        s=list(range(tam))
-        shuffle(s)
-        return np.array(s[:(self.n_neighbors)])
+        return self.random_state.choice(tam, self.n_neighbors, replace=False)
+        #return np.random_state.randint(0, tam,self.n_neighbors)
     
     def _reduce_data(self,X):
         """Reducimos los datos obtenidos a las caracteristicas que vamos a 
@@ -114,6 +112,7 @@ class DisturbingNeighbors:
         self : object
             Returns self.
         """
+        self.random_state = check_random_state(self.random_state)
         self.n_features=self._calculate_features(X)
         self.rnd_dimensions=self._random_boolean(self)
         self.rnd_neighbors=self._random_array(self,X)
