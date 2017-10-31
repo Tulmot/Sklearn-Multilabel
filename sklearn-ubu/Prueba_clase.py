@@ -1,27 +1,28 @@
 from disturbing_neighbors import DisturbingNeighbors
 from sklearn.datasets import make_multilabel_classification
 from sklearn.metrics import hamming_loss
+from sklearn.model_selection import train_test_split
 import numpy as np
-
 
 seed = 0
 
-X,Y=make_multilabel_classification(n_samples=32, n_features=10, random_state=seed) 
+X,y=make_multilabel_classification(n_samples=32, n_features=10, random_state=seed) 
 dn=DisturbingNeighbors(random_state=seed)
 
-matrizFitX = np.matrix([X[i,:] for i in range(16)], dtype=int)
-matrizFitY = np.matrix([Y[i,:] for i in range(16)], dtype=int)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.5, train_size=0.5, 
+                                                    random_state=seed)
 
-dn.fit(matrizFitX,matrizFitY)
+X_train=np.matrix(np.array(X_train))
+X_test=np.matrix(np.array(X_test))
+y_train=np.matrix(np.array(y_train))
+y_test=np.matrix(np.array(y_test))
+
+dn.fit(X_train,y_train)
+
+y_predict=dn.predict(X_test)
 
 
-matrizPredict=np.matrix([X[j+16,:] for j in range(len(X)-16)], dtype=int)
-y_true=np.matrix([Y[j+16,:] for j in range(len(Y)-16)], dtype=int)
-
-y_predict=dn.predict(matrizPredict)
-
-
-dist=hamming_loss(y_true, y_predict)
+dist=hamming_loss(y_test, y_predict)
 
 print(dist)
 
