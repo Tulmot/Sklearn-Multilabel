@@ -3,13 +3,10 @@
 # Author: Eduardo Tubilleja Calvo
 
 import numpy as np
-from random import shuffle
-#from sklearn.datasets import make_multilabel_classification
 from sklearn.metrics.pairwise import euclidean_distances
 from sklearn.tree import DecisionTreeClassifier
-#from sklearn import tree
-#import graphviz
 import math
+from sklearn.utils import check_random_state
 
 class DisturbingNeighbors:
     """A Disturbing Neighbors.
@@ -41,14 +38,16 @@ class DisturbingNeighbors:
         
     """
     def __init__(self,
-                 base_estimator=DecisionTreeClassifier,
+                 base_estimator=DecisionTreeClassifier(),
                  n_neighbors=10,
-                 n_features=0.5):
+                 n_features=0.5,
+                 random_state=None):
         self.base_estimator =base_estimator 
         self.n_neighbors=n_neighbors
         self.n_features=n_features
-        self.rnd_dimensions
-        self.rnd_neighbors
+        self.random_state=random_state
+        self.rnd_dimensions=None
+        self.rnd_neighbors=None
         
     def _calculate_features(self,X):
         """Calculamos el numero de caracteristicas que usaremos"""
@@ -60,16 +59,15 @@ class DisturbingNeighbors:
     def _random_boolean(self):
         """Calculamos un array random boolean que es el que nos indicara que 
         caracteristicas que valoraremos"""
-        self.rnd_dimensions=np.random.randint(0, 2,self.n_features)
+        self.rnd_dimensions=self.random_state.randint(0, 2,self.n_features)
         return self.rnd_dimensions.astype(bool)
         
     def _random_array(self,X):
         """Calculamos un array random para seleccionar unas instancias 
         aleatorias""" 
         tam=X.shape[0]
-        s=list(range(tam))
-        shuffle(s)
-        return np.array(s[:(self.n_neighbors)])
+        return self.random_state.choice(tam, self.n_neighbors, replace=False)
+        #return np.random_state.randint(0, tam,self.n_neighbors)
     
     def _reduce_data(self,X):
         """Reducimos los datos obtenidos a las caracteristicas que vamos a 
@@ -80,19 +78,19 @@ class DisturbingNeighbors:
     def _nearest_neighbor(self,m_reducida):
         """Calculamos los vecinos mas cercanos a las instancias escogidas 
         antes aleatoriamente"""
-        m_neighbors=np.zeros((self.n_neighbors,len(self.rnd_neighbors)))
-        cont=-1
-        for i in m_reducida:
+        m_neighbors=np.zeros((len(m_reducida),len(self.rnd_neighbors)))
+        indice_ins=-1
+        for instancia in m_reducida:
             dist=math.inf
-            cont+=1
-            cont2=-1
+            indice_ins+=1
+            indice_vec=-1
             for j in self.rnd_neighbors:
-                cont2+=1
-                dist2=euclidean_distances([i],[m_reducida[j,:]])
-                if dist2<dist:
-                    dist=dist2
-                    a=cont
-                    b=cont2
+                indice_vec+=1
+                dist_tmp=euclidean_distances(instancia,m_reducida[j,:])
+                if dist_tmp<dist:
+                    dist=dist_tmp
+                    a=indice_ins
+                    b=indice_vec
             m_neighbors[a][b]=1
         return m_neighbors
     
@@ -114,13 +112,15 @@ class DisturbingNeighbors:
         self : object
             Returns self.
         """
+        self.random_state = check_random_state(self.random_state)
         self.n_features=self._calculate_features(X)
-        self.rnd_dimensions=self._random_boolean(self)
-        self.rnd_neighbors=self._random_array(self,X)
-        m_reducida=self._reduce_data(self,X)
-        m_neighbors=self._nearest_neighbor(self,m_reducida)
+        self.rnd_dimensions=self._random_boolean()
+        self.rnd_neighbors=self._random_array(X)
+        m_reducida=self._reduce_data(X)
+        m_neighbors=self._nearest_neighbor(m_reducida)
         m_entrenamiento=np.concatenate((X,m_neighbors),axis=1)
-        return self.base_estimator.fit(m_entrenamiento,Y)
+        self.base_estimator.fit(m_entrenamiento,Y)
+        return self
     
     def predict(self,X1):
         """Predecir clase para X.
@@ -138,8 +138,8 @@ class DisturbingNeighbors:
         y : matriz de forma = [n_class]
             Predice las clases.
         """
-        m_reducida2=self._reduce_data(self,X1)
-        m_neighbors2=self._nearest_neighbor(self,m_reducida2)
+        m_reducida2=self._reduce_data(X1)
+        m_neighbors2=self._nearest_neighbor(m_reducida2)
         m_entrenamiento2=np.concatenate((X1,m_neighbors2),axis=1)
         return self.base_estimator.predict(m_entrenamiento2)
     
