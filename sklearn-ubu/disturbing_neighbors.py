@@ -75,18 +75,18 @@ class DisturbingNeighbors:
         boolean"""
         return X[:, self.rnd_dimensions]
     
-    def _nearest_neighbor(self,m_reducida):
+    def _nearest_neighbor(self,m_reduce):
         """Calculamos los vecinos mas cercanos a las instancias escogidas 
         antes aleatoriamente"""
-        m_neighbors=np.zeros((len(m_reducida),len(self.rnd_neighbors)))
+        m_neighbors=np.zeros((len(m_reduce),len(self.rnd_neighbors)))
         indice_ins=-1
-        for instancia in m_reducida:
+        for instancia in m_reduce:
             dist=math.inf
             indice_ins+=1
             indice_vec=-1
             for j in self.rnd_neighbors:
                 indice_vec+=1
-                dist_tmp=euclidean_distances(instancia,m_reducida[j,:])
+                dist_tmp=euclidean_distances(instancia,m_reduce[j,:])
                 if dist_tmp<dist:
                     dist=dist_tmp
                     a=indice_ins
@@ -116,13 +116,12 @@ class DisturbingNeighbors:
         self.n_features=self._calculate_features(X)
         self.rnd_dimensions=self._random_boolean()
         self.rnd_neighbors=self._random_array(X)
-        m_reducida=self._reduce_data(X)
-        m_neighbors=self._nearest_neighbor(m_reducida)
-        m_entrenamiento=np.concatenate((X,m_neighbors),axis=1)
-        self.base_estimator.fit(m_entrenamiento,Y)
-        return self
+        m_reduce=self._reduce_data(X)
+        m_neighbors=self._nearest_neighbor(m_reduce)
+        m_train=np.concatenate((X,m_neighbors),axis=1)
+        return self.base_estimator.fit(m_train,Y)
     
-    def predict(self,X1):
+    def predict(self,X):
         """Predecir clase para X.
         La clase se predice según una muestra de entrada, calcula la clase
         con la mayor probabilidad, que mas media tiene de predicicción.
@@ -138,10 +137,30 @@ class DisturbingNeighbors:
         y : matriz de forma = [n_class]
             Predice las clases.
         """
-        m_reducida2=self._reduce_data(X1)
-        m_neighbors2=self._nearest_neighbor(m_reducida2)
-        m_entrenamiento2=np.concatenate((X1,m_neighbors2),axis=1)
-        return self.base_estimator.predict(m_entrenamiento2)
+        m_reduce=self._reduce_data(X)
+        m_neighbors=self._nearest_neighbor(m_reduce)
+        m_train=np.concatenate((X,m_neighbors),axis=1)
+        return self.base_estimator.predict(m_train)
     
+    def predict_proba(self,X):
+        """Predecir las probabilidades de una clase para X.
+        La clase se predice según una muestra de entrada, calcula la clase
+        con la mayor probabilidad, que mas media tiene de predicicción.
+        
+        Parameters
+        ----------
+        X : Es una matriz de forma = [n_instances, n_features]
+            Es la muestra de entrada para el entranmiento. Solo se acepta
+            si es compatible con el estimador base.
+            
+        Returns
+        -------
+        y : matriz de forma = [n_class]
+            Predice las clases.
+        """
+        m_reduce=self._reduce_data(X)
+        m_neighbors=self._nearest_neighbor(m_reduce)
+        m_train=np.concatenate((X,m_neighbors),axis=1)
+        return self.base_estimator.predict_proba(m_train)
     
     
