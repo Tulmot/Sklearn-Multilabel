@@ -3,6 +3,8 @@ from sklearn.datasets import make_multilabel_classification
 from sklearn.metrics import hamming_loss
 from sklearn.model_selection import train_test_split
 import numpy as np
+from sklearn import tree
+import graphviz
 
 seed = 0
 
@@ -17,12 +19,21 @@ X_test=np.matrix(np.array(X_test))
 y_train=np.matrix(np.array(y_train))
 y_test=np.matrix(np.array(y_test))
 
-dn.fit(X_train,y_train)
+arbol=dn.fit(X_train,y_train)
 
 y_predict=dn.predict(X_test)
 
+y_predict_proba=dn.predict_proba(X_test)
+print(y_predict_proba)
 
 dist=hamming_loss(y_test, y_predict)
 
 print(dist)
+
+tree.export_graphviz(arbol, out_file='tree.dot') 
+
+dot_data = tree.export_graphviz(arbol, out_file=None) 
+graph = graphviz.Source(dot_data) 
+
+
 
