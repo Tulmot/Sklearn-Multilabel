@@ -22,7 +22,7 @@ y_test=np.matrix(np.array(y_test))
 arbol=dn.fit(X_train,y_train)
 
 y_predict=dn.predict(X_test)
-
+print(y_predict)
 y_predict_proba=dn.predict_proba(X_test)
 print(y_predict_proba)
 
