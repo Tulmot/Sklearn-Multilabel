@@ -42,13 +42,17 @@ class DisturbingNeighbors(BaseEstimator,ClassifierMixin):
                  base_estimator=DecisionTreeClassifier(),
                  n_neighbors=10,
                  n_features=0.5,
-                 random_state=None):
+                 random_state=None,
+                 iterations=10):
         self.base_estimator = base_estimator
         self.n_neighbors = n_neighbors
         self.n_features = n_features
         self.random_state = random_state
+        self.iterations=iterations
         self._rnd_dimensions = None
         self._rnd_neighbors = None
+        self._num_features = 0
+        self._m_disturbing=None
         
     def _calculate_features(self, X):
         """Calculamos el numero de caracteristicas que usaremos"""
@@ -57,13 +61,15 @@ class DisturbingNeighbors(BaseEstimator,ClassifierMixin):
         else:
             return self.n_features
 
-    def _random_boolean(self):
+    def _calc_rnd_index_features(self,X):
         """Calculamos un array random boolean que es el que nos indicara que
         caracteristicas que valoraremos"""
-        self._rnd_dimensions = self.random_state.randint(0, 2, self.n_features)
-        return self._rnd_dimensions.astype(bool)
+        self._rnd_dimensions = np.concatenate((self.random_state.randint(0, 2, self._num_features),np.zeros(len(X[0])-self._num_features)))
+        self._rnd_dimensions = self._rnd_dimensions.astype(bool)
+        self.random_state.shuffle(self._rnd_dimensions)
+        return self._rnd_dimensions
 
-    def _random_array(self, X):
+    def _calc_rnd_neighbors(self, X):
         """Calculamos un array random para seleccionar unas instancias
         aleatorias"""
         tam = X.shape[0]
@@ -77,19 +83,16 @@ class DisturbingNeighbors(BaseEstimator,ClassifierMixin):
 
     def _disturbing(self,_m_reduce):
         """Calculamos la matriz de los vecinos molestones."""
-        print(_m_reduce)
-        print(self._rnd_neighbors)
-        m_disturbing=_m_reduce[self._rnd_neighbors,:]
-        return m_disturbing
+        self._m_disturbing=_m_reduce[self._rnd_neighbors,:]
+        return self._m_disturbing
 
     def _nearest_neighbor(self,_m_reduce):
         """Calculamos los vecinos mas cercanos a las instancias escogidas
         antes aleatoriamente"""
-        m_disturbing=self._disturbing(_m_reduce)
-        euc_dis_func = lambda t: euclidean_distances([t],m_disturbing).argmin()
+        euc_dis_func = lambda t: euclidean_distances([t],self._m_disturbing).argmin()
         dn_nn = lambda inst : np.apply_along_axis(euc_dis_func,1,[inst])
         m_nearest=np.apply_along_axis(dn_nn,1,_m_reduce)
-        neighbors = lambda vec : np.concatenate((np.concatenate((np.zeros(vec), [1]), axis=0), np.zeros(len(m_disturbing)-vec-1)), axis=0)
+        neighbors = lambda vec : np.concatenate((np.concatenate((np.zeros(vec), [1]), axis=0), np.zeros(len(self._m_disturbing)-vec-1)), axis=0)
         m_neighbors= np.apply_along_axis(neighbors,1,m_nearest)
         return m_neighbors
 
@@ -112,10 +115,11 @@ class DisturbingNeighbors(BaseEstimator,ClassifierMixin):
             Returns self.
         """
         self.random_state = check_random_state(self.random_state)
-        self.n_features = self._calculate_features(X)
-        self._rnd_dimensions = self._random_boolean()
-        self._rnd_neighbors = self._random_array(X)
+        self._num_features = self._calculate_features(X)
+        self._rnd_dimensions = self._calc_rnd_index_features(X)
+        self._rnd_neighbors = self._calc_rnd_neighbors(X)
         _m_reduce = self._reduce_data(X)
+        self._m_disturbing=self._disturbing(_m_reduce)
         m_neighbors = self._nearest_neighbor(_m_reduce)
         m_train = np.concatenate((X, m_neighbors), axis=1)
         return self.base_estimator.fit(m_train, y)
