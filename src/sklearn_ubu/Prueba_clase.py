@@ -8,13 +8,13 @@ from sklearn.multiclass import OneVsRestClassifier
 #from sklearn.neural_network import MLPClassifier
 from sklearn.model_selection import cross_val_score
 
-seed = 0
+seed = 1
 
-X,y=make_multilabel_classification(n_samples=100, n_features=10, random_state=seed) 
+X,y=make_multilabel_classification(n_samples=1000, n_features=10, random_state=seed) 
 bc=OneVsRestClassifier(BaggingClassifier())
 #dn=BaggingClassifier(base_estimator=DisturbingNeighbors(random_state=seed))
-dn=DisturbingNeighbors(base_estimator=DecisionTreeClassifier(max_depth=3),random_state=seed)
-
+#dn=DisturbingNeighbors(base_estimator=DecisionTreeClassifier(max_depth=3),random_state=seed)
+dn=DisturbingNeighbors()
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.5, train_size=0.5, 
                                                     random_state=seed)
 
@@ -27,12 +27,12 @@ clas_train=dn.fit(X_train,y_train)
 y_predict=dn.predict(X_test)
 y_predict_proba=dn.predict_proba(X_test)
 
-dist=hamming_loss(y_test, y_predict)
+#dist=hamming_loss(y_test, y_predict)
 
-print(dist)
+#print(dist)
 
-scores = cross_val_score(dn, X, y)
-print(scores)
+#scores = cross_val_score(dn, X, y, cv=5)
+#print(scores)
 
 
 
