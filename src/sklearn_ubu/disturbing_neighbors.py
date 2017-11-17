@@ -10,7 +10,7 @@ from sklearn.base import ClassifierMixin
 from sklearn.base import BaseEstimator
 
 
-class DisturbingNeighbors(BaseEstimator,ClassifierMixin):
+class BaseDisturbingNeighbors(BaseEstimator,ClassifierMixin):
     """A Disturbing Neighbors.
 
      Parameters
@@ -39,16 +39,14 @@ class DisturbingNeighbors(BaseEstimator,ClassifierMixin):
 
     """
     def __init__(self,
-                 base_estimator=DecisionTreeClassifier(),
+                 base_estimator=DecisionTreeClassifier(max_depth=3),
                  n_neighbors=10,
                  n_features=0.5,
-                 random_state=None,
-                 iterations=10):
+                 random_state=None):
         self.base_estimator = base_estimator
         self.n_neighbors = n_neighbors
         self.n_features = n_features
         self.random_state = random_state
-        self.iterations=iterations
         self._rnd_dimensions = None
         self._rnd_neighbors = None
         self._num_features = 0
@@ -187,3 +185,40 @@ class DisturbingNeighbors(BaseEstimator,ClassifierMixin):
         """
         from sklearn.metrics import accuracy_score
         return accuracy_score(y, self.predict(X), sample_weight=sample_weight)
+
+class DisturbingNeighbors():
+    from disturbing_neighbors import BaseDisturbingNeighbors
+    
+    def __init__(self,
+                 base_estimator=BaseDisturbingNeighbors(),
+                 iterations=10):
+        self.base_estimator = base_estimator
+        self.iterations = iterations
+        self._base_classifiers=None
+        
+    def fit(self, X, y):
+        self._base_classifiers=[]
+        for i in range(self.iterations):
+            self._base_classifiers.append(self.base_estimator.fit(X,y))
+            
+    def predict(self, X):
+        predictions=[]
+        for classifiers in self._base_classifiers:
+            predictions.append(self.base_estimator.predict(X))
+        predictions=np.asarray(predictions)
+        promedio=predictions.sum(axis=0)
+        print(promedio)
+            
+    def predict_proba(self, X):
+        predictions=[]
+        for classifiers in self._base_classifiers:
+            predictions.append(self.base_estimator.predict_proba(X))
+        predictions=np.asarray(predictions)
+        promedio=predictions.sum(axis=0)
+        print(promedio)
+        
+    
+    #def predict_proba(self, X):
+    #    c=[]
+    #    for i in range(self.iterations):
+    #        c.append(self.base_estimator.predict_proba(X))
