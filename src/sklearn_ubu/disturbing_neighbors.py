@@ -8,38 +8,33 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn.utils import check_random_state
 from sklearn.base import ClassifierMixin
 from sklearn.base import BaseEstimator
+from sklearn.ensemble import BaseEnsemble
 
 
-class BaseDisturbingNeighbors(BaseEstimator,ClassifierMixin):
+class BaseDisturbingNeighbors(ClassifierMixin,BaseEstimator):
     """A Disturbing Neighbors.
-
      Parameters
     ----------
-    base_estimator : It is the classifier that we will use to train our data
+    base_estimator_ : It is the classifier that we will use to train our data
         set, what it receives is either empty or an object, if it is empty by
         default the DecisionTreeClassifier is used.
-
     n_neighbors : They are the neighbors that we want to choose from the data
         set, by default if nothing happens, 10 are chosen.
-
     n_features : It is the size of the random sub-space, according to which
         the random features that we are going to use to train our
         classifier are chosen, by default it is 0.5, that is, half of the
         features are taken, if the value that is passed is greater than
         1, that number of features is taken.
-
     _rnd_dimensions : A Boolean random array, its size is equal to the number
         of features of the set, but then the number of TRUE values it contains
         will be equal to the value of the variable n_features, the TRUE values,
         indicate which features are chosen to evaluate the set.
-
     _rnd_neighbors : A random array of integers, the size of this array depends
         on the variable n_neighbors, will select random rows of the data set,
         is what we will call disturbing neighbors.
-
     """
     def __init__(self,
-                 base_estimator=DecisionTreeClassifier(max_depth=3),
+                 base_estimator=DecisionTreeClassifier(),
                  n_neighbors=10,
                  n_features=0.5,
                  random_state=None):
@@ -51,6 +46,7 @@ class BaseDisturbingNeighbors(BaseEstimator,ClassifierMixin):
         self._rnd_neighbors = None
         self._num_features = 0
         self._m_disturbing=None
+        
         
     def _calculate_features(self, X):
         """Calculamos el numero de caracteristicas que usaremos"""
@@ -96,17 +92,14 @@ class BaseDisturbingNeighbors(BaseEstimator,ClassifierMixin):
 
     def fit(self, X, y):
         """Build a Bagging ensemble of estimators from the training set (X, y).
-
         Parameters
         ----------
         X : It's a matrix of form = [n_instances, n_features]
             The training input samples. Sparse matrices are accepted only if
             they are supported by the base estimator.
-
         y : It's a matrix of form = [n_class]
             The target values (class labels in classification, real numbers in
             regression).
-
         Returns
         -------
         self : object
@@ -126,13 +119,11 @@ class BaseDisturbingNeighbors(BaseEstimator,ClassifierMixin):
         """Predict class for X.
         The predicted class of an input sample is computed as the class with
         the highest mean predicted probability.
-
         Parameters
         ----------
         X : It's a matrix of form = [n_instances, n_features]
             The training input samples. Sparse matrices are accepted only if
             they are supported by the base estimator.
-
         Returns
         -------
         y : It's a matrix of form = [n_class]
@@ -147,21 +138,19 @@ class BaseDisturbingNeighbors(BaseEstimator,ClassifierMixin):
         """The predicted class probabilities of an input sample is computed as
         the mean predicted class probabilities of the base estimators in the
         ensemble.
-
          Parameters
         ----------
         X : It's a matrix of form = [n_instances, n_features]
             The training input samples. Sparse matrices are accepted only if
             they are supported by the base estimator.
-
         Returns
         -------
         p : It's a matrix of form = [n_samples, n_classes]
             The class probabilities of the input samples. The order of the
             classes corresponds to that in the attribute `classes_`.
         """
-        x_reduce2= self._reduce_data(X)
-        m_neighbors = self._nearest_neighbor(x_reduce2)
+        x_reduce= self._reduce_data(X)
+        m_neighbors = self._nearest_neighbor(x_reduce)
         m_train = np.concatenate((X, m_neighbors), axis=1)
         return self.base_estimator.predict_proba(m_train)
     
@@ -186,39 +175,64 @@ class BaseDisturbingNeighbors(BaseEstimator,ClassifierMixin):
         from sklearn.metrics import accuracy_score
         return accuracy_score(y, self.predict(X), sample_weight=sample_weight)
 
-class DisturbingNeighbors():
-    from disturbing_neighbors import BaseDisturbingNeighbors
+class DisturbingNeighbors(BaseEnsemble):
+    
     
     def __init__(self,
-                 base_estimator=BaseDisturbingNeighbors(),
-                 iterations=10):
-        self.base_estimator = base_estimator
-        self.iterations = iterations
+                 base_estimator_=BaseDisturbingNeighbors(),
+                 n_estimators=10,
+                 random_state=None,
+                 estimator_params=tuple()):
+        self.base_estimator_ = base_estimator_
+        self.n_estimators = n_estimators
         self._base_classifiers=None
+        self.random_state=random_state
+        self.estimator_params=estimator_params
         
     def fit(self, X, y):
+        def fit_estimator(estimator):
+            estimator.fit(X,y)
+            return estimator
+    
         self._base_classifiers=[]
-        for i in range(self.iterations):
-            self._base_classifiers.append(self.base_estimator.fit(X,y))
+        self.random_state = check_random_state(self.random_state)
+        seeds=self.random_state.randint(self.n_estimators*2,size=self.n_estimators)
+        for i in range(self.n_estimators):
+            random_state = np.random.RandomState(seeds[i])
+            estimator=self._make_estimator(append=False,random_state=random_state)
+            #estimator.fit(X,y)
+            self._base_classifiers.append(estimator)
+        self._base_classifiers=list(map(fit_estimator,self._base_classifiers))
+                
+        
             
     def predict(self, X):
         predictions=[]
         for classifiers in self._base_classifiers:
-            predictions.append(self.base_estimator.predict(X))
+            predictions.append(classifiers.predict(X))
         predictions=np.asarray(predictions)
         promedio=predictions.sum(axis=0)
-        print(promedio)
-            
+        return promedio
+    
+        #predictions=[]
+        #def predict_classifiers(classifiers):
+        #    predictions.append(classifiers.predict(X))
+        #    return predictions
+        #for classifiers in self._base_classifiers:
+        #    predictions.append(classifiers)
+        #predictions=list(map(predict_classifiers,classifiers))
+        #predictions=np.asarray(predictions)
+        #promedio=predictions.sum(axis=0)
+        
     def predict_proba(self, X):
         predictions=[]
         for classifiers in self._base_classifiers:
-            predictions.append(self.base_estimator.predict_proba(X))
+            predictions.append(classifiers.predict_proba(X))
         predictions=np.asarray(predictions)
         promedio=predictions.sum(axis=0)
-        print(promedio)
-        
+        return promedio
     
     #def predict_proba(self, X):
     #    c=[]
     #    for i in range(self.iterations):
-    #        c.append(self.base_estimator.predict_proba(X))
+    #        c.append(self.base_estimator_.predict_proba(X))
