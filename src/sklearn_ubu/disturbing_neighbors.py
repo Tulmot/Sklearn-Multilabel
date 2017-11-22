@@ -9,7 +9,10 @@ from sklearn.utils import check_random_state
 from sklearn.base import ClassifierMixin
 from sklearn.base import BaseEstimator
 from sklearn.ensemble import BaseEnsemble
+from sklearn.metrics import accuracy_score
 
+
+MAX_INT = np.iinfo(np.int32).max
 
 class BaseDisturbingNeighbors(ClassifierMixin,BaseEstimator):
     """A Disturbing Neighbors.
@@ -172,7 +175,7 @@ class BaseDisturbingNeighbors(ClassifierMixin,BaseEstimator):
         score : float
             Mean accuracy of self.predict(X) wrt. y.
         """
-        from sklearn.metrics import accuracy_score
+        
         return accuracy_score(y, self.predict(X), sample_weight=sample_weight)
 
 class DisturbingNeighbors(BaseEnsemble):
@@ -190,13 +193,30 @@ class DisturbingNeighbors(BaseEnsemble):
         self.estimator_params=estimator_params
         
     def fit(self, X, y):
+        """Build a Bagging ensemble of estimators from the training set (X, y).
+        Parameters
+        ----------
+        X : It's a matrix of form = [n_instances, n_features]
+            The training input samples. Sparse matrices are accepted only if
+            they are supported by the base estimator.
+        y : It's a matrix of form = [n_class]
+            The target values (class labels in classification, real numbers in
+            regression).
+        Returns
+        -------
+        self : object
+            Returns self.
+        """
         def fit_estimator(estimator):
+            """Recibimos un estimador, que es un clasifcador, sobre el que 
+            hacemos fit, y devolvemos el clasificador entrenado.
+            """
             estimator.fit(X,y)
             return estimator
     
         self._base_classifiers=[]
         self.random_state = check_random_state(self.random_state)
-        seeds=self.random_state.randint(self.n_estimators*2,size=self.n_estimators)
+        seeds=self.random_state.randint(MAX_INT,size=self.n_estimators)
         for i in range(self.n_estimators):
             random_state = np.random.RandomState(seeds[i])
             estimator=self._make_estimator(append=False,random_state=random_state)
@@ -207,32 +227,95 @@ class DisturbingNeighbors(BaseEnsemble):
         
             
     def predict(self, X):
-        predictions=[]
-        for classifiers in self._base_classifiers:
-            predictions.append(classifiers.predict(X))
+        """Predict class for X.
+        The predicted class of an input sample is computed as the class with
+        the highest mean predicted probability.
+        Parameters
+        ----------
+        X : It's a matrix of form = [n_instances, n_features]
+            The training input samples. Sparse matrices are accepted only if
+            they are supported by the base estimator.
+        Returns
+        -------
+        y : It's a matrix of form = [n_class]
+            The predicted classes.
+        """
+    
+        def predict_classifiers(classifiers):
+            """Recibimos unos clasificadores ya entrenados sobre los que
+            hacemos predict y los devolvemos.
+            """
+            return classifiers.predict(X)
+        
+        def binarize_list(my_list):
+            """Recorremos la lista de listas y pasamos la lista a otra funcion.
+            """
+            return list(map(binarize,my_list))
+    
+        def binarize(num):
+            """ Con esto conseguimos que nuestra lista de listas pase a ser
+            binaria.
+            """
+            if num>=5:
+                return 1
+            return 0
+                
+        predictions=list(map(predict_classifiers,self._base_classifiers))
         predictions=np.asarray(predictions)
         promedio=predictions.sum(axis=0)
-        return promedio
-    
-        #predictions=[]
-        #def predict_classifiers(classifiers):
-        #    predictions.append(classifiers.predict(X))
-        #    return predictions
-        #for classifiers in self._base_classifiers:
-        #    predictions.append(classifiers)
-        #predictions=list(map(predict_classifiers,classifiers))
-        #predictions=np.asarray(predictions)
-        #promedio=predictions.sum(axis=0)
+        binarizada=list(map(binarize_list,promedio))
+        binarizada=np.asarray(binarizada)
+        return binarizada
         
     def predict_proba(self, X):
-        predictions=[]
-        for classifiers in self._base_classifiers:
-            predictions.append(classifiers.predict_proba(X))
+        """The predicted class probabilities of an input sample is computed as
+        the mean predicted class probabilities of the base estimators in the
+        ensemble.
+         Parameters
+        ----------
+        X : It's a matrix of form = [n_instances, n_features]
+            The training input samples. Sparse matrices are accepted only if
+            they are supported by the base estimator.
+        Returns
+        -------
+        p : It's a matrix of form = [n_samples, n_classes]
+            The class probabilities of the input samples. The order of the
+            classes corresponds to that in the attribute `classes_`.
+        """
+        def predict_proba_classifiers(classifiers):
+            """Recibimos unos clasificadores ya entrenados sobre los que
+            hacemos predict_proba y los devolvemos.
+            """
+            return classifiers.predict_proba(X)
+            
+        def divide_list(my_list):
+             """Recorremos la lista de listas y pasamos la lista a otra 
+             funcion."""
+             return list(map(average,my_list))
+        
+        def average(num):
+            """ Hayamos el promedio.
+            """
+            return num/ self.n_estimators
+        
+        predictions=list(map(predict_proba_classifiers,self._base_classifiers))
         predictions=np.asarray(predictions)
         promedio=predictions.sum(axis=0)
-        return promedio
+        divide=list(map(divide_list,promedio))
+        divide=np.asarray(divide)
+        return divide
     
-    #def predict_proba(self, X):
-    #    c=[]
-    #    for i in range(self.iterations):
-    #        c.append(self.base_estimator_.predict_proba(X))
+    #def score(self, X, y, sample_weight=None):
+     #   def score_classifiers(classifiers):
+     #      return classifiers.score(X,y)
+     #   
+     #   def divide(num):
+     #       return num/self.n_estimators
+     #   
+     #   scores=list(map(score_classifiers,self._base_classifiers))
+     #   scores=np.asarray(scores)
+     #   promedio=scores.sum(axis=0)
+     #   divide=list(map(divide,promedio))
+     #   divide=np.asarray(divide)
+     #   return divide
+        #return accuracy_score(y, self.predict(X), sample_weight=sample_weight)
