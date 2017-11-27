@@ -258,7 +258,7 @@ class DisturbingNeighbors(BaseEnsemble):
             """ Con esto conseguimos que nuestra lista de listas pase a ser
             binaria.
             """
-            if num >= 5:
+            if num >= self.n_estimators/2:
                 return 1
             return 0
         predictions = list(map(predict_classifiers, self.estimators_))
@@ -305,15 +305,5 @@ class DisturbingNeighbors(BaseEnsemble):
         divide = np.asarray(divide)
         return divide
 
-#   def score(self, X, y, sample_weight=None):
-#       def score_classifiers(classifiers):
-#       return classifiers.score(X,y)
-#   def divide(num):
-#       return num/self.n_estimators
-#   scores=list(map(score_classifiers,self._base_classifiers))
-#   scores=np.asarray(scores)
-#   promedio=scores.sum(axis=0)
-#   divide=list(map(divide,promedio))
-#   divide=np.asarray(divide)
-#   return divide
-# return accuracy_score(y, self.predict(X), sample_weight=sample_weight)
+    def score(self, X, y, sample_weight=None):
+       return accuracy_score(y, self.predict(X), sample_weight=sample_weight)
