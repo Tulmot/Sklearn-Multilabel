@@ -28,8 +28,7 @@ class BaseRandomOracles(ClassifierMixin, BaseEstimator):
     def _calc_rnd_oracles(self, X):
         """Calculamos un array random para seleccionar unas instancias
         aleatorias"""
-        tam = X.shape[0]
-        return self.random_state.choice(tam, self.n_oracles, replace=False)
+        return self.random_state.choice(X.shape[0], self.n_oracles, replace=False)
     
     def _oracles(self, X):
         """Calculamos la matriz de los oracles."""
@@ -64,8 +63,8 @@ class BaseRandomOracles(ClassifierMixin, BaseEstimator):
         self : object
             Returns self.
         """
-        def createMatrix(m_ora):
-            if m_ora>0:
+        def createMatrix(num):
+            if num>0:
                 a.append(X[self._index,:])
                 b.append(y[self._index,:])
             self._index+=1
@@ -73,6 +72,7 @@ class BaseRandomOracles(ClassifierMixin, BaseEstimator):
         self._rnd_oracles = self._calc_rnd_oracles(X)
         self._m_oracles = self._oracles(X)
         m_oracle = self._nearest_oracle(X)
+        classifiers_train=[]
         for i in range(m_oracle.shape[1]):
             a=[]
             b=[]
@@ -80,10 +80,8 @@ class BaseRandomOracles(ClassifierMixin, BaseEstimator):
             list(map(createMatrix, m_oracle[:,i]))
             arr1=np.asarray(a)
             arr2=np.asarray(b)
-            print(self.base_estimator.fit(arr1,arr2))
-        #filter(lambda x: x[0, 2] > 0, data)
-        return self.base_estimator.fit(m_oracle,y)
-    
+            classifiers_train.append(self.base_estimator.fit(arr1,arr2))
+            
     def predict(self, X):
         """Predict class for X.
         The predicted class of an input sample is computed as the class with
@@ -98,4 +96,6 @@ class BaseRandomOracles(ClassifierMixin, BaseEstimator):
         y : It's a matrix of form = [n_class]
             The predicted classes.
         """
+        m_oracle = self._nearest_oracle(X)
+        print(m_oracle)
         return

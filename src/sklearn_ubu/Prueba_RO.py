@@ -12,13 +12,13 @@ from sklearn.model_selection import train_test_split
 seed = 0
 
 X, y = make_multilabel_classification(
-        n_samples=20, n_features=10, random_state=seed)
-
+        n_samples=50, n_features=10, random_state=seed)
 ro = BaseRandomOracles(base_estimator=DecisionTreeClassifier(
                        random_state=seed),random_state=seed)
 
 X_train, X_test, y_train, y_test = train_test_split(
         X, y, test_size=0.5, train_size=0.5, random_state=seed)
 
-print(type(X_train))
-clas_train = ro.fit(X_train)
+ro.fit(X_train,y_train)
+
+y_predict = ro.predict(X_test)
