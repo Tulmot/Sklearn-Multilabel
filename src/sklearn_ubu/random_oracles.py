@@ -24,17 +24,18 @@ class BaseRandomOracles(ClassifierMixin, BaseEstimator):
         self.random_state = random_state
         self._rnd_oracles = None
         self._m_oracles = None
-        
+
     def _calc_rnd_oracles(self, X):
         """Calculamos un array random para seleccionar unas instancias
         aleatorias"""
-        return self.random_state.choice(X.shape[0], self.n_oracles, replace=False)
-    
+        return self.random_state.choice(
+            X.shape[0], self.n_oracles, replace=False)
+
     def _oracles(self, X):
         """Calculamos la matriz de los oracles."""
         self._m_oracles = X[self._rnd_oracles, :]
         return self._m_oracles
-    
+
     def _nearest_oracle(self, _m_reduce):
         """Calculamos los vecinos mas cercanos a las instancias escogidas
         antes aleatoriamente"""
@@ -47,8 +48,8 @@ class BaseRandomOracles(ClassifierMixin, BaseEstimator):
                                     self._m_oracles)-vec-1)), axis=0)
         m_oracles = np.apply_along_axis(oracles, 1, m_nearest)
         return m_oracles
-    
-    def fit(self, X,y):
+
+    def fit(self, X, y):
         """Build a Bagging ensemble of estimators from the training set (X, y).
         Parameters
         ----------
@@ -63,19 +64,20 @@ class BaseRandomOracles(ClassifierMixin, BaseEstimator):
         self : object
             Returns self.
         """
-        
-        def train (my_list):
-            a=np.asarray(my_list).astype(bool)
-            Xp=X[a,:]
-            yp=y[a,:]
-            self._classifiers_train.append(self.base_estimator.fit(Xp,yp))
+
+        def train(my_list):
+            """Entrenamos cada uno de los oraculos """
+            a = np.asarray(my_list).astype(bool)
+            Xp = X[a, :]
+            yp = y[a, :]
+            self._classifiers_train.append(self.base_estimator.fit(Xp, yp))
         self.random_state = check_random_state(self.random_state)
         self._rnd_oracles = self._calc_rnd_oracles(X)
         self._m_oracles = self._oracles(X)
         m_oracle = self._nearest_oracle(X)
-        self._classifiers_train=[]
-        list(map(train,m_oracle.T))
-            
+        self._classifiers_train = []
+        list(map(train, m_oracle.T))
+
     def predict(self, X):
         """Predict class for X.
         The predicted class of an input sample is computed as the class with
@@ -90,20 +92,22 @@ class BaseRandomOracles(ClassifierMixin, BaseEstimator):
         y : It's a matrix of form = [n_class]
             The predicted classes.
         """
-        def test(my_list):
-            a=np.asarray(my_list).astype(bool)
-            Xp=X[a,:]
-            self._index2+=1
-            self._classifiers_test.append(
-                    self._classifiers_train[self._index2].predict(Xp))
-           
-            
-        m_oracle = self._nearest_oracle(X)
-        self._classifiers_test=[]
-        self._index2=-1
-        list(map(test,m_oracle.T))            
-        return self._classifiers_test
-    
+        def list_predict(inst_oracles):
+            """Predecimos cada una de las instancias con el oraculo
+            correspondiente mas cercano"""
+            oracleN = inst_oracles[n_features:]
+            instance = inst_oracles[:n_features]
+            oracleN = list(oracleN)
+            index_classifier = oracleN.index(1)
+            return self._classifiers_train[index_classifier].predict(
+                [instance])[0]
+
+        n_features = X.shape[1]
+        m_oracle = np.concatenate((X, self._nearest_oracle(X)), axis=1)
+        self._classifiers_prediction = list(map(list_predict, m_oracle))
+        self._classifiers_prediction = np.asarray(self._classifiers_prediction)
+        return self._classifiers_prediction
+
     def predict_proba(self, X):
         """The predicted class probabilities of an input sample is computed as
         the mean predicted class probabilities of the base estimators in the
@@ -119,16 +123,20 @@ class BaseRandomOracles(ClassifierMixin, BaseEstimator):
             The class probabilities of the input samples. The order of the
             classes corresponds to that in the attribute `classes_`.
         """
-        def test(my_list):
-            a=np.asarray(my_list).astype(bool)
-            Xp=X[a,:]
-            self._index2+=1
-            self._classifiers_test_proba.append(
-                    self._classifiers_train[self._index2].predict_proba(Xp))
-           
-            
-        m_oracle = self._nearest_oracle(X)
-        self._classifiers_test_proba=[]
-        self._index2=-1
-        list(map(test,m_oracle.T))            
-        return self._classifiers_test_proba
+        def list_predict_proba(inst_oracles):
+            """Predecimos la probabilidad de cada una de las instancias con el
+            oraculo correspondiente mas cercano"""
+            oracleN = inst_oracles[n_features:]
+            instance = inst_oracles[:n_features]
+            oracleN = list(oracleN)
+            index_classifier = oracleN.index(1)
+            return self._classifiers_train[index_classifier].predict_proba(
+                [instance])[0]
+
+        n_features = X.shape[1]
+        m_oracle = np.concatenate((X, self._nearest_oracle(X)), axis=1)
+        self._classifiers_prediction_proba = list(map(
+            list_predict_proba, m_oracle))
+        self._classifiers_prediction_proba = np.asarray(
+            self._classifiers_prediction_proba)
+        return self._classifiers_prediction_proba
