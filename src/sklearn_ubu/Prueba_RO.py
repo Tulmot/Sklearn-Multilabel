@@ -29,7 +29,7 @@ X_train, X_test, y_train, y_test = train_test_split(
 ro.fit(X_train,y_train)
 
 y_predict = ro.predict(X_test)
-print(y_predict)
+#print(y_predict)
 
 y_predict_proba = ro.predict_proba(X_test)
 print(y_predict_proba)
