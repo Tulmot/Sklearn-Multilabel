@@ -49,5 +49,7 @@ class BaseRotationForest(ClassifierMixin, BaseEstimator):
         self._split_group=self.split(X)
         pca = decomposition.PCA()
         pcas=list(map(pca_fit_transform,self._split_group))
-        print(pcas)
-        
+        print(X)
+        print(np.concatenate(pcas))
+        pcas=np.concatenate(pcas)
+        print(self.base_estimator.fit(pcas, y))
