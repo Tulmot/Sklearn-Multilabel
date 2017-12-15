@@ -28,7 +28,7 @@ y_predict = ro.predict(X_test)
 #print(y_predict)
 
 y_predict_proba = ro.predict_proba(X_test)
-print(y_predict_proba)
+#print(y_predict_proba)
 
 dist = hamming_loss(y_test, y_predict)
 

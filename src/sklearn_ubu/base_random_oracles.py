@@ -123,43 +123,32 @@ class BaseRandomOracles(ClassifierMixin, BaseEstimator):
             else:
                 return [[1., 0.]]
 
-        def prediction_proba(prediction):
-            """Recibimos cada una de las prediciones y se las pasamos a la
-            función anterior para analizarlas """
-            return list(np.asarray(list(map(predict_prob, prediction))))
-        self._classifiers_prediction_proba = list(map(
-                prediction_proba, self._classifiers_prediction))
-
-        self._classifiers_prediction_proba = np.concatenate((
-                self._classifiers_prediction_proba), axis=1)
-        convert_array = lambda proba: np.asarray(proba)
-        self._classifiers_prediction_proba = list(
-                map(convert_array, self._classifiers_prediction_proba))
-        return self._classifiers_prediction_proba
-        """def list_predict_proba(inst_oracles):
-            Predecimos la probabilidad de cada una de las instancias con el
-            oraculo correspondiente mas cercano
+        def list_predict_proba(inst_oracles):
+            """Predecimos la probabilidad de cada una de las instancias con el
+            oraculo correspondiente mas cercano"""
             oracle_near = inst_oracles[n_features:]
             instance = inst_oracles[:n_features]
             oracle_near = list(oracle_near)
             index_classifier = oracle_near.index(1)
-            prediction_proba=self._classifiers_train[index_classifier].predict_proba(
-                [instance])
-            if(prediction_proba[0].shape==(1,1)):
-                return (0.5,0.5)
-            return self._classifiers_train[index_classifier].predict_proba(
-                [instance])
+            prediction_proba = self._classifiers_train[
+                index_classifier].predict_proba([instance])
+            if((min(prediction_proba, key=(lambda x: len(x[0])))).shape[1]):
+                call_predict = self._classifiers_train[
+                    index_classifier].predict([instance])
+                return list(np.asarray(list(map(
+                        predict_prob, call_predict[0]))))
+            else:
+                return prediction_proba
 
         n_features = X.shape[1]
         m_oracle = np.concatenate((X, self._nearest_oracle(X)), axis=1)
         self._classifiers_prediction_proba = list(map(
             list_predict_proba, m_oracle))
-        print(self._classifiers_prediction_proba)
-        self._classifiers_prediction_proba=np.concatenate((
+        self._classifiers_prediction_proba = np.concatenate((
                 self._classifiers_prediction_proba), axis=1)
         self._classifiers_prediction_proba = np.asarray(
             self._classifiers_prediction_proba)
-        g=lambda l : np.asarray(l)
-        self._classifiers_prediction_proba=list(map(g,self._classifiers_prediction_proba))
-        print(self._classifiers_prediction_proba)
-        return self._classifiers_prediction_proba"""
+        convert_array = lambda prob: np.asarray(prob)
+        self._classifiers_prediction_proba = list(map(
+                convert_array, self._classifiers_prediction_proba))
+        return self._classifiers_prediction_proba
