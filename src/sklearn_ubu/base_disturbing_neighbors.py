@@ -11,6 +11,17 @@ MAX_INT = np.iinfo(np.int32).max
 
 class BaseDisturbingNeighbors(ClassifierMixin, BaseEstimator):
     """A Disturbing Neighbors.
+    Disturbing neighbors is a multi-label ensemble, this method alters the
+    normal training process of the base classifiers in an ensemble, improving
+    their diversity and accuracy. DN creates new features using a 1-NN
+    classifier, these characteristics are the 1-NN output plus a set of Boolean
+    attributes indicated by the nearest neighbor.
+    
+    The 1-NN classifier is created using a small subset of training instances,
+    chosen at random from the original set. The dimensions to calculate the
+    Euclidean distance are also random. With these characteristics created when
+    we train base classifiers with them, diversity increases.
+    
      Parameters
     ----------
     base_estimator_ : It is the classifier that we will use to train our data
