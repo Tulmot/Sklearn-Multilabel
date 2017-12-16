@@ -7,8 +7,9 @@ from sklearn.base import BaseEstimator
 from sklearn.metrics import accuracy_score
 from sklearn import decomposition
 
+
 class BaseRotationForest(ClassifierMixin, BaseEstimator):
-    
+
     def __init__(self,
                  base_estimator=DecisionTreeClassifier(),
                  n_groups=3,
@@ -16,17 +17,22 @@ class BaseRotationForest(ClassifierMixin, BaseEstimator):
         self.base_estimator = base_estimator
         self.n_groups = n_groups
         self.random_state = random_state
-        
-    def split(self,X):
+
+    def split(self, X, y):
         tam = X.shape[0]
-        list_instances=np.arange(tam)
+        list_instances = np.arange(tam)
         self.random_state.shuffle(list_instances)
-        list_instances=list(list_instances)
-        while(len(list_instances)%self.n_groups!=0):
-            list_instances.append(self.random_state.randint(0,tam))
-        list_instances=np.asarray(list_instances)
-        return X[np.split(list_instances, list_instances.shape[0]/self.n_groups),:]
-        
+        list_instances = list(list_instances)
+        self._y = list(y)
+        while(len(list_instances) % self.n_groups != 0):
+            random_instance = self.random_state.randint(0, tam)
+            list_instances.append(random_instance)
+            self._y.append(y[random_instance, :])
+        self._y = np.asarray(self._y)
+        list_instances = np.asarray(list_instances)
+        return X[np.split(
+            list_instances, list_instances.shape[0]/self.n_groups), :]
+
     def fit(self, X, y):
         """Build a Bagging ensemble of estimators from the training set (X, y).
         Parameters
@@ -43,13 +49,12 @@ class BaseRotationForest(ClassifierMixin, BaseEstimator):
             Returns self.
         """
         def pca_fit_transform(subX):
+            pca = decomposition.PCA()
             pca.fit(subX)
             return pca.transform(subX)
         self.random_state = check_random_state(self.random_state)
-        self._split_group=self.split(X)
-        pca = decomposition.PCA()
-        pcas=list(map(pca_fit_transform,self._split_group))
-        print(X)
+        self._split_group = self.split(X, y)
+        pcas = list(map(pca_fit_transform, self._split_group))
         print(np.concatenate(pcas))
-        pcas=np.concatenate(pcas)
-        print(self.base_estimator.fit(pcas, y))
+        pcas = np.concatenate(pcas)
+        print(self.base_estimator.fit(pcas, self._y))
