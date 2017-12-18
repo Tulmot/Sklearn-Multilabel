@@ -18,20 +18,21 @@ class BaseRotationForest(ClassifierMixin, BaseEstimator):
         self.n_groups = n_groups
         self.random_state = random_state
 
-    def split(self, X, y):
-        tam = X.shape[0]
-        list_instances = np.arange(tam)
-        self.random_state.shuffle(list_instances)
-        list_instances = list(list_instances)
-        self._y = list(y)
-        while(len(list_instances) % self.n_groups != 0):
-            random_instance = self.random_state.randint(0, tam)
-            list_instances.append(random_instance)
-            self._y.append(y[random_instance, :])
-        self._y = np.asarray(self._y)
-        list_instances = np.asarray(list_instances)
-        return X[np.split(
-            list_instances, list_instances.shape[0]/self.n_groups), :]
+    def split(self, X):
+        tam = X.shape[1]
+        list_features = np.arange(tam)
+        self.random_state.shuffle(list_features)
+        list_features = list(list_features)
+        while(len(list_features) % self.n_groups != 0):
+            random_feature = self.random_state.randint(0, tam)
+            list_features.append(random_feature)
+        list_features = np.asarray(list_features)
+        divide=np.split(
+            list_features, list_features.shape[0]/self.n_groups)
+        def separe(rand_features):
+            return X[:, rand_features]
+        return list(map(separe,divide))
+        
 
     def fit(self, X, y):
         """Build a Bagging ensemble of estimators from the training set (X, y).
@@ -48,13 +49,19 @@ class BaseRotationForest(ClassifierMixin, BaseEstimator):
         self : object
             Returns self.
         """
-        def pca_fit_transform(subX):
-            pca = decomposition.PCA()
+        def pca_fit(subX):
+            pca = decomposition.PCA(random_state=self.random_state)
+            return pca.fit(subX)
+        
+        def pca_transform(subX):
+            pca = decomposition.PCA(random_state=self.random_state)
             pca.fit(subX)
             return pca.transform(subX)
+            #return pca.transform(pca_fit(subX))
         self.random_state = check_random_state(self.random_state)
-        self._split_group = self.split(X, y)
-        pcas = list(map(pca_fit_transform, self._split_group))
-        print(np.concatenate(pcas))
-        pcas = np.concatenate(pcas)
-        print(self.base_estimator.fit(pcas, self._y))
+        self._split_group = self.split(X)
+        self._pcas_fit = list(map(pca_fit, self._split_group))
+        self._pcas_transform = list(map(pca_transform, self._split_group))
+        self._pcas_transform = np.concatenate((self._pcas_transform),axis=1)
+        print(self.base_estimator.fit(self._pcas_transform,y))
+
