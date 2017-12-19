@@ -48,20 +48,16 @@ class BaseRotationForest(ClassifierMixin, BaseEstimator):
         -------
         self : object
             Returns self.
-        """
-        def pca_fit(subX):
-            pca = decomposition.PCA(random_state=self.random_state)
-            return pca.fit(subX)
-        
+        """        
         def pca_transform(subX):
             pca = decomposition.PCA(random_state=self.random_state)
             pca.fit(subX)
-            return pca.transform(subX)
-            #return pca.transform(pca_fit(subX))
+            return (pca, pca.transform(subX))
         self.random_state = check_random_state(self.random_state)
         self._split_group = self.split(X)
-        self._pcas_fit = list(map(pca_fit, self._split_group))
-        self._pcas_transform = list(map(pca_transform, self._split_group))
-        self._pcas_transform = np.concatenate((self._pcas_transform),axis=1)
-        print(self.base_estimator.fit(self._pcas_transform,y))
+        pcas_transform = list(map(pca_transform, self._split_group))
+        tuples_pcas=list(map(pca_transform, self._split_group))
+        self._pcas = list(map(lambda t: t[0], tuples_pcas))
+        pcas_transform = list(map(lambda t: t[1], tuples_pcas))
+        pcas_transform = np.concatenate((pcas_transform),axis=1)
 
