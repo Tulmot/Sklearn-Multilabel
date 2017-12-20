@@ -5,7 +5,7 @@ class RotationForest(HomogeneousEnsemble):
 
     def __init__(self,
                  base_estimator_=BaseRotationForest(),
-                 n_estimators=10,
+                 n_estimators=3,
                  random_state=None,
                  estimator_params=tuple()):
         self.base_estimator_ = base_estimator_
