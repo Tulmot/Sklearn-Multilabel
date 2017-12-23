@@ -6,6 +6,7 @@ from sklearn.base import ClassifierMixin
 from sklearn.base import BaseEstimator
 from sklearn.metrics import accuracy_score
 from sklearn import decomposition
+from sklearn.utils import resample
 
 
 class BaseRotationForest(ClassifierMixin, BaseEstimator):
@@ -13,10 +14,12 @@ class BaseRotationForest(ClassifierMixin, BaseEstimator):
     def __init__(self,
                  base_estimator=DecisionTreeClassifier(),
                  n_groups=3,
-                 random_state=None):
+                 random_state=None,
+                 n_muestras=0.75):
         self.base_estimator = base_estimator
         self.n_groups = n_groups
         self.random_state = random_state
+        self.n_muestras = n_muestras
         self._rnd_features = None
 
     def _calc_rnd_features(self, X):
@@ -37,7 +40,8 @@ class BaseRotationForest(ClassifierMixin, BaseEstimator):
         def separe(rand_features):
             return X[:, rand_features]
         return list(map(separe,divide))
-        
+    
+    
 
     def fit(self, X, y):
         """Build a Bagging ensemble of estimators from the training set (X, y).
@@ -54,16 +58,22 @@ class BaseRotationForest(ClassifierMixin, BaseEstimator):
         self : object
             Returns self.
         """        
-        def pca_transform(subX):
+        def sample(subX):
+            return resample(subX, n_samples = round(
+                    subX.shape[0] * self.n_muestras), random_state=self.random_state)
+        def pca_fit(samples):
             pca = decomposition.PCA(random_state=self.random_state)
-            pca.fit(subX)
-            return (pca, pca.transform(subX))
+            return pca.fit(samples)
+        def pca_transform(pos_subX):
+            return self._pcas[pos_subX[0]].transform(pos_subX[1])
         self.random_state = check_random_state(self.random_state)
         self._rnd_features=self._calc_rnd_features(X)
         split_group = self.split(X)
-        tuples_pcas=list(map(pca_transform, split_group))
-        self._pcas = list(map(lambda t: t[0], tuples_pcas))
-        pcas_transform = list(map(lambda t: t[1], tuples_pcas))
+        sample_group = list(map(sample, split_group))
+        self._pcas=list(map(pca_fit,sample_group))
+        tuple_pos_subX=list(zip(range(len(self._pcas)),split_group))
+        print(tuple_pos_subX)
+        pcas_transform=list(map(pca_transform, tuple_pos_subX))
         pcas_transform = np.concatenate((pcas_transform),axis=1)
         self.base_estimator.fit(pcas_transform,y)
         
