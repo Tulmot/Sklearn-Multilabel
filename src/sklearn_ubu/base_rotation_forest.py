@@ -66,13 +66,21 @@ class BaseRotationForest(ClassifierMixin, BaseEstimator):
             return pca.fit(samples)
         def pca_transform(pos_subX):
             return self._pcas[pos_subX[0]].transform(pos_subX[1])
+        
         self.random_state = check_random_state(self.random_state)
         self._rnd_features=self._calc_rnd_features(X)
+        classes=[]
+        for i in y:
+            clase=list(i)
+            if not clase in classes: 
+                classes.append(clase)
+        classes=np.asarray(classes)
+        samples_classes=sample(classes)
+        print(samples_classes)
         split_group = self.split(X)
         sample_group = list(map(sample, split_group))
         self._pcas=list(map(pca_fit,sample_group))
         tuple_pos_subX=list(zip(range(len(self._pcas)),split_group))
-        print(tuple_pos_subX)
         pcas_transform=list(map(pca_transform, tuple_pos_subX))
         pcas_transform = np.concatenate((pcas_transform),axis=1)
         self.base_estimator.fit(pcas_transform,y)
