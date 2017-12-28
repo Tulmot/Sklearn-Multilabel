@@ -1,58 +1,77 @@
 \capitulo{3}{Conceptos teóricos}
 
 
-\section{Minería de Datos}\label{mineria-de-datos}
+\section{Minería de Datos}
 
-Es un conjunto de reglas mediante las cuales se analizan gran des volúmenes de datos, la finalidad de esto es descubrir unos patrones, una similitud o una propensión que expliquen el comportamiento de los datos.
+Es un conjunto de reglas mediante las cuales se analizan grandes volúmenes de datos, la finalidad de esto es descubrir unos patrones, una similitud o una propensión que expliquen el comportamiento de los datos. Para hacer esto utiliza los métodos de la inteligencia artificial, estadística y redes neuronales.
+El objetivo del proceso de minería de datos consiste en extraer información de un conjunto de datos, luego se interpreta esta información para un uso posterior \cite{wiki:datamining}.
+En general el proceso de la minería de datos consta de 4 etapas\cite{datamining}:
 
-Para hacer esto utiliza los métodos de la inteligencia artificial, estadística y redes neuronales.
-El objetivo del proceso de minería de datos consiste en extraer información de un conjunto de datos, luego se interpreta esta información para un uso posterior.
-En general el proceso de la minería de datos consta de 4 etapas:
-
-\subsection{Determinación de los objetivos}\label{determinación-de-los-objetivos}
+\subsection{Determinación de los objetivos}
 
 Se tratan los objetivos que quiere conseguir el cliente bajo un asesor especialista en minería de datos.
 
-\subsection{Preprocesamiento de los datos}\label{preprocesamiento-de-los-datos}	
+\subsection{Preprocesamiento de los datos}
 	
 Es la etapa que más tiempo se tarda en realizar el el proceso. Se seleccionan, limpian, enriquecen, reducen y transforman las bases de datos.
 
-\subsection{Determinación del modelo}\label{determinación-del-modelo}	
+\subsection{Determinación del modelo}
 
 Se lleva a cabo un estudio estadístico de los datos, más tarde se hace una visualización gráfica para una primera aproximación. Según los objetivos que se habían propuesto se pueden usar diferentes algoritmos de la Inteligencia Artificial.
 
-\subsection{Análisis de los resultados}\label{análisis-de-los-resultados}	
+\subsection{Análisis de los resultados}	
 
 Se comprueban si los datos obtenidos tienen coherencia, después se comparan con los obtenidos en los estudios estadísticos y la visualización gráfica. El cliente es el que ve si los datos le aportan nuevo conocimiento que le permita considerar sus decisiones.
 
-\begin{itemize}
-\item Muli-label: La clasificación multi-label es una técnica de minería de datos, nos permite que de un conjunto de instancias de entrenamiento, podamos determinar a partir de unos atributos esenciales de dichas instancias para crear unas reglas que posteriormente se usarán para clasificar nuevas instancias.    
+\section{Multi-Label}
+La clasificación multi-label es una técnica de minería de datos, nos permite que de un conjunto de instancias de entrenamiento, podamos determinar a partir de unos atributos esenciales de dichas instancias para crear unas reglas que posteriormente se usarán para clasificar nuevas instancias \cite{multilabel}.    
 
-\item Ensembles: Los métodos de ensembles combinan las predicciones de unos estimadores base, que están construidos mediante un algoritmo de aprendizaje para mejorar la solidez de un solo estimador.
+\section{Ensemble}
+Los métodos de ensembles combinan las predicciones de unos estimadores base, que están construidos mediante un algoritmo de aprendizaje para mejorar la solidez de un solo estimador \cite{ensemble}.
 Se distinguen dos clases de métodos de ensembles:
 	\begin{itemize}
 		\item En los métodos de promedio, se construyen varios estimadores de forma independiente y luego se calcula su promedio para las predicciones. En general el estimador combinado es mejor que un estimador de base única.
 		\item En los métodos de impulso, se construyen los estimadores secuencialmente y se trata de reducir el sesgo del estimador combinado. El objetivo es combinar varios modelos débiles para conseguir un conjunto fuerte.
 	\end{itemize}
 
+
+
+\section{Disturbing Neighbors}
+Está organizado de la siguiente manera. La subsección 1 se explica la introducción. La subsección 2 describe el método del vecino molestón. La subsección 3 analiza experimentalmente nuestro método aplicado a los conjuntos representativos del estado del arte de SVM. La subsección 4 concluye.
+\subsection{Introducción}
+Un ensemble es un esquema de combinación de predicciones individuales llamados clasificadores base. El éxito de un ensemble requiere tanto exactitud como diversidad de sus clasificadores base. La diversidad representa como diferente son las predicciones de los clasificadores base. Si los clasificadores base siempre están de acuerdo podría no haber diferencia entre usar sólo un clasificador base o varios combinado por un método de ensemble. Entonces el poder de usar un conjunto de clasificadores base consiste en la posibilidad que algunos de ellos pueden corregir una predicción incorrecta de otros.
+
+Es normal obtener estos clasificadores base en un ensemble usando el mismo algoritmo, así que en esta situación el proceso de entrenamiento realizado por el ensemble es la principal fuente de diversidad. La diversidad de Bagging proviene de elegir al azar diferentes instancias para entrenar a cada clasificador de base. El método Random Subspaces elige diferentes subconjuntos de atributos para entrenar a cada clasificador base. Boosting entrena de forma iterativa el conjunto de clasificadores base, modificando los pesos de las instancias para entrenar al clasificador actual. Estos nuevos pesos se calculan a partir del error de entrenamiento en el clasificador base anterior, por lo que cada nuevo clasificador de base llega más especializado en instancias que han sido
+mal clasificados antes. A veces los clasificadores base son muy estables y el  algoritmo de entrenamiento del ensemble no es suficiente para proporcionar el nivel deseado de diversidad.
+
+SVM (Support Vector Machine) calcula un hiperplano óptimo que separa
+el espacio de entrada en dos regiones correspondientes a las clases de un conjunto de datos de dos clases. Si el conjunto de datos no es separable linealmente, el hiperplano puede construirse sin tal problema en el espacio de características dado por una función kernel. Cuando no se usa kernel, se dice que el kernel es lineal. El kernel lineal es más apropiado para datasets linealmente separables. Sin embargo, también es una opción interesante para otros conjuntos de datos, ya que es el más rápido y existen implementaciones optimizadas. Además, si no es posible la separación completa, pueden introducirse variables de holgura para permitir errores de entrenamiento. Por lo tanto, el kernel lineal es una opción muy competitiva cuando se deben construir numerosos SVM, como ocurre con los ensambles. Por esa razón, este documento está enfocado solo en SVM lineal. Sin embargo, algunas de sus conclusiones podrían ser válidas para otros kernels.
+Se sabe que SVM es un clasificador muy estable, por lo que se espera que los conjuntos de SVM se beneficien de estrategias que contribuyan a aumentar su diversidad.
+
+Los Disturbing Neighbors (DN) o vecinos molestones se han utilizado con éxito para mejorar la diversidad en los bosques. DN usa un clasificador de 1-Nearest Neighbour (1-NN) para construir un conjunto de características adicionales que se agregan al conjunto de datos de entrenamiento de cada clasificador base. Este clasificador 1-NN es diferente para cada clasificador base. Las características compiladas son la predicción 1-NN más un conjunto booleano de características que indican cuál es el vecino más cercano. El conjunto de datos de entrenamiento original se transforma en un conjunto de datos aumentados, que es diferente para cada clasificador base, independientemente del esquema de conjunto en el que se va a utilizar.
+
+A diferencia de SVM, los árboles de decisión son muy sensibles a pequeños cambios en el conjunto de datos de capacitación. La motivación de este documento es probar DN dentro de conjuntos SVM para ver si la precisión y la diversidad aumentan, al igual que en los bosques, a pesar de la estabilidad SVM. 
+\subsection{Método}
+El método DN trabaja en cada clasificador base de la siguiente manera:
+\begin{enumerate}
+    \item m instancias son seleccionadas aleatoriamente de el conjunto de datos de entrenamiento para construir un clasificador 1-NN. El valor m usa valores muy pequeños.
+    \item Dimensiones usadas para calcular distancia euclidea en el clasificador 1-NN son también seleccionadas aleatoriamente. Al menos el 50\% de los atributos son seleccionados.
+    \item Luego m+1 nuevas características son añadidas al conjunto de entrenamiento. Una de las características adicionales es la clase predecida por el clasificador 1-NN para cada instancia x, y la otra m son características booleanas, todos los conjuntos falsos excepto uno corresponden al vecino más cercano para esa instancia.
+    \item El clasificador base está entrenado usando las características originales mas las nuevas características de m+1. 
+\end{enumerate}
+Por lo tanto, el proceso normal de entrenamiento de los clasificadores básicos se altera añadiendo estas nuevas características del clasificador 1-NN. Es por eso que el método se llama vecinos molestones. La aleatoriedad aumenta la diversidad y se debe a:
+\begin{itemize}
+\item Los vecinos utilizados en cada clasificador 1-NN se seleccionan aleatoriamente. Por lo tanto, sus predicciones y las características booleanas son diferentes para cada clasificador base.
+\item Las dimensiones utilizadas para calcular las distancias euclidianas también se eligen de forma aleatoria, así que si dos clasificadores básicos tienen al menos los mismos m vecinos, las predicciones 1-NN y las características booleanas podrían ser diferentes.
 \end{itemize}
-
-
-
-
-
-\section{Secciones}
-
-Las secciones se incluyen con el comando section.
-
-\subsection{Subsecciones}
-
-Además de secciones tenemos subsecciones.
-
-\subsubsection{Subsubsecciones}
-
-Y subsecciones. 
-
+El valor m es muy pequeño ya que el objetivo no es crear un clasificador 1-NN muy preciso, sino uno diferente cada vez. Las características m booleanas pueden ser tenidas en cuenta por el SVM resultante, por lo que se espera que cada SVM sea diferente.
+Como las predicciones de clase 1-NN son nominales, deben transformarse en binarias
+características para ser calculadas por el algoritmo de entrenamiento SVM. Estas características binarias también dividen el espacio de entrada en regiones cuyo número es igual o menor que el número de clases. En realidad, cada región resultante de esta nueva división es la unión de las regiones de Voronoi correspondientes a los vecinos que comparten la misma clase. Así que otra vez, tenemos un conjunto de atributos booleanos que pueden cambiar los coeficientes de SVM.
+Por lo tanto, las dimensiones adjuntas por DN pueden ser utilizadas por cada SVM en el ensemble. La aleatoriedad introducida hace que estas dimensiones sean diferentes para cada SVM, por lo que se obtienen diversos hiperplanos cada vez.
+\subsection{Resultados}
+\subsection{Conclusión}
+Disturbing Neighbors es un método para alterar el proceso de entrenamiento normal de los clasificadores base en un ensemble, mejorando su diversidad y mejorando la precisión general del ensemble. Disturbing Neighbors crea nuevas características utilizando un clasificador 1-NN. Estas características son la salida 1-NN más un conjunto de atributos booleanos que indican cuál es el vecino más cercano. El clasificador 1-NN se crea utilizando un pequeño subconjunto de instancias de entrenamiento seleccionadas al azar del conjunto de datos original. Las dimensiones utilizadas para calcular la distancia euclidiana también se seleccionan de forma aleatoria. Estas dos fuentes de aleatoriedad son las razones por las que las características creadas son diferentes cada vez, por lo que cuando estas nuevas características se usan para entrenar clasificadores base, la diversidad aumenta.
+La estadística de Kappa y los diagramas de movimiento de Kappa muestran que DN proporciona una diversidad adicional a los alumnos de base de SVM. La validación experimental también muestra que DN-SVM no mejora significativamente la precisión de SVM, mientras que los conjuntos de SVM que usan DN son significativamente mejores que las versiones sin DN. De modo que esta mejora solo puede venir del incremento en diversidad obtenido al aplicar DN.
 
 \section{Referencias}
 
