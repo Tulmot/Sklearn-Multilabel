@@ -1,25 +1,54 @@
 import numpy as np
-from sklearn.metrics.pairwise import euclidean_distances
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.utils import check_random_state
 from sklearn.base import ClassifierMixin
 from sklearn.base import BaseEstimator
-from sklearn.metrics import accuracy_score
 from sklearn import decomposition
 from sklearn.utils import resample
 
 
 class BaseRotationForest(ClassifierMixin, BaseEstimator):
+    """A Rotation Forest.
+
+    Rotation forest is a multi-label ensemble, this method generating
+    classifier ensembles based on feature extraction. Create a training set for
+    a base classifier, the set of features is randomly split into K subsets and
+    PCA is applied to each subset. The rotations of the K axis take place to
+    form the new features for a base classifier. The idea is to improve the
+    accuracy and diversity within the set. The diversity is based on the
+    extraction of features for each base classifier.
+
+     Parameters
+    ----------
+    base_estimator_ : It is the classifier that we will use to train our data
+        set, what it receives is either empty or an object, if it is empty by
+        default the DecisionTreeClassifier is used.
+
+    n_groups : They are the groups that we want split our data set, by default
+    if is none, 3 are chosen.
+
+    random_state : int, RandomState instance or None, optional (default=None)
+        If int, random_state is the seed used by the random number generator;
+        If RandomState instance, random_state is the random number generator;
+        If None, the random number generator is the RandomState instance used
+        by `np.random`.
+
+    per_samples : They size of the sample of each of the subsets, by default
+    if is none, 75% are chosen.
+
+    _rnd_features : A random array of integers, that will be used to split the
+    set.
+    """
 
     def __init__(self,
                  base_estimator=DecisionTreeClassifier(),
                  n_groups=3,
                  random_state=None,
-                 n_muestras=0.75):
+                 per_samples=0.75):
         self.base_estimator = base_estimator
         self.n_groups = n_groups
         self.random_state = random_state
-        self.n_muestras = n_muestras
+        self.per_samples = per_samples
         self._rnd_features = None
 
     def _calc_rnd_features(self, X):
@@ -33,15 +62,29 @@ class BaseRotationForest(ClassifierMixin, BaseEstimator):
             random_feature = self.random_state.randint(0, tam)
             list_features.append(random_feature)
         return np.asarray(list_features)
-        
-    def split(self, X):
-        divide=np.split(
+
+    def _split(self, X):
+        """Dividimos el conjunto de datos, por defecto cada subgrupo tendra
+        tamaño 3"""
+        divide = np.split(
             self._rnd_features, self._rnd_features.shape[0]/self.n_groups)
+
         def separe(rand_features):
             return X[:, rand_features]
-        return list(map(separe,divide))
-    
-    
+        return list(map(separe, divide))
+
+    def _pca_transform(self, pos_subX):
+        """Hacemos la transformación de cada subgrupo con su respectivo pca"""
+        return self._pcas[pos_subX[0]].transform(pos_subX[1])
+
+    def _split_transform(self, X):
+        """Dividimos el conjunto, tranformamos los subgrupos y los concatenamos
+        para obtener el conjunto final"""
+        split_group = self._split(X)
+        tuple_pos_subX = list(zip(range(len(self._pcas)), split_group))
+        sub_pcas_transform = list(map(self._pca_transform, tuple_pos_subX))
+        sub_pcas_transform = np.concatenate((sub_pcas_transform), axis=1)
+        return sub_pcas_transform
 
     def fit(self, X, y):
         """Build a Bagging ensemble of estimators from the training set (X, y).
@@ -57,34 +100,44 @@ class BaseRotationForest(ClassifierMixin, BaseEstimator):
         -------
         self : object
             Returns self.
-        """        
-        def sample(subX):
-            return resample(subX, n_samples = round(
-                    subX.shape[0] * self.n_muestras), random_state=self.random_state)
+        """
+        def get_sample(subX):
+            """Obtenemos una muestra ddel subconjunto"""
+            return resample(subX, n_samples=round(
+                    subX.shape[0]*self.per_samples
+                    ), random_state=self.random_state)
+
         def pca_fit(samples):
+            """Entrenamos pca para cada una de las muestras"""
             pca = decomposition.PCA(random_state=self.random_state)
             return pca.fit(samples)
-        def pca_transform(pos_subX):
-            return self._pcas[pos_subX[0]].transform(pos_subX[1])
-        
+
+        def get_instance(sample_class):
+            """Obtenemos una lista con las distintas instancias de X según las
+            clases"""
+            def get_pos(pos):
+                """Obtenemos las instancias de X que corresponden con la
+                clase"""
+                if (sample_class == y[pos]).all():
+                    return X[pos]
+            return list(map(get_pos, np.arange(y.shape[0])))
+
         self.random_state = check_random_state(self.random_state)
-        self._rnd_features=self._calc_rnd_features(X)
-        classes=[]
-        for i in y:
-            clase=list(i)
-            if not clase in classes: 
-                classes.append(clase)
-        classes=np.asarray(classes)
-        samples_classes=sample(classes)
-        print(samples_classes)
-        split_group = self.split(X)
-        sample_group = list(map(sample, split_group))
-        self._pcas=list(map(pca_fit,sample_group))
-        tuple_pos_subX=list(zip(range(len(self._pcas)),split_group))
-        pcas_transform=list(map(pca_transform, tuple_pos_subX))
-        pcas_transform = np.concatenate((pcas_transform),axis=1)
-        self.base_estimator.fit(pcas_transform,y)
-        
+        self._rnd_features = self._calc_rnd_features(X)
+        classes = []
+        instances_classes = []
+        classes = np.asarray(list({tuple(x) for x in y}))
+        samples_classes = get_sample(classes)
+        instances_classes = list(map(get_instance, samples_classes))
+        instances_classes = np.asarray(instances_classes)
+        split_group = self._split(X)
+        sample_group = list(map(get_sample, split_group))
+        self._pcas = list(map(pca_fit, sample_group))
+        tuple_pos_subX = list(zip(range(len(self._pcas)), split_group))
+        sub_pcas_transform = list(map(self._pca_transform, tuple_pos_subX))
+        sub_pcas_transform = np.concatenate((sub_pcas_transform), axis=1)
+        self.base_estimator.fit(sub_pcas_transform, y)
+
     def predict(self, X):
         """Predict class for X.
         The predicted class of an input sample is computed as the class with
@@ -99,14 +152,8 @@ class BaseRotationForest(ClassifierMixin, BaseEstimator):
         y : It's a matrix of form = [n_class]
             The predicted classes.
         """
-        def pca_transform(pos_subX):
-            return self._pcas[pos_subX[0]].transform(pos_subX[1])
-        split_group = self.split(X)
-        tuple_pos_subX=list(zip(range(len(self._pcas)),split_group))
-        pcas_transform=list(map(pca_transform, tuple_pos_subX))
-        pcas_transform = np.concatenate((pcas_transform),axis=1)
-        return self.base_estimator.predict(pcas_transform)
-    
+        return self.base_estimator.predict(self._split_transform(X))
+
     def predict_proba(self, X):
         """The predicted class probabilities of an input sample is computed as
         the mean predicted class probabilities of the base estimators in the
@@ -122,11 +169,4 @@ class BaseRotationForest(ClassifierMixin, BaseEstimator):
             The class probabilities of the input samples. The order of the
             classes corresponds to that in the attribute `classes_`.
         """
-        def pca_transform(pos_subX):
-            return self._pcas[pos_subX[0]].transform(pos_subX[1])
-        split_group = self.split(X)
-        tuple_pos_subX=list(zip(range(len(self._pcas)),split_group))
-        pcas_transform=list(map(pca_transform, tuple_pos_subX))
-        pcas_transform = np.concatenate((pcas_transform),axis=1)
-        return self.base_estimator.predict_proba(pcas_transform)
-        
+        return self.base_estimator.predict_proba(self._split_transform(X))
