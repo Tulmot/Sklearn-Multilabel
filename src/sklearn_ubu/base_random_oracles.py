@@ -56,7 +56,7 @@ class BaseRandomOracles(ClassifierMixin, BaseEstimator):
         return X[self._rnd_oracles, :]
 
     def _nearest_oracle(self, _m_reduce):
-        """Calculamos los vecinos mas cercanos a las instancias escogidas
+        """Calculamos los oráculos mas cercanos a las instancias escogidas
         antes aleatoriamente"""
         def euc_dis_func(t):
             return euclidean_distances([t], self._m_oracles).argmin()
@@ -86,9 +86,12 @@ class BaseRandomOracles(ClassifierMixin, BaseEstimator):
         def train(nearest_oracles):
             """Entrenamos cada uno de los oraculos """
             oracle_near = np.asarray(nearest_oracles).astype(bool)
-            Xp = X[oracle_near, :]
-            yp = y[oracle_near, :]
-            return self.base_estimator.fit(Xp, yp)
+            if y.ndim <2:
+                return self.base_estimator.fit(X, y)
+            else:
+                Xp = X[oracle_near, :]
+                yp = y[oracle_near, :]
+                return self.base_estimator.fit(Xp, yp)
         self.random_state = check_random_state(self.random_state)
         self._rnd_oracles = self._calc_rnd_oracles(X)
         self._m_oracles = self._oracles(X)

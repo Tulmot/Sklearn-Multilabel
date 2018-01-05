@@ -126,10 +126,11 @@ class BaseRotationForest(ClassifierMixin, BaseEstimator):
         self._rnd_features = self._calc_rnd_features(X)
         classes = []
         instances_classes = []
-        classes = np.asarray(list({tuple(x) for x in y}))
-        samples_classes = get_sample(classes)
-        instances_classes = list(map(get_instance, samples_classes))
-        instances_classes = np.asarray(instances_classes)
+        if y.ndim >=2: 
+            classes = np.asarray(list({tuple(x) for x in y}))
+            samples_classes = get_sample(classes)
+            instances_classes = list(map(get_instance, samples_classes))
+            instances_classes = np.asarray(instances_classes)
         split_group = self._split(X)
         sample_group = list(map(get_sample, split_group))
         self._pcas = list(map(pca_fit, sample_group))
