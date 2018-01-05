@@ -1,9 +1,12 @@
-\documentclass[a4paper,11pt,oneside]{memoir}
+\documentclass[a4paper,12pt,twoside]{memoir}
 
 % Castellano
 \usepackage[spanish,es-tabla]{babel}
 \selectlanguage{spanish}
 \usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern} % scalable font
+\usepackage{microtype}
 \usepackage{placeins}
 
 \RequirePackage{booktabs}
@@ -106,6 +109,10 @@
   \end{center}
  \end{table}
 }
+
+%
+%Para el float H de tablaSmallSinColores
+\usepackage{float}
 
 %
 % Nuevo comando para tablas pequeñas (menos de una página).
@@ -338,9 +345,9 @@
 
 
 % Datos de portada
-\title{título del TFG \\Documentación Técnica}
-\author{nombre alumno}
-\tutor{nombre tutor}
+\title{Clasificadores multi-label en Scikit Learn \\Documentación Técnica}
+\author{Eduardo Tubilleja Calvo}
+\tutor{Dr. Álvar Arnaiz González\\y Dr. Juan José Rodríguez Díez}
 \date{\today}
 
 \begin{document}
