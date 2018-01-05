@@ -87,8 +87,10 @@ class BaseRandomOracles(ClassifierMixin, BaseEstimator):
             """Entrenamos cada uno de los oraculos """
             oracle_near = np.asarray(nearest_oracles).astype(bool)
             if y.ndim <2:
+                self._type=False
                 return self.base_estimator.fit(X, y)
             else:
+                self._type=True
                 Xp = X[oracle_near, :]
                 yp = y[oracle_near, :]
                 return self.base_estimator.fit(Xp, yp)
@@ -167,11 +169,14 @@ class BaseRandomOracles(ClassifierMixin, BaseEstimator):
             solo tiene un valor. En este caso para no tener problemas lo que
             hacemos es calcular la probabilidad para esa instancia con el
             predict en vez de usar el predict_proba"""
-            if((min(prediction_proba, key=(lambda x: len(x[0])))).shape[1]):
-                call_predict = self._classifiers_train[
-                    index_classifier].predict([instance])
-                return list(np.asarray(list(map(
-                        predict_prob, call_predict[0]))))
+            if(self._type==True):
+                if(min(prediction_proba, key=(lambda x: len(x[0]))).shape[1]):
+                    call_predict = self._classifiers_train[
+                        index_classifier].predict([instance])
+                    return list(np.asarray(list(map(
+                            predict_prob, call_predict[0]))))
+                else:
+                    return prediction_proba
             else:
                 return prediction_proba
 
