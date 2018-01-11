@@ -5,6 +5,7 @@ from sklearn.base import ClassifierMixin
 from sklearn.base import BaseEstimator
 from sklearn import decomposition
 from sklearn.utils import resample
+from sklearn.utils.multiclass import is_multilabel 
 
 
 class BaseRotationForest(ClassifierMixin, BaseEstimator):
@@ -35,6 +36,9 @@ class BaseRotationForest(ClassifierMixin, BaseEstimator):
 
     per_samples : They size of the sample of each of the subsets, by default
     if is none, 75% are chosen.
+    
+    per_samples_classes : They size of the classes of each of the subsets, by
+    default if is none, 80% are chosen.
 
     _rnd_features : A random array of integers, that will be used to split the
     set.
@@ -44,11 +48,13 @@ class BaseRotationForest(ClassifierMixin, BaseEstimator):
                  base_estimator=DecisionTreeClassifier(),
                  n_groups=3,
                  random_state=None,
-                 per_samples=0.75):
+                 per_samples=0.75,
+                 per_samples_classes=0.8):
         self.base_estimator = base_estimator
         self.n_groups = n_groups
         self.random_state = random_state
         self.per_samples = per_samples
+        self.per_samples_classes = per_samples_classes
         self._rnd_features = None
 
     def _calc_rnd_features(self, X):
@@ -103,8 +109,14 @@ class BaseRotationForest(ClassifierMixin, BaseEstimator):
         """
         def get_sample(subX):
             """Obtenemos una muestra ddel subconjunto"""
-            return resample(subX, n_samples=round(
+            return resample(subX, replace=False, n_samples=round(
                     subX.shape[0]*self.per_samples
+                    ), random_state=self.random_state)
+        
+        def get_sample_class(suby):
+            """Obtenemos una muestra ddel subconjunto"""
+            return resample(suby, replace=False , n_samples=round(
+                    suby.shape[0]*self.per_samples_classes
                     ), random_state=self.random_state)
 
         def pca_fit(samples):
@@ -120,24 +132,31 @@ class BaseRotationForest(ClassifierMixin, BaseEstimator):
                 clase"""
                 if (sample_class == y[pos]).all():
                     return X[pos]
-            return list(map(get_pos, np.arange(y.shape[0])))
+            return list(filter(None.__ne__,map(get_pos, np.arange(y.shape[0]))))
 
         self.random_state = check_random_state(self.random_state)
         self._rnd_features = self._calc_rnd_features(X)
         classes = []
         instances_classes = []
-        if y.ndim >=2: 
+        self.list_classes_X=[]
+        """Si es multilabel o si es singlelabel"""
+        if is_multilabel(y):
+            """Obtengo las distintas clases"""
             classes = np.asarray(list({tuple(x) for x in y}))
-            samples_classes = get_sample(classes)
-            instances_classes = list(map(get_instance, samples_classes))
-            instances_classes = np.asarray(instances_classes)
+        else:
+            classes=np.asarray(list(set(y)))
+        """Me quedo con una parte de las distintas clases"""
+        samples_classes = get_sample_class(classes)
+        instances_classes=np.concatenate(list(map(get_instance, samples_classes)))
+        
+        instances_classes = np.asarray(instances_classes)
         split_group = self._split(X)
-        sample_group = list(map(get_sample, split_group))
+        sample_group = list(map(get_sample, self._split(instances_classes)))
         self._pcas = list(map(pca_fit, sample_group))
         tuple_pos_subX = list(zip(range(len(self._pcas)), split_group))
         sub_pcas_transform = list(map(self._pca_transform, tuple_pos_subX))
         sub_pcas_transform = np.concatenate((sub_pcas_transform), axis=1)
-        self.base_estimator.fit(sub_pcas_transform, y)
+        return self.base_estimator.fit(sub_pcas_transform, y)
 
     def predict(self, X):
         """Predict class for X.

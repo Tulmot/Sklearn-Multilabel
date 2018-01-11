@@ -6,8 +6,6 @@ from sklearn.base import ClassifierMixin
 from sklearn.base import BaseEstimator
 from sklearn.metrics import accuracy_score
 
-MAX_INT = np.iinfo(np.int32).max
-
 
 class BaseDisturbingNeighbors(ClassifierMixin, BaseEstimator):
     """A Disturbing Neighbors.
@@ -25,7 +23,7 @@ class BaseDisturbingNeighbors(ClassifierMixin, BaseEstimator):
     
      Parameters
     ----------
-    base_estimator_ : It is the classifier that we will use to train our data
+    base_estimator : It is the classifier that we will use to train our data
         set, what it receives is either empty or an object, if it is empty by
         default the DecisionTreeClassifier is used.
         
@@ -185,22 +183,3 @@ class BaseDisturbingNeighbors(ClassifierMixin, BaseEstimator):
         m_train = np.concatenate((X, m_neighbors), axis=1)
         return self.base_estimator.predict_proba(m_train)
 
-    def score(self, X, y, sample_weight=None):
-        """Returns the mean accuracy on the given test data and labels.
-        In multi-label classification, this is the subset accuracy
-        which is a harsh metric since you require for each sample that
-        each label set be correctly predicted.
-        Parameters
-        ----------
-        X : array-like, shape = (n_samples, n_features)
-            Test samples.
-        y : array-like, shape = (n_samples) or (n_samples, n_outputs)
-            True labels for X.
-        sample_weight : array-like, shape = [n_samples], optional
-            Sample weights.
-        Returns
-        -------
-        score : float
-            Mean accuracy of self.predict(X) wrt. y.
-        """
-        return accuracy_score(y, self.predict(X), sample_weight=sample_weight)

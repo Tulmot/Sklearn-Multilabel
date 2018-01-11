@@ -3,17 +3,16 @@ from sklearn.ensemble import BaseEnsemble
 from sklearn.tree import ExtraTreeClassifier
 from sklearn.utils import check_random_state
 from sklearn.metrics import accuracy_score
-
-MAX_INT = np.iinfo(np.int32).max
+from sklearn.ensemble.bagging import MAX_INT
 
 class HomogeneousEnsemble(BaseEnsemble):
 
     def __init__(self,
-                 base_estimator_=ExtraTreeClassifier(),
+                 base_estimator=ExtraTreeClassifier(),
                  n_estimators=10,
                  random_state=None,
                  estimator_params=tuple()):
-        self.base_estimator_ = base_estimator_
+        self.base_estimator = base_estimator
         self.n_estimators = n_estimators
         self.random_state = random_state
         self.estimator_params = estimator_params
@@ -39,12 +38,14 @@ class HomogeneousEnsemble(BaseEnsemble):
             estimator.fit(X, y)
             return estimator
 
+        self._validate_estimator()
         self.estimators_ = []
         self.random_state = check_random_state(self.random_state)
         seeds = self.random_state.randint(MAX_INT, size=self.n_estimators)
         for i in range(self.n_estimators):
             self._make_estimator(append=True, random_state=seeds[i])
         self.estimators_ = list(map(fit_estimator, self.estimators_))
+        
 
     def predict(self, X):
         """Predict class for X.
@@ -81,11 +82,11 @@ class HomogeneousEnsemble(BaseEnsemble):
             return 0
         predictions = list(map(predict_classifiers, self.estimators_))
         predictions = np.asarray(predictions)
-        promedio = predictions.sum(axis=0)
-        if promedio.ndim <2:
-            binarizada = list(map(binarize, promedio))
+        average = predictions.sum(axis=0)
+        if average.ndim <2:
+            binarizada = list(map(binarize, average))
         else:
-            binarizada = list(map(binarize_list, promedio))
+            binarizada = list(map(binarize_list, average))
         binarizada = np.asarray(binarizada)
         return binarizada
 
@@ -113,16 +114,16 @@ class HomogeneousEnsemble(BaseEnsemble):
         def divide_list(my_list):
             """Recorremos la lista de listas y pasamos la lista a otra
             funcion."""
-            return list(map(average, my_list))
+            return list(map(calc_average, my_list))
 
-        def average(num):
+        def calc_average(num):
             """ Hallamos el promedio.
             """
             return num / self.n_estimators
         predictions = list(map(predict_proba_classifiers, self.estimators_))
         predictions = np.asarray(predictions)
-        promedio = predictions.sum(axis=0)
-        divide = list(map(divide_list, promedio))
+        average = predictions.sum(axis=0)
+        divide = list(map(divide_list, average))
         divide = np.asarray(divide)
         return divide
 

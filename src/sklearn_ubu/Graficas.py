@@ -32,18 +32,18 @@ names = ["Disturbing Neighbors", "Random Oracles", "RotationForest",  "Gaussian 
          "Naive Bayes", "QDA"]
 
 classifiers = [   
-    DisturbingNeighbors(base_estimator_=BaseDisturbingNeighbors()),
-    #BaseRandomOracles(),
-    #BaseRotationForest(),
-    SVC(kernel="linear", C=0.025),
-    SVC(gamma=2, C=1),
-    GaussianProcessClassifier(1.0 * RBF(1.0)),
+    BaseDisturbingNeighbors(),
+    BaseRandomOracles(),
+    BaseRotationForest(),
+    #SVC(kernel="linear", C=0.025),
+    #SVC(gamma=2, C=1),
+    #GaussianProcessClassifier(1.0 * RBF(1.0)),
     DecisionTreeClassifier(max_depth=5),
     RandomForestClassifier(max_depth=5, n_estimators=10, max_features=1),
-    MLPClassifier(alpha=1),
-    AdaBoostClassifier(),
-    GaussianNB(),
-    QuadraticDiscriminantAnalysis()
+    #MLPClassifier(alpha=1),
+    #AdaBoostClassifier(),
+    #GaussianNB(),
+    #QuadraticDiscriminantAnalysis()
     ]
 
 X, y = make_classification(n_features=2, n_redundant=0, n_informative=2,
@@ -57,7 +57,7 @@ datasets = [make_moons(noise=0.3, random_state=0),
             linearly_separable
             ]
 
-figure = plt.figure(figsize=(27, 9))
+figure = plt.figure(figsize=(16, 8))
 i = 1
 # iterate over datasets
 for ds_cnt, ds in enumerate(datasets):

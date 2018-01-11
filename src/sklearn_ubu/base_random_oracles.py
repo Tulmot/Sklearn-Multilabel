@@ -4,6 +4,7 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn.utils import check_random_state
 from sklearn.base import ClassifierMixin
 from sklearn.base import BaseEstimator
+from sklearn.utils.multiclass import is_multilabel 
 
 
 class BaseRandomOracles(ClassifierMixin, BaseEstimator):
@@ -86,11 +87,12 @@ class BaseRandomOracles(ClassifierMixin, BaseEstimator):
         def train(nearest_oracles):
             """Entrenamos cada uno de los oraculos """
             oracle_near = np.asarray(nearest_oracles).astype(bool)
-            if y.ndim <2:
-                self._type=False
+            """Si no es multilabel"""
+            if not is_multilabel(y): 
+                self._multilabel=False
                 return self.base_estimator.fit(X, y)
             else:
-                self._type=True
+                self._multilabel=True
                 Xp = X[oracle_near, :]
                 yp = y[oracle_near, :]
                 return self.base_estimator.fit(Xp, yp)
@@ -131,8 +133,7 @@ class BaseRandomOracles(ClassifierMixin, BaseEstimator):
                 [instance])[0]
         m_oracle = np.concatenate((X, self._nearest_oracle(X)), axis=1)
         self._classifiers_prediction = list(map(list_predict, m_oracle))
-        self._classifiers_prediction = np.asarray(self._classifiers_prediction)
-        return self._classifiers_prediction
+        return np.asarray(self._classifiers_prediction)
 
     def predict_proba(self, X):
         """The predicted class probabilities of an input sample is computed as
@@ -169,25 +170,24 @@ class BaseRandomOracles(ClassifierMixin, BaseEstimator):
             solo tiene un valor. En este caso para no tener problemas lo que
             hacemos es calcular la probabilidad para esa instancia con el
             predict en vez de usar el predict_proba"""
-            if(self._type==True):
+            """Si es mmultilabel """
+            if(self._multilabel==True):
                 if(min(prediction_proba, key=(lambda x: len(x[0]))).shape[1]):
                     call_predict = self._classifiers_train[
                         index_classifier].predict([instance])
                     return list(np.asarray(list(map(
                             predict_prob, call_predict[0]))))
                 else:
-                    return prediction_proba
+                    return prediction_proba[0]
             else:
-                return prediction_proba
+                return prediction_proba[0]
 
         m_oracle = np.concatenate((X, self._nearest_oracle(X)), axis=1)
         self._classifiers_prediction_proba = list(map(
             list_predict_proba, m_oracle))
-        self._classifiers_prediction_proba = np.concatenate((
-                self._classifiers_prediction_proba), axis=1)
+        if(self._multilabel==True):
+            self._classifiers_prediction_proba = np.concatenate((
+                    self._classifiers_prediction_proba), axis=1)
         self._classifiers_prediction_proba = np.asarray(
             self._classifiers_prediction_proba)
-        convert_array = lambda prob: np.asarray(prob)
-        self._classifiers_prediction_proba = list(map(
-                convert_array, self._classifiers_prediction_proba))
         return self._classifiers_prediction_proba
