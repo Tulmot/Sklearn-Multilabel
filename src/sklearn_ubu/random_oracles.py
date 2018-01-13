@@ -3,7 +3,12 @@ from .base_random_oracles import BaseRandomOracles
 from sklearn.tree import DecisionTreeClassifier
 
 class RandomOracles(HomogeneousEnsemble):
-
+    """A Random Oracles.
+    
+    Random Oracles is a multi-label ensemble, each classifier in the set is
+    replaced by a miniensemble of a pair of subclassifiers with an oracle to
+    choose between them.
+    """
     def __init__(self,
                  base_estimator=DecisionTreeClassifier(),
                  n_estimators=10,

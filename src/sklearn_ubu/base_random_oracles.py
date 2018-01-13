@@ -8,11 +8,9 @@ from sklearn.utils.multiclass import is_multilabel
 
 
 class BaseRandomOracles(ClassifierMixin, BaseEstimator):
-    """A Random Oracles.
+    """A Base Random Oracles.
     
-    Random Oracles is a multi-label ensemble, each classifier in the set is
-    replaced by a miniensemble of a pair of subclassifiers with an oracle to
-    choose between them.
+    BaseRandomOracles Oracles is a base classifier.
     
      Parameters
     ----------
@@ -100,6 +98,7 @@ class BaseRandomOracles(ClassifierMixin, BaseEstimator):
         self._rnd_oracles = self._calc_rnd_oracles(X)
         self._m_oracles = self._oracles(X)
         self._classifiers_train = list(map(train, self._nearest_oracle(X).T))
+        return self._classifiers_train
 
     def _split_inst_oracles(self, X, inst_oracles):
         """Separamos la instanciay el oraculo, y de este ultimo obtenemos cual

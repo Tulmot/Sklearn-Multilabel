@@ -4,7 +4,6 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn.utils import check_random_state
 from sklearn.base import ClassifierMixin
 from sklearn.base import BaseEstimator
-from sklearn.metrics import accuracy_score
 
 
 class BaseDisturbingNeighbors(ClassifierMixin, BaseEstimator):
