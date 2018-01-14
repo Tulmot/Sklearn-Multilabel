@@ -5,6 +5,7 @@ from sklearn.utils import check_random_state
 from sklearn.metrics import accuracy_score
 from sklearn.ensemble.bagging import MAX_INT
 
+
 class HomogeneousEnsemble(BaseEnsemble):
 
     def __init__(self,
@@ -45,7 +46,6 @@ class HomogeneousEnsemble(BaseEnsemble):
         for i in range(self.n_estimators):
             self._make_estimator(append=True, random_state=seeds[i])
         self.estimators_ = list(map(fit_estimator, self.estimators_))
-        
 
     def predict(self, X):
         """Predict class for X.
@@ -83,7 +83,7 @@ class HomogeneousEnsemble(BaseEnsemble):
         predictions = list(map(predict_classifiers, self.estimators_))
         predictions = np.asarray(predictions)
         average = predictions.sum(axis=0)
-        if average.ndim <2:
+        if average.ndim < 2:
             binarizada = list(map(binarize, average))
         else:
             binarizada = list(map(binarize_list, average))

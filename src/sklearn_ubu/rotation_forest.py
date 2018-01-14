@@ -2,6 +2,7 @@ from .homogeneous_ensemble import HomogeneousEnsemble
 from .base_rotation_forest import BaseRotationForest
 from sklearn.tree import DecisionTreeClassifier
 
+
 class RotationForest(HomogeneousEnsemble):
     """A Rotation Forest.
 
@@ -12,6 +13,32 @@ class RotationForest(HomogeneousEnsemble):
     form the new features for a base classifier. The idea is to improve the
     accuracy and diversity within the set. The diversity is based on the
     extraction of features for each base classifier.
+
+    Parameters
+    ----------
+    base_estimator : object, optional (default=None)
+        The base estimator from which the ensemble is built.
+
+    n_estimators : integer
+        The number of estimators in the ensemble.
+
+    random_state : int, RandomState instance or None, optional (default=None)
+        If int, random_state is the seed used by the random number generator;
+        If RandomState instance, random_state is the random number generator;
+        If None, the random number generator is the RandomState instance used
+        by `np.random`.
+
+    estimator_params : list of strings
+        The list of attributes to use as parameters when instantiating a
+        new base estimator. If none are given, default parameters are used.
+
+    Attributes
+    ----------
+    base_estimator_ : estimator
+        The base estimator from which the ensemble is grown.
+
+    estimators_ : list of estimators
+        The collection of fitted base estimators.
     """
     def __init__(self,
                  base_estimator=DecisionTreeClassifier(),

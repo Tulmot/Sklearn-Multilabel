@@ -5,21 +5,15 @@ from sklearn.base import ClassifierMixin
 from sklearn.base import BaseEstimator
 from sklearn import decomposition
 from sklearn.utils import resample
-from sklearn.utils.multiclass import is_multilabel 
+from sklearn.utils.multiclass import is_multilabel
 
 
 class BaseRotationForest(ClassifierMixin, BaseEstimator):
-    """A Rotation Forest.
+    """A Base Rotation Forest.
 
-    Rotation forest is a multi-label ensemble, this method generating
-    classifier ensembles based on feature extraction. Create a training set for
-    a base classifier, the set of features is randomly split into K subsets and
-    PCA is applied to each subset. The rotations of the K axis take place to
-    form the new features for a base classifier. The idea is to improve the
-    accuracy and diversity within the set. The diversity is based on the
-    extraction of features for each base classifier.
+    BaseRotationForest is a base classifier.
 
-     Parameters
+    Parameters
     ----------
     base_estimator_ : It is the classifier that we will use to train our data
         set, what it receives is either empty or an object, if it is empty by
@@ -36,7 +30,7 @@ class BaseRotationForest(ClassifierMixin, BaseEstimator):
 
     per_samples : They size of the sample of each of the subsets, by default
     if is none, 75% are chosen.
-    
+
     per_samples_classes : They size of the classes of each of the subsets, by
     default if is none, 80% are chosen.
 
@@ -112,10 +106,10 @@ class BaseRotationForest(ClassifierMixin, BaseEstimator):
             return resample(subX, replace=False, n_samples=round(
                     subX.shape[0]*self.per_samples
                     ), random_state=self.random_state)
-        
+
         def get_sample_class(suby):
             """Obtenemos una muestra ddel subconjunto"""
-            return resample(suby, replace=False , n_samples=round(
+            return resample(suby, replace=False, n_samples=round(
                     suby.shape[0]*self.per_samples_classes
                     ), random_state=self.random_state)
 
@@ -132,23 +126,25 @@ class BaseRotationForest(ClassifierMixin, BaseEstimator):
                 clase"""
                 if (sample_class == y[pos]).all():
                     return X[pos]
-            return list(filter(None.__ne__,map(get_pos, np.arange(y.shape[0]))))
+            return list(filter(None.__ne__, map(
+                get_pos, np.arange(y.shape[0]))))
 
         self.random_state = check_random_state(self.random_state)
         self._rnd_features = self._calc_rnd_features(X)
         classes = []
         instances_classes = []
-        self.list_classes_X=[]
+        self.list_classes_X = []
         """Si es multilabel o si es singlelabel"""
         if is_multilabel(y):
             """Obtengo las distintas clases"""
             classes = np.asarray(list({tuple(x) for x in y}))
         else:
-            classes=np.asarray(list(set(y)))
+            classes = np.asarray(list(set(y)))
         """Me quedo con una parte de las distintas clases"""
         samples_classes = get_sample_class(classes)
-        instances_classes=np.concatenate(list(map(get_instance, samples_classes)))
-        
+        instances_classes = np.concatenate(
+            list(map(get_instance, samples_classes)))
+
         instances_classes = np.asarray(instances_classes)
         split_group = self._split(X)
         sample_group = list(map(get_sample, self._split(instances_classes)))

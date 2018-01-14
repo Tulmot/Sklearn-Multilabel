@@ -7,45 +7,36 @@ from sklearn.base import BaseEstimator
 
 
 class BaseDisturbingNeighbors(ClassifierMixin, BaseEstimator):
-    """A Disturbing Neighbors.
-    
-    Disturbing neighbors is a multi-label ensemble, this method alters the
-    normal training process of the base classifiers in an ensemble, improving
-    their diversity and accuracy. DN creates new features using a 1-NN
-    classifier, these characteristics are the 1-NN output plus a set of Boolean
-    attributes indicated by the nearest neighbor.
-    
-    The 1-NN classifier is created using a small subset of training instances,
-    chosen at random from the original set. The dimensions to calculate the
-    Euclidean distance are also random. With these characteristics created when
-    we train base classifiers with them, diversity increases.
-    
-     Parameters
+    """A Base Disturbing Neighbors.
+
+    BaseDisturbingNeighbors is a base classifier.
+
+    Parameters
     ----------
     base_estimator : It is the classifier that we will use to train our data
         set, what it receives is either empty or an object, if it is empty by
         default the DecisionTreeClassifier is used.
-        
+
     n_neighbors : They are the neighbors that we want to choose from the data
         set, by default if nothing happens, 10 are chosen.
-        
+
     n_features : It is the size of the random sub-space, according to which
         the random features that we are going to use to train our
         classifier are chosen, by default it is 0.5, that is, half of the
         features are taken, if the value that is passed is greater than
         1, that number of features is taken.
-        
+
     random_state : int, RandomState instance or None, optional (default=None)
         If int, random_state is the seed used by the random number generator;
         If RandomState instance, random_state is the random number generator;
         If None, the random number generator is the RandomState instance used
         by `np.random`.
-        
+
     _rnd_dimensions : A Boolean random array, its size is equal to the number
         of features of the set, but then the number of TRUE values it contains
         will be equal to the value of the variable n_features, the TRUE values,
         indicate which features are chosen to evaluate the set.
-        
+
     _rnd_neighbors : A random array of integers, the size of this array depends
         on the variable n_neighbors, will select random rows of the data set,
         is what we will call disturbing neighbors.
@@ -181,4 +172,3 @@ class BaseDisturbingNeighbors(ClassifierMixin, BaseEstimator):
         m_neighbors = self._nearest_neighbor(x_reduce)
         m_train = np.concatenate((X, m_neighbors), axis=1)
         return self.base_estimator.predict_proba(m_train)
-
