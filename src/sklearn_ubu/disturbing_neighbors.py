@@ -42,8 +42,41 @@ class DisturbingNeighbors(HomogeneousEnsemble):
 
     estimators_ : list of estimators
         The collection of fitted base estimators.
+        
+    See also
+    --------
+    BaseDisturbingNeighbors
+    
+    References
+    ----------
+    
+    .. [1] Maudes, J., Rodríguez, J., & García-Osorio, C. (2009). Disturbing
+           neighbors diversity for decision forests. Applications of Supervised
+           and Unsupervised Ensemble Methods, 113-133.
+           
+    .. [2] Maudes, J., Rodríguez, J. J., & García-Osorio, C. I. (2009, June).
+           Disturbing Neighbors Ensembles for Linear SVM. In MCS (pp. 191-200).
+           
+    .. [3] Pardo, C., Rodríguez, J. J., García-Osorio, C., & Maudes, J. (2010,
+       June). An empirical study of multilayer perceptron ensembles for 
+       regression tasks. In International Conference on Industrial, Engineering
+       and Other Applications of Applied Intelligent Systems (pp. 106-115).
+       Springer, Berlin, Heidelberg.
+           
+    Examples
+    --------
+    >>> from sklearn.datasets import load_iris
+    >>> from sklearn.model_selection import cross_val_score
+    >>> from sklearn_ubu.disturbing_neighbors import DisturbingNeighbors
+    
+    >>> clf = DisturbingNeighbors(random_state=0)
+    >>> iris = load_iris()
+    >>> cross_val_score(clf, iris.data, iris.target, cv=10)
+    ...                             # doctest: +SKIP
+    ...
+    array([ 1.        ,  1.        ,  1.        ,  1.        ,  1.        ,
+        1.        ,  0.66666667,  0.        ,  0.        ,  0.        ])
     """
-
     def __init__(self,
                  base_estimator=DecisionTreeClassifier(),
                  n_estimators=10,

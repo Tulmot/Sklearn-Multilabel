@@ -40,6 +40,40 @@ class BaseDisturbingNeighbors(ClassifierMixin, BaseEstimator):
     _rnd_neighbors : A random array of integers, the size of this array depends
         on the variable n_neighbors, will select random rows of the data set,
         is what we will call disturbing neighbors.
+
+    See also
+    --------
+    DisturbingNeighbors
+    
+    References
+    ----------
+    
+    .. [1] Maudes, J., Rodríguez, J., & García-Osorio, C. (2009). Disturbing
+           neighbors diversity for decision forests. Applications of Supervised
+           and Unsupervised Ensemble Methods, 113-133.
+           
+    .. [2] Maudes, J., Rodríguez, J. J., & García-Osorio, C. I. (2009, June).
+           Disturbing Neighbors Ensembles for Linear SVM. In MCS (pp. 191-200).
+           
+    .. [3] Pardo, C., Rodríguez, J. J., García-Osorio, C., & Maudes, J. (2010,
+       June). An empirical study of multilayer perceptron ensembles for 
+       regression tasks. In International Conference on Industrial, Engineering
+       and Other Applications of Applied Intelligent Systems (pp. 106-115).
+       Springer, Berlin, Heidelberg.
+           
+    Examples
+    --------
+    >>> from sklearn.datasets import load_iris
+    >>> from sklearn.model_selection import cross_val_score
+    >>> from sklearn_ubu.base_disturbing_neighbors import 
+                                                BaseDisturbingNeighbors
+    >>> clf = BaseDisturbingNeighbors(random_state=0)
+    >>> iris = load_iris()
+    >>> cross_val_score(clf, iris.data, iris.target, cv=10)
+    ...                             # doctest: +SKIP
+    ...
+    array([ 1.        ,  0.93333333,  1.        ,  0.93333333,  0.93333333,
+        0.86666667,  0.93333333,  1.        ,  1.        ,  1.        ])
     """
     def __init__(self,
                  base_estimator=DecisionTreeClassifier(),
@@ -129,7 +163,8 @@ class BaseDisturbingNeighbors(ClassifierMixin, BaseEstimator):
                 self._m_disturbing = self._disturbing(_m_reduce)
                 m_neighbors = self._nearest_neighbor(_m_reduce)
                 m_train = np.concatenate((X, m_neighbors), axis=1)
-                return self.base_estimator.fit(m_train, y)
+                self.base_estimator.fit(m_train, y)
+                return self
         else:
             raise Exception("Nº of instances too small, enter a smaller nº of "
                             "disturbing neighbors or more instances")

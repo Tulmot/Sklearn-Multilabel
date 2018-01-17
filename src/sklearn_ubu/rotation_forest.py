@@ -39,6 +39,31 @@ class RotationForest(HomogeneousEnsemble):
 
     estimators_ : list of estimators
         The collection of fitted base estimators.
+        
+    See also
+    --------
+    BaseRotationForest
+    
+    References
+    ----------
+    
+    .. [1] Rodriguez, J. J., Kuncheva, L. I., & Alonso, C. J. (2006). Rotation
+           forest: A new classifier ensemble method. IEEE transactions on
+           pattern analysis and machine intelligence, 28(10), 1619-1630.
+
+    Examples
+    --------
+    >>> from sklearn.datasets import load_iris
+    >>> from sklearn.model_selection import cross_val_score
+    >>> from sklearn_ubu.rotation_forest import RotationForest
+    
+    >>> clf = RotationForest(random_state=0)
+    >>> iris = load_iris()
+    >>> cross_val_score(clf, iris.data, iris.target, cv=10)
+    ...                             # doctest: +SKIP
+    ...
+    array([ 1.        ,  1.        ,  1.        ,  1.        ,  1.        ,
+        1.        ,  0.66666667,  0.        ,  0.        ,  0.        ])
     """
     def __init__(self,
                  base_estimator=DecisionTreeClassifier(),

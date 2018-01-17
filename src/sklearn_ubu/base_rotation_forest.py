@@ -36,6 +36,31 @@ class BaseRotationForest(ClassifierMixin, BaseEstimator):
 
     _rnd_features : A random array of integers, that will be used to split the
     set.
+    
+    See also
+    --------
+    RotationForest
+    
+    References
+    ----------
+    
+    .. [1] Rodriguez, J. J., Kuncheva, L. I., & Alonso, C. J. (2006). Rotation
+           forest: A new classifier ensemble method. IEEE transactions on
+           pattern analysis and machine intelligence, 28(10), 1619-1630.
+
+    Examples
+    --------
+    >>> from sklearn.datasets import load_iris
+    >>> from sklearn.model_selection import cross_val_score
+    >>> from sklearn_ubu.base_rotation_forest import BaseRotationForest
+    
+    >>> clf = BaseRotationForest(random_state=0)
+    >>> iris = load_iris()
+    >>> cross_val_score(clf, iris.data, iris.target, cv=10)
+    ...                             # doctest: +SKIP
+    ...
+    array([ 1.        ,  0.93333333,  1.        ,  0.93333333,  0.8       ,
+        0.93333333,  0.93333333,  0.93333333,  1.        ,  0.93333333])
     """
 
     def __init__(self,
@@ -152,7 +177,8 @@ class BaseRotationForest(ClassifierMixin, BaseEstimator):
         tuple_pos_subX = list(zip(range(len(self._pcas)), split_group))
         sub_pcas_transform = list(map(self._pca_transform, tuple_pos_subX))
         sub_pcas_transform = np.concatenate((sub_pcas_transform), axis=1)
-        return self.base_estimator.fit(sub_pcas_transform, y)
+        self.base_estimator.fit(sub_pcas_transform, y)
+        return self
 
     def predict(self, X):
         """Predict class for X.

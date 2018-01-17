@@ -35,6 +35,43 @@ class RandomOracles(HomogeneousEnsemble):
 
     estimators_ : list of estimators
         The collection of fitted base estimators.
+        
+    See also
+    --------
+    BaseRandomOracles
+    
+    References
+    ----------
+    
+    .. [1] Kuncheva, L. I., & Rodriguez, J. J. (2007). Classifier ensembles
+           with a random linear oracle. IEEE Transactions on Knowledge and Data
+           Engineering, 19(4), 500-508.
+           
+    .. [2] Pardo, C., Diez, J. J. R., Díez-Pastor, J. F., & García-Osorio, C.
+           I. (2011). Random Oracles for Regression Ensembles. Ensembles in
+           Machine Learning Applications, 373, 181-199.
+           
+    .. [3] Rodríguez, J. J., Díez-Pastor, J. F., & García-Osorio, C. (2013,
+           May). Random Oracle Ensembles for Imbalanced Data. In International
+           Workshop on Multiple Classifier Systems (pp. 247-258). Springer,
+           Berlin, Heidelberg.
+
+    .. [4] Rodríguez, J., & Kuncheva, L. (2007). Naïve Bayes ensembles with a
+           random oracle. Multiple Classifier Systems, 450-458.
+           
+    Examples
+    --------
+    >>> from sklearn.datasets import load_iris
+    >>> from sklearn.model_selection import cross_val_score
+    >>> from sklearn_ubu.random_oracles import RandomOracles
+    
+    >>> clf = RandomOracles(random_state=0)
+    >>> iris = load_iris()
+    >>> cross_val_score(clf, iris.data, iris.target, cv=10)
+    ...                             # doctest: +SKIP
+    ...
+    array([ 1.        ,  1.        ,  1.        ,  1.        ,  1.        ,
+        1.        ,  0.66666667,  0.        ,  0.        ,  0.        ])
     """
     def __init__(self,
                  base_estimator=DecisionTreeClassifier(),

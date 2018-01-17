@@ -33,6 +33,43 @@ class BaseRandomOracles(ClassifierMixin, BaseEstimator):
 
     _m_oracles : It is a matrix that contains the instances of the random
     sentences that we have selected.
+    
+    See also
+    --------
+    RandomOracles
+    
+    References
+    ----------
+    
+    .. [1] Kuncheva, L. I., & Rodriguez, J. J. (2007). Classifier ensembles
+           with a random linear oracle. IEEE Transactions on Knowledge and Data
+           Engineering, 19(4), 500-508.
+           
+    .. [2] Pardo, C., Diez, J. J. R., Díez-Pastor, J. F., & García-Osorio, C.
+           I. (2011). Random Oracles for Regression Ensembles. Ensembles in
+           Machine Learning Applications, 373, 181-199.
+           
+    .. [3] Rodríguez, J. J., Díez-Pastor, J. F., & García-Osorio, C. (2013,
+           May). Random Oracle Ensembles for Imbalanced Data. In International
+           Workshop on Multiple Classifier Systems (pp. 247-258). Springer,
+           Berlin, Heidelberg.
+
+    .. [4] Rodríguez, J., & Kuncheva, L. (2007). Naïve Bayes ensembles with a
+           random oracle. Multiple Classifier Systems, 450-458.
+
+    Examples
+    --------
+    >>> from sklearn.datasets import load_iris
+    >>> from sklearn.model_selection import cross_val_score
+    >>> from sklearn_ubu.base_random_oracles import BaseRandomOracles
+    
+    >>> clf = BaseRandomOracles(random_state=0)
+    >>> iris = load_iris()
+    >>> cross_val_score(clf, iris.data, iris.target, cv=10)
+    ...                             # doctest: +SKIP
+    ...
+    array([ 1.        ,  0.93333333,  1.        ,  0.93333333,  0.93333333,
+        0.86666667,  0.93333333,  0.93333333,  1.        ,  1.        ])
     """
     def __init__(self,
                  base_estimator=DecisionTreeClassifier(),
@@ -98,7 +135,7 @@ class BaseRandomOracles(ClassifierMixin, BaseEstimator):
         self._rnd_oracles = self._calc_rnd_oracles(X)
         self._m_oracles = self._oracles(X)
         self._classifiers_train = list(map(train, self._nearest_oracle(X).T))
-        return self._classifiers_train
+        return self
 
     def _split_inst_oracles(self, X, inst_oracles):
         """Separamos la instanciay el oraculo, y de este ultimo obtenemos cual
@@ -177,10 +214,10 @@ class BaseRandomOracles(ClassifierMixin, BaseEstimator):
                         index_classifier].predict([instance])
                     return list(np.asarray(list(map(
                             predict_prob, call_predict[0]))))
-                else:
-                    return prediction_proba[0]
-            else:
-                return prediction_proba[0]
+            #    else:
+            #        return prediction_proba[0]
+            #else:
+            return prediction_proba[0]
 
         m_oracle = np.concatenate((X, self._nearest_oracle(X)), axis=1)
         self._classifiers_prediction_proba = list(map(
