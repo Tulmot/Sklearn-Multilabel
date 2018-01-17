@@ -1,8 +1,260 @@
 \apendice{Plan de Proyecto Software}
 
 \section{Introducción}
+La planificación es una parte importante de un proyecto. En esta parte se estima el trabajo, el tiempo y el dinero necesario para realizar el proyecto. Hay que analizar todas las partes que forman el proyecto, con esto sabemos los recursos que necesitaremos. Podemos dividir la planificación en planificación temporal y estudio de la viabilidad.
+\begin{itemize}
+\item Planificación temporal: Se elabora un calendario en el que se estima el tiempo que tardaremos en realizar cada una de las tareas del proyecto. 
+\item Estudio de viabilidad: Si el proyecto es viable o no. Podemos dividirlo en dos:
+\begin{itemize}
+\item Viabilidad económica: Se calculan los beneficios y costes del proyecto.
+\item Viabilidad legal: Hay que ver si cumple todas las leyes, y en el software que tiene las licencias y la ley de protección de datos.
+\end{itemize}
+\end{itemize}
 
 \section{Planificación temporal}
+Para la planificación del proyecto hemos utilizado la metodología Scrum, aunque esta metodología está pensaba para trabajar en equipo, consiste en realizar unas entregas parciales y regulares del producto final, es recomendable para proyectos en entornos complejos, donde se necesitan obtener resultados pronto, y la innovación, la competitividad, la flexibilidad y la productividad son fundamentales.
+En nuestro caso a través de GitHub:
+\begin{itemize}
+\item Creamos un Milestone correspondiente a la semana que estamos.
+\item Creamos las tareas que realizaremos esa semana habladas en la reunión semanal.
+\item Para gestionar el tiempo de las tareas lo llevamos a cabo mediante ZenHub, que es una herramienta que incluye el  navegador.
+\item Según vamos realizando las tareas las vamos cerrando, y así podremos observar el gráfico que nos muestra en burndown chart, en el que podremos ver el progreso.
+\end{itemize}
+A continuación se analizan y detallan las tareas realizadas en todos los sprints que se han realizado.
+\subsection{Sprint 0 (18/09/17 - 25/09/17)}
+En la reunión para planificar este sprint es cuando comenzó el proyecto. En ella se concreta por encima en que consiste el problema que vamos a llevar a cabo.
+En esta primera semana, se ha dedicado a la documentación de las herramientas que se van a usar y de distintos artículos, las tareas son:
+\begin{itemize}
+\item Refrescar los conocimientos de GitHub.
+\item Documentación sobre \LaTeX~\cite{wiki:latex}, y su posterior instalación y configuración.
+\item Leer artículo Disturbing Neighbors~\cite{disturbingneighbors}.
+\item Documentación sobre Bagging~\cite{scikitlearn}.
+\end{itemize}
+
+Esta semana se han cumplido todas las tareas, aunque como todavía no sabía utilizar correctamente GitHub, no creé bien el Milestone por lo que esta semana no tenemos burndown.
+
+\subsection{Sprint 1 (26/09/17 - 02/10/17)}
+Esta semana, se ha dedicado a la documentación del funcionamiento de bagging y empezar con el primer clasificador Disturbing Neighbors, las tareas son:
+\begin{itemize}
+\item Reducir el conjunto de datos. Reducimos el conjunto de datos para quedarnos sólo con los datos que valoraremos para entrenar, estos datos se eligen mediante un subespacio aleatorio (un array aleatorio de 0 y 1).
+\item Calculamos las distancias al vecino más cercano para ello en nuestro caso utilizaremos la distancia de euclides. Los vecinos sobre los que calculamos dichas distancias son unas instancias del conjunto elegidas al azar. 
+\item Funcionamiento del BaggingClassifier. Como nosotros también vamos a hacer un clasificador, entender como se usa el fit, predict y precict\_proba.
+\item Entrenamiento. Entrenamos los datos mediante el método \texttt{fit} que tenemos que programar.
+\item Crear la clase Disturbing Neighbors. Es la clase en la que programaremos nuestro clasificador.
+\end{itemize}
+
+Esta semana se han cumplido todas las tareas.
+
+\subsection{Sprint 2 (02/10/17 - 10/10/17)}
+Esta semana, se ha dedicado a la corrección de errores de la semana pasada y a seguir avanzando con la clase, las tareas son:
+\begin{itemize}
+\item Corregir errores. En la reunión los tutores vieron algunos fallos que hay que corregir del método \texttt{fit}, en el que entrenamos nuestro conjunto de datos.
+\item Función \texttt{predict}. Empezamos con el siguiente método de la clase, en el que después de haber entrenado los datos ahora podemos predecir con ellos.
+\item Mostrar árbol de decisión. Como hemos entrenado nuestros datos podemos mostrar gráficamente los resultados para que sean más apreciables.
+\item Estructurar bien el código. Esto lo hacemos para que en un futuro sea más fácil trabajar.
+\end{itemize}
+
+Esta semana se han cumplido todas las tareas, esta semana terminé de entender como utilizar bien Github, por lo que no creé bien el Milestone por lo que esta semana no tenemos burndown.
+
+\subsection{Sprint 3 (10/10/17 - 15/10/17)}
+Esta semana, se ha dedicado a la corrección de errores de la semana pasada y a mostrar los resultados en un notebook, las tareas son:
+\begin{itemize}
+\item Corregir errores. La clase no funciona correctamente, ya que algunos de los métodos no hace lo que tienen que hacer, esta tarea no la conseguiremos acabar esta semana, tendremos que dedicar tiempo la próxima semana.
+\item Mostrar árbol en un notebook. Una vez conseguido que la primera versión del clasificador funcione correctamente, mostraremos un árbol de decisión en un notebook para poder observar mejor los resultados.
+\end{itemize}
+
+Esta semana se han cumplido todas las tareas, aunque una de las tareas estaba particionada entre esa semana y la siguiente.
+
+En la figura~\ref{fig:Milestone4} se muestra el gráfico del Sprint 3.
+
+\begin{figure}
+\centering
+\includegraphics[width=0.95\textwidth]{Milestone4}
+\caption{Burndown del sprint 3}
+\label{fig:Milestone4}
+\end{figure}
+
+\subsection{Sprint 4 (17/10/17 - 23/10/17)}
+Esta semana, se ha dedicado a corregir algún error más, a comentar el código y añadir algún nuevo método para que el clasificador funcione mejor:
+\begin{itemize}
+\item Comentar los métodos. Comentamos los diferentes métodos según el formato de python~\cite{comment}.
+\item Semilla. Creamos una semilla, esto lo hacemos para inicializar los valores aleatorios y así conseguir que siempre empiece por el mismo, esto lo hacemos para cuando hacemos pruebas siempre las haga con los mismos datos.
+\item Vecinos molestones. No están calculados correctamente.
+\item Corregir fallos. Sigue dándome algún fallo, no hace lo que debería.
+\item Método \texttt{calculate\_features}. Creamos un método en el que si recibe un numero menor de 1, es el porcentaje de las características con las que nos quedaremos, mientras que si lo que recibe es un número mayor de 1 es un número entero, que índica el valor exacto de las características que escogemos.
+\end{itemize}
+
+Esta semana se han cumplido todas las tareas, terminamos de corregir los fallos, aunque posteriormente iremos mejorando el clasificador.
+
+En la figura~\ref{fig:Milestone5} se muestra el gráfico del Sprint 4.
+
+\begin{figure}
+\centering
+\includegraphics[width=0.95\textwidth]{Milestone5}
+\caption{Burndown del sprint 4}
+\label{fig:Milestone5}
+\end{figure}
+
+\subsection{Sprint 5 (24/10/17 - 30/10/17)}
+Esta semana, se ha dedicado mayormente a empezar a documentar en la memoria, a parte de alguna otra tarea:
+\begin{itemize}
+\item Semilla. No estaba hecha correctamente, hay que hacer alguna modificación.
+\item Subir estructura de proyecto a GitHub. Organizamos y estructuramos bien la estructura del proyecto en GitHub.
+\item Partición de entrenamiento. Dividimos el conjunto de entrenamiento para pasar una parte al fit y otra parte al predict.
+\item Memoria: Introducción. Sobre que va ir nuestro proyecto, una breve explicación.
+\item Memoria: Objetivos del proyecto. Los objetivos que cumpliremos en el proyecto.
+\item Memoria: Conceptos teóricos. Los conceptos necesarios para poder entender y trabajar en el proyecto.
+\item Anexo: Manual del programador. La información que necesitara un programador que quiera seguir con el proyecto.
+\item Anexo: Manual del usuario. Información que necesitará un usuario para poder usar las funcionalidad del proyecto.
+\end{itemize}
+
+Esta semana no se han cumplido todas las tareas, las partes del anexo de manual de programador y usuario no han podido llegar a realizar, aunque en el burndown muestre que están realizadas no es así.
+
+En la figura~\ref{fig:Milestone6} se muestra el gráfico del Sprint 5.
+
+\begin{figure}
+\centering
+\includegraphics[width=0.95\textwidth]{Milestone6}
+\caption{Burndown del sprint 5}
+\label{fig:Milestone6}
+\end{figure}
+
+\subsection{Sprint 6 (31/10/17 - 05/11/17)}
+Esta semana, se ha dedicado mayormente a empezar a documentar en la memoria, a parte de alguna otra tarea:
+\begin{itemize}
+\item Clase funcional. Hacemos la clase funcional, como puede ser cambiar los for por map, para que luego se más rápido en la ejecución.
+\item Probar clase en Spyder. Para ver que todo la clase funciona correctamente la probamos.
+\item Función predecir probabilidades. Creamos un nuevo método llamado \texttt{predict\_proba} que nos devolverá las probabilidades.
+\item Memoria: Técnicas y herramientas. Añadiremos técnicas y herramientas necesarias para entender y poder trabajar con el proyecto.
+\item Método \texttt{train\_test\_split}: Usaremos el método para dividir nuestro conjunto de datos, dicho método es más eficaz que como lo estábamos haciendo la semana pasada.
+\item Correcciones de estilo y mejoras al código DN: Cambiaremos algunas variables a privadas, los comentarios los ponemos en inglés, y utilizaremos el chequeador de sintaxis \url{http://pep8online.com/} para tener un estilo adecuado.
+\end{itemize}
+
+Esta semana se han cumplido todas las tareas, al probar la clase en spyder ha dado algunos errores, sobre todo al importar la clase DisturbingNeihgbors, y algunos errores menores.
+
+En la figura~\ref{fig:Milestone7} se muestra el gráfico del Sprint 6.
+
+\begin{figure}
+\centering
+\includegraphics[width=0.95\textwidth]{Milestone7}
+\caption{Burndown del sprint 6}
+\label{fig:Milestone7}
+\end{figure}
+
+\subsection{Sprint 7 (07/11/17 - 20/11/17)}
+Esta semana, se ha dedicado mayormente a empezar a documentar en la memoria, a parte de alguna otra tarea:
+\begin{itemize}
+\item Pasarle a bagging la clase DN. Probamos a pasarle a bagging nuestra clase Disturbing Neighbors. Como bagging no soporta múltiples salidas, para ello lo solucionaremos utilizando OneVsRestClassifier, esto permitirá que bagging soporte múltiples salidas.
+\item Hacer funcional el método \texttt{nearest\_neighbor}. Conseguir que el método \texttt{nearest\_neighbor} funcione sin utilizar ningún bucle for.
+\item Memoria Conceptos teóricos. Añadir nuevos conceptos teóricos como multilabel o ensemble.
+\item Iteraciones sobre los métodos \texttt{fit}, \texttt{predict} y \texttt{predict\_proba}. Hasta ahora solo se ejecutaba una vez cada método, pero para que esto sea eficaz queremos que se ejecute un número de iteraciones. El \texttt{fit} será el más fácil solo hay que realizar ese método el número de iteraciones requeridas. Para poder calcular el \texttt{predict} tenemos que ir guardando los valores del fit y calcular el promedio. Por último el \texttt{predict\_proba} se calculará igual que el predict.
+\item Estructurar notebook. Estructuramos el notebook de jupyter, para que sea más fácil de entender.
+\item Método \texttt{cross validation}: Para crear los conjuntos de entrenamiento y test usar la validación cruzada.
+\end{itemize}
+
+Esta semana se han cumplido todas las tareas, aunque las tareas de hacer funcional el método \texttt{nearest\_neighbor} y \texttt{cross validation}, me han hecho dedicar más horas de las esperadas, en el primer caso por mi poco conocimiento sobre el uso de los mapas en python y en el segundo caso por los diversos errores que me salían al intentar compilar.
+
+En la figura~\ref{fig:Milestone8} se muestra el gráfico del Sprint 7.
+
+\begin{figure}
+\centering
+\includegraphics[width=0.95\textwidth]{Milestone8}
+\caption{Burndown del sprint 7}
+\label{fig:Milestone8}
+\end{figure}
+
+\subsection{Sprint 8 (21/11/17 - 27/11/17)}
+Esta semana, se ha dedicado a terminar definitivamente el Disturbing Neighbors y documentarme sobre el siguiente algoritmo Random Oracles:
+\begin{itemize}
+\item Comentar Notebooks. Comentamos los notebooks, para ir explicando lo que realizamos en cada paso.
+\item Estilo. Como hemos realizado alguna modificación volvemos a comprobar que el estilo es el correcto.
+\item Excepciones. Ponemos excepciones para los casos que pueda ocurrir un error.
+\item Artículo Random Oracles~\cite{randomoracles}. Documentación sobre el nuevo algoritmo Random Oracles.
+\item Acabar \texttt{predict\_proba} y comentar nuevos métodos. Acabamos el \texttt{predict\_proba} para cuando hacemos iteraciones, y comentamos los nuevos métodos que hemos creado.
+\item Método \texttt{score} iteraciones. Hacer correctamente el método \texttt{score} cuando hacemos iteraciones.
+\end{itemize}
+
+Esta semana una de las tareas no se ha acabado por lo que aparecerá en el Sprint 9, ninguna de las tareas ha llevado mas tiempo del estimado, ya que ninguna de las tareas ha dado muchos problemas.
+
+En la figura~\ref{fig:Milestone9} se muestra el gráfico del Sprint 8.
+
+\begin{figure}
+\centering
+\includegraphics[width=0.95\textwidth]{Milestone9}
+\caption{Burndown del sprint 8}
+\label{fig:Milestone9}
+\end{figure}
+
+\subsection{Sprint 9 (28/11/17 - 04/12/17)}
+Esta semana, se ha dedicado a probar unos datos reales en Disturbing Neighbors, a comenzar con el algoritmo Random Oracles y a otras tareas menores:
+\begin{itemize}
+\item Pasar un conjunto de datos reales a DN. Probamos el clasificador con un conjunto de datos reales, lo escogeremos de mulan o meka. Como el archivo es .arff, necesitaremos aprender como leer un archivo .arff en python.
+\item Fit Random Oracles. Creamos el \texttt{fit} y los métodos necesarios para su funcionamiento.
+\item Mejorar la descripción de las excepciones. Cambiamos la descripción de las excepciones para que no sean tan genéricas, y ayuden a entender al usuario el problema.
+\item Revisar Ortografía. Revisar los comentarios y todo lo escrito hasta la fecha para ver que no hay faltas de ortografía.
+\item Comentarios globales de los notebook. Poner comentarios encima de cada parte de código para que sea más entendible.
+\end{itemize}
+
+Esta semana se han cumplido todas las tareas menos la del predict del Random Oracles, las tareas de pasar un conjunto reales y el fit del random oracles, han llevado más tiempo del esperado, la primera por mi desconocimiento sobre los archivos arff, y la segunda porque no comprendí bien como debía funcionar el fit.
+
+En la figura~\ref{fig:Milestone10} se muestra el gráfico del Sprint 9.
+
+\begin{figure}
+\centering
+\includegraphics[width=0.95\textwidth]{Milestone10}
+\caption{Burndown del sprint 9}
+\label{fig:Milestone10}
+\end{figure}
+
+\subsection{Sprint 10 (05/12/17 - 11/12/17)}
+Esta semana, se ha dedicado a dejar casi terminado el clasificador Random Oracles y a otras tareas menores:
+\begin{itemize}
+\item Predict Random Oracles. Realizamos el método \texttt{predict}.
+\item Avanzar en la documentación. Empezar con la documentación, ya que está muy retrasada.
+\item Mejorar método \texttt{fit}. Hacer funcional el código y si se puede reducirlo.
+\item Método \texttt{predict\_proba}. Realizamos el método \texttt{predict\_proba}.
+\item Iteraciones clase Random Oracle. Como en Disturbing Neighbors tenemos que hacer iteraciones sobre la clase Random Oracles.
+\item Revisión de código. Cambiar el nombre de algunas variables o funciones para que su significado tenga que ver con el nombre.
+\item Notebooks para el clasificador Random Oracle. Hacer notebooks para el clasificador Random Oracle, uno sin iteraciones, otro con iteraciones y otro con datos reales.
+\end{itemize}
+
+Esta semana se han cumplido todas las tareas, ninguna de las tareas ha dado muchos problemas a la hora de llevarla a cabo.
+
+En la figura~\ref{fig:Milestone11} se muestra el gráfico del Sprint 10.
+
+\begin{figure}
+\centering
+\includegraphics[width=0.95\textwidth]{Milestone11}
+\caption{Burndown del sprint 10}
+\label{fig:Milestone11}
+\end{figure}
+
+\subsection{Sprint 11 (12/12/17 - 18/12/17)}
+Esta semana, se ha termina algunos detalles del Random Oracles, y se se ha empezado con el siguiente clasificador Random Forest:
+\begin{itemize}
+\item Artículo Rotation Forest~\cite{rotationforest}. Leer el artículo Rotation Forest, para entender el nuevo algoritmo que vamos realizar.
+\item Notebooks. Mejorar los notebooks, creando una función que según un parámetro nos llame al clasificador Disturbing Neighbors o al Random Oracles.
+\item Herencia. Usar la herencia, ya que una de las clases llamada Homogeneous\_ensembles, es la que hace las iteraciones, y sus herederos serían las clases de Disturbing Neighbours y Random Oracles.
+\item Rotation Forest dividir. Dividimos el conjunto de datos(X) en grupos de 3, usamos permutaciones para evitar repetidos.
+\item Rotation Forest PCA. Cuando ya tenemos los grupos, usaremos \texttt{PCA} sobre cada uno de los grupos, en los que haremos primero fit y luego transform.
+\item Rotation Forest fit. Volvemos a juntar los grupos en uno solo, y sobre este nuevo conjunto de datos(X') hacemos el \texttt{fit}.
+\item Correcto estilo Random Oracles. Utilizamos el chequeador de sintaxis de PEP8 online para que es el estilo que estamos siguiendo \url{http://pep8online.com/}.
+\item Error encontrado en RO en el método \texttt{predict\_proba}. Encontramos un error cuando realizamos iteraciones sobre el método \texttt{predict\_proba} de la clase Random Oracles, ya que como lo probamos con un árbol cuando en una de las iteraciones si tiene el mismo labelset devuelve una predicción con tamaño uno, por lo tanto para corregir esto lo que hacemos es calcular las probabilidades con el método \texttt{predict}, ya que este sí funciona correctamente.
+\item Comentar correctamente las clases. Algunos comentarios están incompletos y algunos métodos les falta comentarios.
+\item Compactar los notebooks. Al final tener 3 notebooks en total, uno sin iteraciones, otro con iteraciones y otro con datos reales. Para diferenciar que clasificador queremos utilizar, instanciamos cada clasificador en una celda distinta, y después ejecutamos la celda del clasificador que queremos usar.
+\item Avanzar con la Memoria. Esta semana avanzaré en la parte de planificación temporal, añadimos algunos sprint.
+\end{itemize}
+
+Esta semana se han cumplido todas las tareas, el error encontrado en el método \texttt{predict\_proba} me ha llevado mucho tiempo corregirlo, por lo que en la memoria no pude dedicarle todo el tiempo que quería.
+
+En la figura~\ref{fig:Milestone12} se muestra el gráfico del Sprint 11.
+
+\begin{figure}
+\centering
+\includegraphics[width=0.95\textwidth]{Milestone12}
+\caption{Burndown del sprint 11}
+\label{fig:Milestone12}
+\end{figure}
 
 \section{Estudio de viabilidad}
 

@@ -1,11 +1,26 @@
 \capitulo{3}{Conceptos teóricos}
 
+Este apartado va tratar sobre la explicación de los conceptos necesarios para poder entender el proyecto.
 
 \section{Minería de Datos}
+Es conocida la frase <<los datos en bruto raramente son beneficiosos directamente>>. Aunque puede tener valor, ya que podemos extraer información útil para la toma de decisiones o exploración, y también para la compresión del fenómeno dominante en el conjunto de datos. ~\cite{mineria}.
 
-Es un conjunto de reglas mediante las cuales se analizan grandes volúmenes de datos, la finalidad de esto es descubrir unos patrones, una similitud o una propensión que expliquen el comportamiento de los datos. Para hacer esto utiliza los métodos de la inteligencia artificial, estadística y redes neuronales.
-El objetivo del proceso de minería de datos consiste en extraer información de un conjunto de datos, luego se interpreta esta información para un uso posterior \cite{wiki:datamining}.
-En general el proceso de la minería de datos consta de 4 etapas\cite{datamining}:
+La finalidad de esto es descubrir unos patrones, una similitud o una propensión que expliquen el comportamiento de los datos. Para hacer esto utiliza los métodos de la inteligencia artificial, estadística y redes neuronales.
+El objetivo del proceso de minería de datos consiste en extraer información de un conjunto de datos, luego se interpreta esta información para un uso posterior. ~\cite{wiki:datamining}.
+
+La minería de datos es conocida como un sinónimo de KDD (Descubrimiento del conocimiento de los datos): Es el proceso del descubrimiento del conocimiento de los datos tiene una secuencia de pasos~\cite{mineria_KDD}:
+
+\begin{enumerate}[1.]
+	\item Limpieza de datos. Eliminación del ruido y la inconsistencia de los datos.
+	\item Integración de los datos. Múltiples fuentes de datos son combinadas.
+	\item Selección de datos. Los datos relevantes para la tarea de análisis se recuperan de la base de datos.
+	\item Transformación de datos. Los datos son transformados y se consolidad como apropiados para la minería mediante la realización de operaciones simétricas o de agregación.
+	\item Minería de datos. Es un proceso esencial donde los métodos de inteligencia son aplicados a la extracción de patrones.
+	\item Evaluación de patrones. Identificar los patrones que de verdad son interesantes, que representan el conocimiento basado en medidas de interés.
+	\item Presentación del conocimiento. La visualización y el conocimiento representan técnicas que son utilizadas para presentar la minería del conocimiento a los usuarios.
+\end{enumerate}
+
+Aunque el proceso de la minería de datos consta de más etapas nosotros nos centraremos en 4 etapas~\cite{datamining}:
 
 \subsection{Determinación de los objetivos}
 
@@ -13,7 +28,7 @@ Se tratan los objetivos que quiere conseguir el cliente bajo un asesor especiali
 
 \subsection{Preprocesamiento de los datos}
 	
-Es la etapa que más tiempo se tarda en realizar el el proceso. Se seleccionan, limpian, enriquecen, reducen y transforman las bases de datos.
+Es la etapa que más tiempo se tarda en realizar el proceso. Se seleccionan, limpian, enriquecen, reducen y transforman las bases de datos.
 
 \subsection{Determinación del modelo}
 

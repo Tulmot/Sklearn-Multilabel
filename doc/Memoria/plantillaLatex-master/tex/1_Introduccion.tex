@@ -1,55 +1,10 @@
 \capitulo{1}{Introducción}
 
-Este proyecto trata sobre implementar diversos algoritmos de combinación clasificadores(ensembles)para multi-label sobre la librería Scikit Learn de Python, son clasificadores que combinan predicciones de otros clasificadores. Los clasificadores combinados en un ensemble son conocidos como clasificadores base.
-El aprendizaje automático también conocido como aprendizaje de máquinas es del subcampo de las ciencias de la computación y de la rama de inteligencia artificial, el objetivo es desarrollar unas técnicas que permitan que las máquinas aprendan. Consiste en generalizar comportamientos a partir de unos datos suministrados. El aprendizaje automático se basa en en análisis de datos y en el estudio de la complejidad computacional de los problemas.Tiene una gran variedad de aplicaciones, como pueden ser motores de búsqueda o análisis del mercado de valores entre otras.
+La minería de datos es un campo de la estadística y las ciencias de la computación, que consisten en el análisis de grandes cantidades de datos para descubrir patrones.
+Utiliza el método del aprendizaje automático, éste pertenece a un subcampo de las ciencias de computación y de la rama de inteligencia artificial, el objetivo de éste es desarrollar unas técnicas que permitan que las máquinas aprendan.
+Dentro de este aprendizaje se encuentra el aprendizaje supervisado, en él normalmente los conjuntos de datos suelen tener solo una variable a predecir, conocido como single-label, pero aparecido el multi-label, este hace referencia a los conjuntos de datos en lo que cada elemento de la base de datos puede pertenecer a más de una clase, como por ejemplo en el etiquetado de imágenes: en el que una imagen puede tener a la vez las etiquetas <<árbol>>, <<montaña>> y <<mar>>.
+En este proyecto vamos a tratar sobre implementar diversos algoritmos de clasificadores (ensembles), para multi-label sobre la librería Scikit Learn de Python. Se ha seguido la guía de estilo de Python (PeP) y Sklearn. Para que se entienda mejor y sea más gráfico, se han dibujado árboles y gráficas, mostrando los resultados al ejecutar dichos algoritmos sobre un conjunto de datos. Los algoritmos en los que nos vamos a centrar son Disturbing Neighbors, Random Oracles y Rotation Forest.
 
-La precisión global de los ensembles necesita que los clasificadores base predigan correctamente la clase de las mismas instancias. Tienen que ser diferentes para complementarse entre ellos. ¿Cómo puede un ensemble de clasificadores base que han sido generados por el mismo algoritmo tener distintas salidas, si las entradas son las mismas? Esto se ha conseguido en ensembles que usan distintas estrategias, los ensembles se suelen basar en la modificación del conjunto de datos de entrenamiento de clasificadores base. 
-
-En el aprendizaje supervisado, normalmente los conjuntos de datos suelen tenner solo una variable a predecir, llamado single-label. Pero desde hace un tiempo apareció el multi-label, este hace referencia a los conjuntos de datos en los que cada elemento de la base de datos puede pertenecer a la vez a más de una clase. Como por ejemplo en el ámbito del etiquetado de imágenes: en el que una imagen puede ser a la vez etiqueta "árbol", "montaña" y "mar".
-
-\section{Estructura de la memoria}\label{estructura-de-la-memoria}
-
-La memoria sigue la siguiente estructura:
-
-\begin{itemize}
-\tightlist
-\item
-  \textbf{Introducción:} Descripción del contenido del trabajo y del estructura de la memoria y del resto de materiales entregados.
-\item
-  \textbf{Objetivos del proyecto:} Este apartado explica de forma precisa y concisa cuales son los objetivos que se persiguen con la realización del proyecto. Se puede distinguir entre los objetivos marcados por los requisitos del software a construir y los objetivos de carácter técnico que plantea a la hora de llevar a la práctica el proyecto.
-\item
-  \textbf{Conceptos teóricos:} breve explicación de los conceptos
-  teóricos clave para la comprensión de la solución propuesta.
-\item
-  \textbf{Técnicas y herramientas:} Esta parte de la memoria tiene como objetivo presentar las técnicas metodológicas y las herramientas de desarrollo que se han utilizado para llevar a cabo el proyecto.
-\item
-  \textbf{Aspectos relevantes del desarrollo:} Este apartado pretende recoger los aspectos más interesantes del desarrollo del proyecto.
-\item
-  \textbf{Trabajos relacionados:} Este apartado sería parecido a un estado del arte de una tesis o tesina.
-\item
-  \textbf{Conclusiones y líneas de trabajo futuras:} Todo proyecto debe incluir las conclusiones que se derivan de su desarrollo. Normalmente van a estar presentes un conjunto de conclusiones relacionadas con los resultados del proyecto y un conjunto de conclusiones técnicas. 
-Además, resulta muy útil realizar un informe crítico indicando cómo se puede mejorar el proyecto, o cómo se puede continuar trabajando en la línea del proyecto realizado.
-\end{itemize}
-
-Junto a la memoria se proporcionan los siguientes anexos:
-
-\begin{itemize}
-\tightlist
-\item
-  \textbf{Plan del proyecto software:} En esta fase se estima el trabajo, el tiempo y el dinero que va a suponer la realización del proyecto.
-\item
-  \textbf{Especificación de requisitos:} Define el comportamiento del sistema desarrollado. Sirve
-como documento contractual entre el cliente y el equipo de desarrollo y
-como documentación correspondiente al análisis a la aplicación.
-\item
-  \textbf{Especificación de diseño:} Define los datos que va a
-manejar la aplicación, su arquitectura, el diseño de sus interfaces, sus
-detalles procedimentales, etc.
-\item
-  \textbf{Manual del programador:} Incluye la instalación del entorno de desarrollo, la estructura de la
-aplicación, su compilación, la configuración de los diferentes servicios
-de integración utilizados o las baterías de test realizadas.
-\item
-  \textbf{Manual de usuario:} Guía de usuario para el correcto manejo de
-  la aplicación.
-\end{itemize}
+La precisión global de los ensembles necesita que los clasificadores base predigan correctamente la clase de las mismas instancias.
+Tienen que ser diferentes para complementarse entre ellos. 
+¿Cómo puede un ensemble de clasificadores base que han sido generados por el mismo algoritmo tener distintas salidas, si las entradas son las mismas? Una de las estrategias que podemos usar para ello son los ensembles heterogéneos, es decir, mismo conjunto de datos distintos clasificadores. 
