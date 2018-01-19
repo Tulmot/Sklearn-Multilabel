@@ -60,7 +60,6 @@ class RotationForest(HomogeneousEnsemble):
     >>> clf = RotationForest(random_state=0)
     >>> iris = load_iris()
     >>> cross_val_score(clf, iris.data, iris.target, cv=10)
-    ...                             # doctest: +SKIP
     ...
     array([ 1.        ,  1.        ,  1.        ,  1.        ,  1.        ,
         1.        ,  0.66666667,  0.        ,  0.        ,  0.        ])

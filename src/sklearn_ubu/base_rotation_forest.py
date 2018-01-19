@@ -33,9 +33,6 @@ class BaseRotationForest(ClassifierMixin, BaseEstimator):
 
     per_samples_classes : They size of the classes of each of the subsets, by
     default if is none, 80% are chosen.
-
-    _rnd_features : A random array of integers, that will be used to split the
-    set.
     
     See also
     --------
@@ -57,7 +54,6 @@ class BaseRotationForest(ClassifierMixin, BaseEstimator):
     >>> clf = BaseRotationForest(random_state=0)
     >>> iris = load_iris()
     >>> cross_val_score(clf, iris.data, iris.target, cv=10)
-    ...                             # doctest: +SKIP
     ...
     array([ 1.        ,  0.93333333,  1.        ,  0.93333333,  0.8       ,
         0.93333333,  0.93333333,  0.93333333,  1.        ,  0.93333333])
@@ -74,6 +70,7 @@ class BaseRotationForest(ClassifierMixin, BaseEstimator):
         self.random_state = random_state
         self.per_samples = per_samples
         self.per_samples_classes = per_samples_classes
+        """A random array of integers, that will be used to split the set."""
         self._rnd_features = None
 
     def _calc_rnd_features(self, X):
@@ -89,7 +86,7 @@ class BaseRotationForest(ClassifierMixin, BaseEstimator):
         return np.asarray(list_features)
 
     def _split(self, X):
-        """Dividimos el conjunto de datos, por defecto cada subgrupo tendra
+        """Dividimos el conjunto de datos, por defecto cada subgrupo tendrá
         tamaño 3"""
         divide = np.split(
             self._rnd_features, self._rnd_features.shape[0]/self.n_groups)
@@ -103,8 +100,8 @@ class BaseRotationForest(ClassifierMixin, BaseEstimator):
         return self._pcas[pos_subX[0]].transform(pos_subX[1])
 
     def _split_transform(self, X):
-        """Dividimos el conjunto, tranformamos los subgrupos y los concatenamos
-        para obtener el conjunto final"""
+        """Dividimos el conjunto, transformamos los subgrupos y los 
+        concatenamos para obtener el conjunto final"""
         split_group = self._split(X)
         tuple_pos_subX = list(zip(range(len(self._pcas)), split_group))
         sub_pcas_transform = list(map(self._pca_transform, tuple_pos_subX))
@@ -127,13 +124,13 @@ class BaseRotationForest(ClassifierMixin, BaseEstimator):
             Returns self.
         """
         def get_sample(subX):
-            """Obtenemos una muestra ddel subconjunto"""
+            """Obtenemos una muestra del subconjunto"""
             return resample(subX, replace=False, n_samples=round(
                     subX.shape[0]*self.per_samples
                     ), random_state=self.random_state)
 
         def get_sample_class(suby):
-            """Obtenemos una muestra ddel subconjunto"""
+            """Obtenemos una muestra del subconjunto de la clase"""
             return resample(suby, replace=False, n_samples=round(
                     suby.shape[0]*self.per_samples_classes
                     ), random_state=self.random_state)

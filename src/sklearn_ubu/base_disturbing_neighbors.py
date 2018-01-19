@@ -32,15 +32,6 @@ class BaseDisturbingNeighbors(ClassifierMixin, BaseEstimator):
         If None, the random number generator is the RandomState instance used
         by `np.random`.
 
-    _rnd_dimensions : A Boolean random array, its size is equal to the number
-        of features of the set, but then the number of TRUE values it contains
-        will be equal to the value of the variable n_features, the TRUE values,
-        indicate which features are chosen to evaluate the set.
-
-    _rnd_neighbors : A random array of integers, the size of this array depends
-        on the variable n_neighbors, will select random rows of the data set,
-        is what we will call disturbing neighbors.
-
     See also
     --------
     DisturbingNeighbors
@@ -70,7 +61,6 @@ class BaseDisturbingNeighbors(ClassifierMixin, BaseEstimator):
     >>> clf = BaseDisturbingNeighbors(random_state=0)
     >>> iris = load_iris()
     >>> cross_val_score(clf, iris.data, iris.target, cv=10)
-    ...                             # doctest: +SKIP
     ...
     array([ 1.        ,  0.93333333,  1.        ,  0.93333333,  0.93333333,
         0.86666667,  0.93333333,  1.        ,  1.        ,  1.        ])
@@ -84,21 +74,28 @@ class BaseDisturbingNeighbors(ClassifierMixin, BaseEstimator):
         self.n_neighbors = n_neighbors
         self.n_features = n_features
         self.random_state = random_state
+        """A Boolean random array, its size is equal to the number of features
+        of the set, but then the number of TRUE values it contains will be
+        equal to the value of the variable n_features, the TRUE values,
+        indicate which features are chosen to evaluate the set."""
         self._rnd_dimensions = None
+        """A random array of integers, the size of this array depends on the
+        variable n_neighbors, will select random rows of the data set, is what
+        we will call disturbing neighbors."""
         self._rnd_neighbors = None
         self._num_features = 0
         self._m_disturbing = None
 
     def _calculate_features(self, X):
-        """Calculamos el numero de caracteristicas que usaremos"""
+        """Calculamos el número de características que usaremos"""
         if self.n_features < 1:
             return round(X.shape[1]*self.n_features)
         else:
             return self.n_features
 
     def _calc_rnd_index_features(self, X):
-        """Calculamos un array random boolean que es el que nos indicara que
-        caracteristicas que valoraremos"""
+        """Calculamos un array random boolean que es el que nos indicará que
+        características valoraremos"""
         while True:
             self._rnd_dimensions = np.concatenate((self.random_state.randint(
                     0, 2, self._num_features), np.zeros(
@@ -116,7 +113,7 @@ class BaseDisturbingNeighbors(ClassifierMixin, BaseEstimator):
         return self.random_state.choice(tam, self.n_neighbors, replace=False)
 
     def _reduce_data(self, X):
-        """Reducimos los datos obtenidos a las caracteristicas que vamos a
+        """Reducimos los datos obtenidos a las características que vamos a
         evaluar, que seran las que hemos obtenido segun el array random
         boolean"""
         return X[:, self._rnd_dimensions]
@@ -127,7 +124,7 @@ class BaseDisturbingNeighbors(ClassifierMixin, BaseEstimator):
         return self._m_disturbing
 
     def _nearest_neighbor(self, _m_reduce):
-        """Calculamos los vecinos mas cercanos a las instancias escogidas
+        """Calculamos los vecinos más cercanos a las instancias escogidas
         antes aleatoriamente"""
         def euc_dis_func(t):
             return euclidean_distances([t], self._m_disturbing).argmin()

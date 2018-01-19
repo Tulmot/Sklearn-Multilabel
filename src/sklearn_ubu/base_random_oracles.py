@@ -3,11 +3,11 @@ from sklearn.metrics.pairwise import euclidean_distances
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.utils import check_random_state
 from sklearn.base import ClassifierMixin
-from sklearn.base import BaseEstimator
 from sklearn.utils.multiclass import is_multilabel
+from sklearn.ensemble.base import BaseEnsemble
 
 
-class BaseRandomOracles(ClassifierMixin, BaseEstimator):
+class BaseRandomOracles(ClassifierMixin, BaseEnsemble):
     """A Base Random Oracles.
 
     BaseRandomOracles is a base classifier.
@@ -25,14 +25,7 @@ class BaseRandomOracles(ClassifierMixin, BaseEstimator):
         If int, random_state is the seed used by the random number generator;
         If RandomState instance, random_state is the random number generator;
         If None, the random number generator is the RandomState instance used
-        by `np.random`.
-
-    _rnd_oracles : A random array of integers, the size of this array depends
-        on the variable n_oracles, will select random rows of the data set,
-        is what we will call random oracles.
-
-    _m_oracles : It is a matrix that contains the instances of the random
-    sentences that we have selected.
+        by `np.random`.    
     
     See also
     --------
@@ -66,19 +59,26 @@ class BaseRandomOracles(ClassifierMixin, BaseEstimator):
     >>> clf = BaseRandomOracles(random_state=0)
     >>> iris = load_iris()
     >>> cross_val_score(clf, iris.data, iris.target, cv=10)
-    ...                             # doctest: +SKIP
     ...
     array([ 1.        ,  0.93333333,  1.        ,  0.93333333,  0.93333333,
         0.86666667,  0.93333333,  0.93333333,  1.        ,  1.        ])
     """
     def __init__(self,
                  base_estimator=DecisionTreeClassifier(),
-                 n_oracles=3,
-                 random_state=None):
+                 n_oracles=2,
+                 random_state=None,
+                 estimator_params=tuple()):
         self.base_estimator = base_estimator
+        self.base_estimator_ = base_estimator
         self.n_oracles = n_oracles
         self.random_state = random_state
+        self.estimator_params = estimator_params
+        """A random array of integers, the size of this array depends on the
+        variable n_oracles, will select random rows of the data set, is what we
+        will call random oracles."""
         self._rnd_oracles = None
+        """It is a matrix that contains the instances of the random sentences
+        that we have selected."""
         self._m_oracles = None
 
     def _calc_rnd_oracles(self, X):
@@ -92,7 +92,7 @@ class BaseRandomOracles(ClassifierMixin, BaseEstimator):
         return X[self._rnd_oracles, :]
 
     def _nearest_oracle(self, _m_reduce):
-        """Calculamos los oráculos mas cercanos a las instancias escogidas
+        """Calculamos los oráculos más cercanos a las instancias escogidas
         antes aleatoriamente"""
         def euc_dis_func(t):
             return euclidean_distances([t], self._m_oracles).argmin()
@@ -123,14 +123,18 @@ class BaseRandomOracles(ClassifierMixin, BaseEstimator):
             """Entrenamos cada uno de los oraculos """
             oracle_near = np.asarray(nearest_oracles).astype(bool)
             """Si no es multilabel"""
-            if not is_multilabel(y):
-                self._multilabel = False
-                return self.base_estimator.fit(X, y)
+            if not self._multilabel:
+                cls=self._make_estimator(append=False, random_state=self.random_state)
+                return cls.fit(X, y)
             else:
-                self._multilabel = True
                 Xp = X[oracle_near, :]
                 yp = y[oracle_near, :]
-                return self.base_estimator.fit(Xp, yp)
+                cls=self._make_estimator(append=False, random_state=self.random_state)
+                return cls.fit(Xp, yp)
+        if is_multilabel(y):
+            self._multilabel = True
+        else:
+            self._multilabel = False
         self.random_state = check_random_state(self.random_state)
         self._rnd_oracles = self._calc_rnd_oracles(X)
         self._m_oracles = self._oracles(X)
@@ -138,8 +142,8 @@ class BaseRandomOracles(ClassifierMixin, BaseEstimator):
         return self
 
     def _split_inst_oracles(self, X, inst_oracles):
-        """Separamos la instanciay el oraculo, y de este ultimo obtenemos cual
-        es el oraculo más cercano a esa instancia """
+        """Separamos la instancia y el oraculo, y de este último obtenemos cual
+        es el oráculo más cercano a esa instancia """
         n_features = X.shape[1]
         oracle_near = inst_oracles[n_features:]
         instance = inst_oracles[:n_features]
@@ -162,8 +166,8 @@ class BaseRandomOracles(ClassifierMixin, BaseEstimator):
             The predicted classes.
         """
         def list_predict(inst_oracles):
-            """Predecimos cada una de las instancias con el oraculo
-            correspondiente mas cercano"""
+            """Predecimos cada una de las instancias con el oráculo
+            correspondiente más cercano"""
             index_classifier = self._split_inst_oracles(X, inst_oracles)[1]
             instance = self._split_inst_oracles(X, inst_oracles)[0]
             return self._classifiers_train[index_classifier].predict(
@@ -189,7 +193,7 @@ class BaseRandomOracles(ClassifierMixin, BaseEstimator):
         """
 
         def predict_prob(num):
-            """Según el numero devolvemos una probabilidad o otra """
+            """Según el número devolvemos una probabilidad o otra """
             if num == 1:
                 return [[0., 1.]]
             else:
@@ -197,26 +201,23 @@ class BaseRandomOracles(ClassifierMixin, BaseEstimator):
 
         def list_predict_proba(inst_oracles):
             """Predecimos la probabilidad de cada una de las instancias con el
-            oraculo correspondiente mas cercano"""
+            oráculo correspondiente más cercano"""
             index_classifier = self._split_inst_oracles(X, inst_oracles)[1]
             instance = self._split_inst_oracles(X, inst_oracles)[0]
             prediction_proba = self._classifiers_train[
                 index_classifier].predict_proba([instance])
-            """Calculamos el array con el tamaño mas pequeño, porque podemos
+            """Calculamos el array con el tamaño más pequeño, porque podemos
             tener el problema de que está considerando que la segunda salida
             solo tiene un valor. En este caso para no tener problemas lo que
             hacemos es calcular la probabilidad para esa instancia con el
             predict en vez de usar el predict_proba"""
-            """Si es mmultilabel """
-            if(self._multilabel is True):
-                if(min(prediction_proba, key=(lambda x: len(x[0]))).shape[1]):
-                    call_predict = self._classifiers_train[
-                        index_classifier].predict([instance])
-                    return list(np.asarray(list(map(
-                            predict_prob, call_predict[0]))))
-            #    else:
-            #        return prediction_proba[0]
-            #else:
+            """Si es multilabel """
+            if(self._multilabel is True and min(prediction_proba, key=(
+                    lambda x: len(x[0]))).shape[1]):
+                call_predict = self._classifiers_train[
+                    index_classifier].predict([instance])
+                return list(np.asarray(list(map(
+                        predict_prob, call_predict[0]))))
             return prediction_proba[0]
 
         m_oracle = np.concatenate((X, self._nearest_oracle(X)), axis=1)
