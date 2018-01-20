@@ -13,3 +13,7 @@ Para que un usuario pueda usar nuestros algoritmos, deberá tener instalado Pyth
 
 - Tener el proyecto descargado o clonado con los fuentes:
 	Se puede descargar a través del siguiente enlace https://github.com/Tulmot/Sklearn-Multilabel.git
+
+# Autores
+Autor: Eduardo Tubilleja Calvo.
+Tutores: Álvar Arnaiz González y Juan José Rodríguez Díez.
