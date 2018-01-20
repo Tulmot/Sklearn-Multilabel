@@ -3,7 +3,7 @@
 Este apartado va tratar sobre la explicación de los conceptos necesarios para poder entender el proyecto.
 
 \section{Minería de Datos}
-Es conocida la frase <<los datos en bruto raramente son beneficiosos directamente>>. Aunque puede tener valor, ya que podemos extraer información útil para la toma de decisiones o exploración, y también para la compresión del fenómeno dominante en el conjunto de datos. ~\cite{mineria}.
+Es conocida la frase <<los datos en bruto raramente son beneficiosos directamente>>. Aunque puede tener valor, ya que podemos extraer información útil para la toma de decisiones o exploración, y también para la compresión del fenómeno dominante en el conjunto de datos~\cite{mineria}.
 
 La finalidad de esto es descubrir unos patrones, una similitud o una propensión que expliquen el comportamiento de los datos. Para hacer esto utiliza los métodos de la inteligencia artificial, estadística y redes neuronales.
 El objetivo del proceso de minería de datos consiste en extraer información de un conjunto de datos, luego se interpreta esta información para un uso posterior. ~\cite{wiki:datamining}.
@@ -21,24 +21,15 @@ La minería de datos es conocida como un sinónimo de KDD (Descubrimiento del co
 \end{enumerate}
 
 Aunque el proceso de la minería de datos consta de más etapas nosotros nos centraremos en 4 etapas~\cite{datamining}:
-
-\subsection{Determinación de los objetivos}
-
-Se tratan los objetivos que quiere conseguir el cliente bajo un asesor especialista en minería de datos.
-
-\subsection{Preprocesamiento de los datos}
-	
-Es la etapa que más tiempo se tarda en realizar el proceso. Se seleccionan, limpian, enriquecen, reducen y transforman las bases de datos.
-
-\subsection{Determinación del modelo}
-
-Se lleva a cabo un estudio estadístico de los datos, más tarde se hace una visualización gráfica para una primera aproximación. Según los objetivos que se habían propuesto se pueden usar diferentes algoritmos de la Inteligencia Artificial.
-
-\subsection{Análisis de los resultados}	
-
-Se comprueban si los datos obtenidos tienen coherencia, después se comparan con los obtenidos en los estudios estadísticos y la visualización gráfica. El cliente es el que ve si los datos le aportan nuevo conocimiento que le permita considerar sus decisiones.
+\begin{itemize}
+	\item Determinación de los objetivos: Se tratan los objetivos que quiere conseguir el cliente bajo un asesor especialista en minería de datos.
+	\item Preprocesamiento de los datos: Es la etapa que más tiempo se tarda en realizar el proceso. Se seleccionan, limpian, enriquecen, reducen y transforman las bases de datos.
+	\item Determinación del modelo: Se lleva a cabo un estudio estadístico de los datos, más tarde se hace una visualización gráfica para una primera aproximación. Según los objetivos que se habían propuesto se pueden usar diferentes algoritmos de la Inteligencia Artificial.
+	\item  Análisis de los resultados: Se comprueban si los datos obtenidos tienen coherencia, después se comparan con los obtenidos en los estudios estadísticos y la visualización gráfica. El cliente es el que ve si los datos le aportan nuevo conocimiento que le permita considerar sus decisiones.
+\end{itemize}
 
 \section{Multi-Label}
+Un clasificador se utiliza para referirnos a un algoritmo, para asignar un dato entrante no etiquetado a una categoría concreta. Dicho algoritmo, permite clasificar por clases los datos entrantes, a partir de unas ciertas características de estos.
 La clasificación multi-label es una técnica de minería de datos, nos permite que de un conjunto de instancias de entrenamiento, podamos determinar a partir de unos atributos esenciales de dichas instancias para crear unas reglas que posteriormente se usarán para clasificar nuevas instancias \cite{multilabel}.    
 
 \section{Ensemble}
@@ -49,10 +40,22 @@ Se distinguen dos clases de métodos de ensembles:
 		\item En los métodos de impulso, se construyen los estimadores secuencialmente y se trata de reducir el sesgo del estimador combinado. El objetivo es combinar varios modelos débiles para conseguir un conjunto fuerte.
 	\end{itemize}
 
+\section{Scikit-learn}
+Es una librería de Python que contiene algoritmos de aprendizaje automático para problemas supervisados y no supervisados. Es una herramienta enfocada a la minería de datos y al análisis de datos~\cite{scikitlearn2}. Como se ha mencionado anteriormente está basada en el aprendizaje automático, para ello se considera un conjunto con n muestras y se intenta predecir las propiedades de los datos desconocidos~\cite{scikitlearn}. Podemos separar los problemas de aprendizaje principalmente en dos~\cite{scikitlearn2}:
+	\begin{itemize}
+		\item Aprendizaje supervisado: Consiste en que a partir de un conjunto de datos, hacer predicciones basadas en el comportamiento o las características de dichos datos. Nos permite buscar patrones en datos históricos. Dos de las tareas más comunes del aprendizaje supervisado son la clasificación y la regresión:
+		
+		\begin{itemize}
+		 	\item Clasificación: El programa debe aprender a predecir en que categoría o clase irán los nuevos datos, según las nuevas observaciones, por ejemplo, predecir si el precio de una acción bajará o subirá.
+		 	\item Regresión: El programa debe predecir el valor de una variable de respuesta continua, por ejemplo, predecir las ventas de un nuevo producto.
+		\end{itemize}
+		
+		\item Aprendizaje no supervisado: Usa datos históricos que no están etiquetados. El objetivo es explorarlos para encontrar alguna forma de organizarlos.
+	\end{itemize}
 
 
 \section{Disturbing Neighbors}
-Está organizado de la siguiente manera. La subsección 1 se explica la introducción. La subsección 2 describe el método del vecino molestón. La subsección 3 analiza experimentalmente nuestro método aplicado a los conjuntos representativos del estado del arte de SVM. La subsección 4 concluye.
+Está organizado de la siguiente manera. La subsección 1 se explica la introducción. La subsección 2 describe el método del vecino molestón. La subsección 3 analiza experimentalmente nuestro método aplicado a los conjuntos representativos del estado del arte de SVM. La subsección 4 contiene la conclusión.
 \subsection{Introducción}
 Un ensemble es un esquema de combinación de predicciones individuales llamados clasificadores base. El éxito de un ensemble requiere tanto exactitud como diversidad de sus clasificadores base. La diversidad representa como diferente son las predicciones de los clasificadores base. Si los clasificadores base siempre están de acuerdo podría no haber diferencia entre usar sólo un clasificador base o varios combinado por un método de ensemble. Entonces el poder de usar un conjunto de clasificadores base consiste en la posibilidad que algunos de ellos pueden corregir una predicción incorrecta de otros.
 
@@ -83,7 +86,6 @@ El valor m es muy pequeño ya que el objetivo no es crear un clasificador 1-NN m
 Como las predicciones de clase 1-NN son nominales, deben transformarse en binarias
 características para ser calculadas por el algoritmo de entrenamiento SVM. Estas características binarias también dividen el espacio de entrada en regiones cuyo número es igual o menor que el número de clases. En realidad, cada región resultante de esta nueva división es la unión de las regiones de Voronoi correspondientes a los vecinos que comparten la misma clase. Así que otra vez, tenemos un conjunto de atributos booleanos que pueden cambiar los coeficientes de SVM.
 Por lo tanto, las dimensiones adjuntas por DN pueden ser utilizadas por cada SVM en el ensemble. La aleatoriedad introducida hace que estas dimensiones sean diferentes para cada SVM, por lo que se obtienen diversos hiperplanos cada vez.
-\subsection{Resultados}
 \subsection{Conclusión}
 Disturbing Neighbors es un método para alterar el proceso de entrenamiento normal de los clasificadores base en un ensemble, mejorando su diversidad y mejorando la precisión general del ensemble. Disturbing Neighbors crea nuevas características utilizando un clasificador 1-NN. Estas características son la salida 1-NN más un conjunto de atributos booleanos que indican cuál es el vecino más cercano. El clasificador 1-NN se crea utilizando un pequeño subconjunto de instancias de entrenamiento seleccionadas al azar del conjunto de datos original. Las dimensiones utilizadas para calcular la distancia euclidiana también se seleccionan de forma aleatoria. Estas dos fuentes de aleatoriedad son las razones por las que las características creadas son diferentes cada vez, por lo que cuando estas nuevas características se usan para entrenar clasificadores base, la diversidad aumenta.
 La estadística de Kappa y los diagramas de movimiento de Kappa muestran que DN proporciona una diversidad adicional a los alumnos de base de SVM. La validación experimental también muestra que DN-SVM no mejora significativamente la precisión de SVM, mientras que los conjuntos de SVM que usan DN son significativamente mejores que las versiones sin DN. De modo que esta mejora solo puede venir del incremento en diversidad obtenido al aplicar DN.

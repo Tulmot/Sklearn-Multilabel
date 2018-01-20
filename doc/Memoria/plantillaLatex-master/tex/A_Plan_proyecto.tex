@@ -256,6 +256,85 @@ En la figura~\ref{fig:Milestone12} se muestra el gráfico del Sprint 11.
 \label{fig:Milestone12}
 \end{figure}
 
+\subsection{Sprint 12 (19/12/17 - 25/12/17)}
+Esta semana, se ha dedicado a avanzar con el algoritmo Rotation Forest y se añadir herencias a los algoritmos creados anteriormente:
+\begin{itemize}
+\item \texttt{Predict} RF. Programar el método \texttt{predict} de Rotation Forest.
+\item \texttt{Predict\_proba} RF. Programar el método \texttt{predict\_proba} de Rotation Forest.
+\item Añadir a la herencia de DN y RO. Con la clase ya acabada ahora la añadiremos la herencia, dicha herencia es sobre Homogeneus\_Ensemble y agregación sobre Rotation Forest.
+\item Notebook RF. Añadir a los notebooks creados el clasificador Rotation Forest, y ver que funciona correctamente.
+\item Seleccionar una muestra RF. Seleccionamos un muestra de cada uno de los subgrupos, por defecto el tamaño de dicha muestra será del 75\% de los datos. Dicha muestra la usaremos para entrenar pero para transformar le pasaremos el subgrupo entero.
+\item Seleccionar una instancias en base a las clases. Lo primero elegimos las distintas clases(y), después elegimos aleatoriamente una muestra de esas las distintas clases, y por último seleccionamos del conjunto de datos(X) las instancias correspondientes a la muestra de esas clases.
+\item Evitar código duplicado en los notebooks. La creación del conjunto de datos, la asignación de la semilla y la división del conjunto de datos en entrenamiento y test deben estar una única vez, y no repetidas en cada casilla de cada clasificador.
+\end{itemize}
+
+Esta semana se han cumplido todas las tareas, el tiempo empleado ha sido el previsto, ya que ninguna de las tareas ha dado demasiados problemas.
+
+En la figura~\ref{fig:Milestone13} se muestra el gráfico del Sprint 12.
+
+\begin{figure}
+\centering
+\includegraphics[width=0.95\textwidth]{Milestone13}
+\caption{Burndown del sprint 12}
+\label{fig:Milestone13}
+\end{figure}
+
+\subsection{Sprint 13 (26/12/17 - 07/01/18)}
+Esta semana, se han tratado diversas temas, entre ellos, referencias en la documentación, dibujar gráficas para los clasificadores base, o que los algoritmos creados funciones también para single\-label:
+\begin{itemize}
+\item Incluir referencias en la documentación. Añadimos referencias en la memoria y el anexo.
+\item Funcional RF. Hacemos funcional el método \texttt{fit} de Rotation Forest.
+\item Código repetido RF. Crear funciones para evitar el código repetido en Rotation Forest.
+\item Memoria. Añadir los sprint que faltan.
+\item Buscar información gráficas. Buscar información en otros multilabes de scikit learn para ver como dibujan los gráficos, que muestren los datos y como se dividen.
+\item Dibujar gráficas. Dibujamos las gráficas de cada uno de los algoritmos (DN, RO, RF), para ver como se divide el conjunto de datos.
+\item Comentar RF. Comentamos los métodos de Rotation Forest.
+\item Limpiar y sanear el repositorio. En el repositorio hay elementos que no deberían estar o deberían estar revisados.
+\item Single-Label para Disturbing Neighbors. El clasificador Disturbing Neighbors ahora mismo solo funciona para casos multi\-label, y queremos que también funcione para casos single-label.
+\item Single-Label para Random Oracles. El clasificador Random Oracles ahora mismo solo funciona para casos multi-label, y queremos que también funcione para casos single-label.
+\item Memoria. Añadir los sprint que faltan.
+\item SingleLabel para Rotation Forest.El clasificador Rotation Forest ahora mismo solo funciona para casos multi-label, y queremos que también funcione para casos single-label.
+\item Correcciones sobre la memoria. Corregir las partes de las memorias y los anexos, revisadas por el tutor.
+\end{itemize}
+
+Esta semana se han cumplido todas las tareas, he dedicado algo más tiempo del pensado ya que surgió algún error.
+
+En la figura~\ref{fig:Milestone14} se muestra el gráfico del Sprint 13.
+
+\begin{figure}
+\centering
+\includegraphics[width=0.95\textwidth]{Milestone14}
+\caption{Burndown del sprint 13}
+\label{fig:Milestone14}
+\end{figure}
+
+\subsection{Sprint 14 (08/01/18 - 14/01/18)}
+Esta semana, se ha avanzado con la memoria, se han hecho algunas correcciones y mejoras:
+\begin{itemize}
+\item Corregir los notebook. Corregir los notebook para que funcionen correctamente, ya que al descargarlos de github no encuentra bien las librerías..
+\item Correcciones menores. Corregir fallos menores, entre ellos:
+	\begin{itemize}
+		\item En Rotation Forest utilizar el conjunto reducido según las clases(instance\_classes).
+		\item En Ramdon Oracles ver porque no funciona al dibujar la gráfica.
+		\item En las clases ensemble modificar el base\_estimator.
+	\end{itemize}
+\item Memoria correcciones. Corregir las partes de la memoria y anexos, que me han dicho los tutores..
+\item Comentar ensembles. Comentar los métodos ensembles, corregir los base, ya que estos no son ensembles.
+\item Mejorar el cómo detectar si es o no multi-label. En vez de la comprobación que hago, utilizar el método is\_multilabel.
+\item \texttt{Predict\_proba} Random Oracles. Error encontrado en el \texttt{predict\_proba}, no devuelve los valores de forma correcta..
+\end{itemize}
+
+Esta semana se han cumplido todas las tareas, En la tarea de las correcciones mínimas he tenido que dedicar más tiempo del esperado.
+
+En la figura~\ref{fig:Milestone15} se muestra el gráfico del Sprint 14.
+
+\begin{figure}
+\centering
+\includegraphics[width=0.95\textwidth]{Milestone15}
+\caption{Burndown del sprint 14}
+\label{fig:Milestone15}
+\end{figure}
+
 \section{Estudio de viabilidad}
 
 \subsection{Viabilidad económica}
