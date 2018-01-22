@@ -2,7 +2,7 @@
 
 
 
-# Requisitos de usuarios
+## Requisitos de sistema
 Para que un usuario pueda usar nuestros algoritmos, deberá tener instalado Python 3.6 en su máquina, iremos indicando los pasos necesarios.
 
 - Instalaremos Anaconda, que es una aplicación que contiene herramientas como spyder o Jupyter, que usaremos en nuestro entorno de trabajo, esta aplicación incluye la versión de Python 3.6 requerida y nos facilita el uso de este lenguaje y la instalación de distintas librerías.
