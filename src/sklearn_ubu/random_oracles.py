@@ -18,6 +18,9 @@ class RandomOracles(HomogeneousEnsemble):
     n_estimators : integer
         The number of estimators in the ensemble.
 
+    n_oracles : integer
+        The number of oracles in the ensemble.
+        
     random_state : int, RandomState instance or None, optional (default=None)
         If int, random_state is the seed used by the random number generator;
         If RandomState instance, random_state is the random number generator;
@@ -75,13 +78,16 @@ class RandomOracles(HomogeneousEnsemble):
     def __init__(self,
                  base_estimator=DecisionTreeClassifier(),
                  n_estimators=10,
+                 n_oracles=2,
                  random_state=None,
                  estimator_params=tuple()):
         self.base_estimator = base_estimator
         self.n_estimators = n_estimators
         self.random_state = random_state
+        self.n_oracles=n_oracles
         self.estimator_params = estimator_params
 
     def _validate_estimator(self):
         self.base_estimator_ = BaseRandomOracles(
-                base_estimator=self.base_estimator)
+                base_estimator=self.base_estimator,
+                n_oracles=self.n_oracles)

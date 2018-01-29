@@ -20,7 +20,7 @@ class BaseRotationForest(ClassifierMixin, BaseEstimator):
         default the DecisionTreeClassifier is used.
 
     n_groups : They are the groups that we want split our data set, by default
-    if is none, 3 are chosen.
+        if is none, 3 are chosen.
 
     random_state : int, RandomState instance or None, optional (default=None)
         If int, random_state is the seed used by the random number generator;
@@ -29,10 +29,10 @@ class BaseRotationForest(ClassifierMixin, BaseEstimator):
         by `np.random`.
 
     per_samples : They size of the sample of each of the subsets, by default
-    if is none, 75% are chosen.
+        if is none, 75% are chosen.
 
     per_samples_classes : They size of the classes of each of the subsets, by
-    default if is none, 80% are chosen.
+        default if is none, 80% are chosen.
     
     See also
     --------

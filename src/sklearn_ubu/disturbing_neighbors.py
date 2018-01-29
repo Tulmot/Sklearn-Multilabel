@@ -6,7 +6,7 @@ from sklearn.tree import DecisionTreeClassifier
 class DisturbingNeighbors(HomogeneousEnsemble):
     """A Disturbing Neighbors.
 
-    Disturbing neighbors is a multi-label ensemble, this method alters the
+    Disturbing neighbors is a ensemble, this method alters the
     normal training process of the base classifiers in an ensemble, improving
     their diversity and accuracy. DN creates new features using a 1-NN
     classifier, these characteristics are the 1-NN output plus a set of Boolean
@@ -25,6 +25,15 @@ class DisturbingNeighbors(HomogeneousEnsemble):
     n_estimators : integer
         The number of estimators in the ensemble.
 
+    n_neighbors : They are the neighbors that we want to choose from the data
+        set, by default if nothing happens, 10 are chosen.
+
+    n_features : It is the size of the random sub-space, according to which
+        the random features that we are going to use to train our
+        classifier are chosen, by default it is 0.5, that is, half of the
+        features are taken, if the value that is passed is greater than
+        1, that number of features is taken.
+        
     random_state : int, RandomState instance or None, optional (default=None)
         If int, random_state is the seed used by the random number generator;
         If RandomState instance, random_state is the random number generator;
@@ -79,13 +88,19 @@ class DisturbingNeighbors(HomogeneousEnsemble):
     def __init__(self,
                  base_estimator=DecisionTreeClassifier(),
                  n_estimators=10,
+                 n_neighbors=10,
+                 n_features=0.5,
                  random_state=None,
                  estimator_params=tuple()):
         self.base_estimator = base_estimator
         self.n_estimators = n_estimators
+        self.n_neighbors = n_neighbors
+        self.n_features = n_features
         self.random_state = random_state
         self.estimator_params = estimator_params
 
     def _validate_estimator(self):
         self.base_estimator_ = BaseDisturbingNeighbors(
-                base_estimator=self.base_estimator)
+                base_estimator=self.base_estimator,
+                n_neighbors = self.n_neighbors,
+                n_features = self.n_features)
