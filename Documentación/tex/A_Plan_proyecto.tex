@@ -17,8 +17,8 @@ En nuestro caso a través de GitHub:
 \begin{itemize}
 \item Creamos un Milestone correspondiente a la semana que estamos.
 \item Creamos las tareas que realizaremos esa semana habladas en la reunión semanal.
-\item Para gestionar el tiempo de las tareas lo llevamos a cabo mediante ZenHub, que es una herramienta que incluye el  navegador.
-\item Según vamos realizando las tareas las vamos cerrando, y así podremos observar el gráfico que nos muestra en burndown chart, en el que podremos ver el progreso.
+\item Para gestionar el tiempo de las tareas utilizaremos ZenHub, que es una herramienta que incluye el  navegador.
+\item Según vamos realizando las tareas las vamos cerrando, y así podremos observar el gráfico que nos muestra en \textit{burndown chart}, en el que podremos ver el progreso.
 \end{itemize}
 A continuación se analizan y detallan las tareas realizadas en todos los sprints que se han realizado.
 \subsection{Sprint 0 (18/09/17 - 25/09/17)}
@@ -77,7 +77,7 @@ En la figura~\ref{fig:Milestone4} se muestra el gráfico del Sprint 3.
 \subsection{Sprint 4 (17/10/17 - 23/10/17)}
 Esta semana, se ha dedicado a corregir algún error más, a comentar el código y añadir algún nuevo método para que el clasificador funcione mejor:
 \begin{itemize}
-\item Comentar los métodos. Comentamos los diferentes métodos según el formato de python~\cite{comment}.
+\item Comentar los métodos. Comentamos los diferentes métodos según el formato de Python~\cite{comment}.
 \item Semilla. Creamos una semilla, esto lo hacemos para inicializar los valores aleatorios y así conseguir que siempre empiece por el mismo, esto lo hacemos para cuando hacemos pruebas siempre las haga con los mismos datos.
 \item Vecinos molestones. No están calculados correctamente.
 \item Corregir fallos. Sigue dándome algún fallo, no hace lo que debería.
@@ -146,7 +146,7 @@ Esta semana, se ha dedicado mayormente a empezar a documentar en la memoria, a p
 \begin{itemize}
 \item Pasarle a bagging la clase DN. Probamos a pasarle a bagging nuestra clase Disturbing Neighbors. Como bagging no soporta múltiples salidas, para ello lo solucionaremos utilizando OneVsRestClassifier, esto permitirá que bagging soporte múltiples salidas.
 \item Hacer funcional el método \texttt{nearest\_neighbor}. Conseguir que el método \texttt{nearest\_neighbor} funcione sin utilizar ningún bucle for.
-\item Memoria Conceptos teóricos. Añadir nuevos conceptos teóricos como multilabel o ensemble.
+\item Memoria Conceptos teóricos. Añadir nuevos conceptos teóricos como Multi-Label o ensemble.
 \item Iteraciones sobre los métodos \texttt{fit}, \texttt{predict} y \texttt{predict\_proba}. Hasta ahora solo se ejecutaba una vez cada método, pero para que esto sea eficaz queremos que se ejecute un número de iteraciones. El \texttt{fit} será el más fácil solo hay que realizar ese método el número de iteraciones requeridas. Para poder calcular el \texttt{predict} tenemos que ir guardando los valores del fit y calcular el promedio. Por último el \texttt{predict\_proba} se calculará igual que el predict.
 \item Estructurar notebook. Estructuramos el notebook de jupyter, para que sea más fácil de entender.
 \item Método \texttt{cross validation}: Para crear los conjuntos de entrenamiento y test usar la validación cruzada.
@@ -234,10 +234,10 @@ Esta semana, se ha termina algunos detalles del Random Oracles, y se se ha empez
 \begin{itemize}
 \item Artículo Rotation Forest~\cite{rotationforest}. Leer el artículo Rotation Forest, para entender el nuevo algoritmo que vamos realizar.
 \item Notebooks. Mejorar los notebooks, creando una función que según un parámetro nos llame al clasificador Disturbing Neighbors o al Random Oracles.
-\item Herencia. Usar la herencia, ya que una de las clases llamada Homogeneous\_ensembles, es la que hace las iteraciones, y sus herederos serían las clases de Disturbing Neighbours y Random Oracles.
-\item Rotation Forest dividir. Dividimos el conjunto de datos(X) en grupos de 3, usamos permutaciones para evitar repetidos.
+\item Herencia. Usar la herencia, ya que una de las clases llamada \texttt{homogeneous\_ensembles} , es la que hace las iteraciones, y sus herederos serían las clases de Disturbing Neighbours y Random Oracles.
+\item Rotation Forest dividir. Dividimos el conjunto de datos ($X$) en grupos de 3, usamos permutaciones para evitar repetidos.
 \item Rotation Forest PCA. Cuando ya tenemos los grupos, usaremos \texttt{PCA} sobre cada uno de los grupos, en los que haremos primero fit y luego transform.
-\item Rotation Forest fit. Volvemos a juntar los grupos en uno solo, y sobre este nuevo conjunto de datos(X') hacemos el \texttt{fit}.
+\item Rotation Forest fit. Volvemos a juntar los grupos en uno solo, y sobre este nuevo conjunto de datos ($X'$) hacemos el \texttt{fit}.
 \item Correcto estilo Random Oracles. Utilizamos el chequeador de sintaxis de PEP8 online para que es el estilo que estamos siguiendo \url{http://pep8online.com/}.
 \item Error encontrado en RO en el método \texttt{predict\_proba}. Encontramos un error cuando realizamos iteraciones sobre el método \texttt{predict\_proba} de la clase Random Oracles, ya que como lo probamos con un árbol cuando en una de las iteraciones si tiene el mismo labelset devuelve una predicción con tamaño uno, por lo tanto para corregir esto lo que hacemos es calcular las probabilidades con el método \texttt{predict}, ya que este sí funciona correctamente.
 \item Comentar correctamente las clases. Algunos comentarios están incompletos y algunos métodos les falta comentarios.
@@ -259,12 +259,12 @@ En la figura~\ref{fig:Milestone12} se muestra el gráfico del Sprint 11.
 \subsection{Sprint 12 (19/12/17 - 25/12/17)}
 Esta semana, se ha dedicado a avanzar con el algoritmo Rotation Forest y se añadir herencias a los algoritmos creados anteriormente:
 \begin{itemize}
-\item \texttt{Predict} RF. Programar el método \texttt{predict} de Rotation Forest.
-\item \texttt{Predict\_proba} RF. Programar el método \texttt{predict\_proba} de Rotation Forest.
-\item Añadir a la herencia de DN y RO. Con la clase ya acabada ahora la añadiremos la herencia, dicha herencia es sobre Homogeneus\_Ensemble y agregación sobre Rotation Forest.
+\item \texttt{predict} RF. Programar el método \texttt{predict} de Rotation Forest.
+\item \texttt{predict\_proba} RF. Programar el método \texttt{predict\_proba} de Rotation Forest.
+\item Añadir a la herencia de DN y RO. Con la clase ya acabada ahora la añadiremos la herencia, dicha herencia es sobre \texttt{homogeneous\_ensembles} y agregación sobre Rotation Forest.
 \item Notebook RF. Añadir a los notebooks creados el clasificador Rotation Forest, y ver que funciona correctamente.
 \item Seleccionar una muestra RF. Seleccionamos un muestra de cada uno de los subgrupos, por defecto el tamaño de dicha muestra será del 75\% de los datos. Dicha muestra la usaremos para entrenar pero para transformar le pasaremos el subgrupo entero.
-\item Seleccionar una instancias en base a las clases. Lo primero elegimos las distintas clases(y), después elegimos aleatoriamente una muestra de esas las distintas clases, y por último seleccionamos del conjunto de datos(X) las instancias correspondientes a la muestra de esas clases.
+\item Seleccionar una instancias en base a las clases. Lo primero elegimos las distintas clases($y$), después elegimos aleatoriamente una muestra de esas las distintas clases, y por último seleccionamos del conjunto de datos($X$) las instancias correspondientes a la muestra de esas clases.
 \item Evitar código duplicado en los notebooks. La creación del conjunto de datos, la asignación de la semilla y la división del conjunto de datos en entrenamiento y test deben estar una única vez, y no repetidas en cada casilla de cada clasificador.
 \end{itemize}
 
@@ -280,20 +280,20 @@ En la figura~\ref{fig:Milestone13} se muestra el gráfico del Sprint 12.
 \end{figure}
 
 \subsection{Sprint 13 (26/12/17 - 07/01/18)}
-Esta semana, se han tratado diversas temas, entre ellos, referencias en la documentación, dibujar gráficas para los clasificadores base, o que los algoritmos creados funciones también para single\-label:
+Esta semana, se han tratado diversas temas, entre ellos, referencias en la documentación, dibujar gráficas para los clasificadores base, o que los algoritmos creados funciones también para Single-Label:
 \begin{itemize}
 \item Incluir referencias en la documentación. Añadimos referencias en la memoria y el anexo.
 \item Funcional RF. Hacemos funcional el método \texttt{fit} de Rotation Forest.
 \item Código repetido RF. Crear funciones para evitar el código repetido en Rotation Forest.
 \item Memoria. Añadir los sprint que faltan.
-\item Buscar información gráficas. Buscar información en otros multilabes de scikit learn para ver como dibujan los gráficos, que muestren los datos y como se dividen.
+\item Buscar información gráficas. Buscar información en otros Multi-Label de scikit learn para ver como dibujan los gráficos, que muestren los datos y como se dividen.
 \item Dibujar gráficas. Dibujamos las gráficas de cada uno de los algoritmos (DN, RO, RF), para ver como se divide el conjunto de datos.
 \item Comentar RF. Comentamos los métodos de Rotation Forest.
 \item Limpiar y sanear el repositorio. En el repositorio hay elementos que no deberían estar o deberían estar revisados.
-\item Single-Label para Disturbing Neighbors. El clasificador Disturbing Neighbors ahora mismo solo funciona para casos multi\-label, y queremos que también funcione para casos single-label.
-\item Single-Label para Random Oracles. El clasificador Random Oracles ahora mismo solo funciona para casos multi-label, y queremos que también funcione para casos single-label.
+\item Single-Label para Disturbing Neighbors. El clasificador Disturbing Neighbors ahora mismo solo funciona para casos Multi-Label, y queremos que también funcione para casos Single-Label.
+\item Single-Label para Random Oracles. El clasificador Random Oracles ahora mismo solo funciona para casos Multi-Label, y queremos que también funcione para casos Single-Label.
 \item Memoria. Añadir los sprint que faltan.
-\item SingleLabel para Rotation Forest.El clasificador Rotation Forest ahora mismo solo funciona para casos multi-label, y queremos que también funcione para casos single-label.
+\item Single-Label para Rotation Forest. El clasificador Rotation Forest ahora mismo solo funciona para casos Multi-Label, y queremos que también funcione para casos Single-Label.
 \item Correcciones sobre la memoria. Corregir las partes de las memorias y los anexos, revisadas por el tutor.
 \end{itemize}
 
@@ -311,20 +311,20 @@ En la figura~\ref{fig:Milestone14} se muestra el gráfico del Sprint 13.
 \subsection{Sprint 14 (08/01/18 - 14/01/18)}
 Esta semana, se ha avanzado con la memoria, se han hecho algunas correcciones y mejoras:
 \begin{itemize}
-\item Corregir los notebook. Corregir los notebook para que funcionen correctamente, ya que al descargarlos de github no encuentra bien las librerías..
+\item Corregir los notebook. Corregir los notebook para que funcionen correctamente, ya que al descargarlos de Github no encuentra bien las librerías.
 \item Correcciones menores. Corregir fallos menores, entre ellos:
 	\begin{itemize}
-		\item En Rotation Forest utilizar el conjunto reducido según las clases(instance\_classes).
-		\item En Ramdon Oracles ver porque no funciona al dibujar la gráfica.
+		\item En Rotation Forest utilizar el conjunto reducido según las clases (instance\_classes).
+		\item En Random Oracles ver porque no funciona al dibujar la gráfica.
 		\item En las clases ensemble modificar el base\_estimator.
 	\end{itemize}
 \item Memoria correcciones. Corregir las partes de la memoria y anexos, que me han dicho los tutores..
 \item Comentar ensembles. Comentar los métodos ensembles, corregir los base, ya que estos no son ensembles.
-\item Mejorar el cómo detectar si es o no multi-label. En vez de la comprobación que hago, utilizar el método is\_multilabel.
-\item \texttt{Predict\_proba} Random Oracles. Error encontrado en el \texttt{predict\_proba}, no devuelve los valores de forma correcta..
+\item Mejorar el cómo detectar si es o no Multi-Label. En vez de la comprobación que hago, utilizar el método is\_multilabel.
+\item \texttt{predict\_proba} Random Oracles. Error encontrado en el \texttt{predict\_proba}, no devuelve los valores de forma correcta..
 \end{itemize}
 
-Esta semana se han cumplido todas las tareas, En la tarea de las correcciones mínimas he tenido que dedicar más tiempo del esperado.
+Esta semana se han cumplido todas las tareas, en la tarea de las correcciones mínimas he tenido que dedicar más tiempo del esperado.
 
 En la figura~\ref{fig:Milestone15} se muestra el gráfico del Sprint 14.
 

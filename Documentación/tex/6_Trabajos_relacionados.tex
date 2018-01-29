@@ -1,3 +1,56 @@
 \capitulo{6}{Trabajos relacionados}
+En este apartado vamos hablar y comparar nuestro proyecto con otros relacionados. Lo dividiremos en 3 partes, una en la que hablaremos de otras librerías ensembles, otra parte sobre librerías de aprendizaje automático y una última de servicios de computación en la nube.
 
-Este apartado sería parecido a un estado del arte de una tesis o tesina. En un trabajo final grado no parece obligada su presencia, aunque se puede dejar a juicio del tutor el incluir un pequeño resumen comentado de los trabajos y proyectos ya realizados en el campo del proyecto en curso. 
+\section{Librerías ensemble}
+A parte de de la librería que hemos usado de Scikit-Learn, existen librerías similares, hablaremos sobre alguna de ellas y las compararemos con Scikit-Learn.
+
+\subsection{EnsembleSVM}
+Es un aprendizaje automático de software libre. Esta librería nos ofrece la funcionalidad para llevar a cabo el aprendizaje de ensembles utilizando modelos base de la máquina de vectores de soporte(SVM). Permite entrenar eficientemente modelos para grandes conjuntos de datos~\cite{ensembleSVM}.
+
+\subsection{H2O Ensemble}
+Es una librería de R, que nos proporciona funcionalidad para crear conjuntos a partir de algoritmos básicos de aprendizaje que podemos acceder a través de este paquete. Este tipo de aprendizaje de ensembles se conoce como <<súper aprendizaje>>. Este algoritmos aprende de la combinación óptima de los entrenamientos~\cite{ensembleh2o}.
+
+\section{Librerías de aprendizaje automático}
+Vamos a ver diferentes librerías de aprendizaje automático.
+\subsection{Weka}
+Es una colección de algoritmos de aprendizaje automático para tareas de minería de datos. Los algoritmos se pueden aplicar sobre un conjunto de datos o llamar desde su propio código de java. Contiene herramientas para el preprocesamiento de datos, clasificación, clustering, reglas de asociación y visualización.Es un software de código abierto con la licencia de GNU~\cite{weka}. 
+
+\subsection{Meka}
+Proporciona una implementación de código abierto de métodos para aprendizaje y evaluación de Multi-Label. En la clasificación Multi-Label, queremos predecir múltiples variables de salida para cada instancia de entrada. Esto es diferente del caso estándar que involucra solo una única variable objetivo. MEKA se basa en Weka, incluye docenas de métodos Multi-Label de la literatura científica, y esta relacionado con el framework de MULAN~\cite{meka}.
+
+\subsection{Keel}
+Es una herramienta de software de código abierto de Java, que se puede utilizar para una gran cantidad de tareas de descubrimiento de datos de conocimiento diferentes. Proporciona una GUI simple basada en el flujo de datos para diseñar experimentos con diferentes conjuntos de datos y algoritmos de inteligencia computacional, con el fin de evaluar el comportamiento de los algoritmos. Contiene una amplia variedad de algoritmos clásicos de extracción de conocimiento, técnicas de preprocesamiento, algoritmos de aprendizaje basados en inteligencia computacional, modelos híbridos...
+
+Permite realizar un análisis completo de nuevas propuestas de inteligencia computacional en comparación con las existentes~\cite{keel}.
+
+\subsection{TensorFlow}
+Es una librería de computación numérica que compute gradientes automáticamente. Es un sistema flexible y se puede utilizar para gran variedad de algoritmos, incluidos de entrenamiento e inferencia para modelos de redes neuronales. Se ha utilizado para realizar investigaciones y para implementar sistemas de aprendizaje automático en diferentes áreas~\cite{tensorflow}.
+
+Ha sido desarrollada por Google, y la utilizan empresas como Dropbox, Uber y Snapchat~\cite{libraries}.
+
+\subsection{Pytorch}
+Es una biblioteca de aprendizaje de máquina de código abierto para Python que permite un crecimiento rápido de Deep Learning. Su mayor característica es que utiliza grafos computacionales dinámicos.
+
+Ha sido desarrollado principalmente por el grupo de investigación de inteligencia artificial de Facebook, y por ejemplo el software "Pyro" de Uber para la programación probabilística se basa en él~\cite{wiki:pytorch}.
+
+\section{Servicios de computación en la nube}
+A continuación se exponen distintos servicios de computación en la nube que nos sirven para procesar conjuntos de datos.
+
+\subsection{Google Cloud Dataproc}
+Es un servicio de Apache Haddop, Spark, Pig y Hive para procesar grandes conjuntos de datos con poco esfuerzo y bajo coste. Se pueden crear clústeres y desactivarlos cuando acabemos para  controlar los gastos.
+
+Podemos cambiar el tamaño de los clústeres en cualquier momento. Cada acción de clúster tarda muy poco tiempo, así podemos dedicar más tiempo a información valiosa porque necesitamos menos tiempo revisando la infraestructura.
+
+Podemos obtener más información en \url{https://cloud.google.com/dataproc/?hl=es}.
+
+\subsection{Azure}
+
+\subsection{AWS}
+En AWS el aprendizaje automático, los algoritmos controlan muchos de nuestros sistemas. Nos ofrece las siguientes características:
+\begin{itemize}
+	\item Servicios ML basados en API.
+	\item Amplio soporte de framework.
+	\item Amplitud de operaciones de computo.
+	\item Análisis completo.
+	\item Seguridad
+\end{itemize}

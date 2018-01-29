@@ -1,13 +1,57 @@
 \apendice{Documentación técnica de programación}
 
 \section{Introducción}
-Esta sección es para otros programadores, para que en un futuro puedan mejorar y realizar cambios en nuestro proyecto. Se describen con detalle el funcionamiento del proyecto, y que aspectos se pueden mejorar.
+Esta sección es para otros desarroladores, para que en un futuro puedan continuar nuestro proyecto y entenderlo. Se describen el funcionamiento del proyecto, y que aspectos se podrían mejorar o modificar.
 
 \section{Estructura de directorios}
+Nuestro proyecto se divide en dos partes, una donde tendremos nuestro código fuente, y otra con la documentación.
+
+\subsection{Documentación}
+En esta carpeta es donde podemos encontrar la documentación de la memoria y anexos.
+\begin{itemize}
+	\item img: Esta carpeta contiene las distintas imágenes utilizadas en la memoria y anexos.
+	\item tex: Están las distintas partes en las que se dividen la memoria y los anexos.
+	\item Los pdfs de la memoria, anexos y la bibliografía.
+\end{itemize}
+
+\subsection{Src}
+Esta carpeta contiene los ficheros código fuente del proyecto.
+\begin{itemize}
+	\item DecisionTreeClassifier vs Ensembles: Notebook que muestra la comparación de los 3 algoritmos realizados con el DecisionTreeClassifier.
+	\item Example of base classifiers: Notebook en el que podemos ejecutar los clasificadores base.
+	\item Example of ensembles classifiers: Notebook donde ejecutamos los ensembles de cada uno de los clasficadores base.
+	\item Example with real ML data set: Notebook donde probamos la ejecución de nuestros clasificadores en un conjunto de datos reales.
+	\item Graphics: Notebook en el que podemos ver las gráficas de la comparación de los 3 clasificadores base realizados, en los que se puede ver como se dividen los datos.
+	\item flags: Fichero con los datos reales.
+	\item sklearn\_ubu: Esta carpeta contiene los ficheros  con los códigos fuente de los algoritmos, sus clasificadores base y sus ensembles:
+	\begin{itemize}
+		\item base\_disturbing\_neighbors
+		\item base\_random\_oracles
+		\item base\_rotation\_forest
+		\item disturbing\_neighbors
+		\item random\_oracles
+		\item rotation\_forest
+		\item homogeneous\_ensemble
+	\end{itemize}
+\end{itemize}
 
 \section{Manual del programador}
-En esta sección vamos a describir como instalar las diferentes herramientas usadas para realizar el proyecto.
+En esta sección vamos a describir como instalar las diferentes herramientas necesarias para realizar el proyecto.
 
+\subsection{SonarQube}
+Para analizar la calidad del código se ha analizado mediante la herramienta web de SonarQube.
+Si queremos comprobar nuestro código con esta herramienta hay que seguir una serie de pasos:
+\begin{itemize}
+	\item Entrar en https://www.sonarqube.org/, podemos elegir entre descargarla o usar online, nosotros elegiremos esta segunda, que nos redirigirá a la página de https://about.sonarcloud.io/. Para poder utilizarla necesitamos loguearnos, para ello podemos hacerlo con nuestra cuenta de GitHub.
+	\item Una vez estemos dentro, en la cabecera clickamos en el icono de la $?$, que nos abrirá una ventana emergente. Y en el menú de la izquierda, pinchamos en tutorials, y dentro en el link de analizar un nuevo proyecto.
+	\item En la primera opción elegiremos la opción por defecto de organización personal, porque hay está el proyecto que queremos analizar.
+	\item En la segunda opción para generar el token, ponemos un nombre cualquiera.
+	\item En la siguiente opción elegiremos el lenguaje y sistema operativo utilizados, en nuestro caso Python y Windows, y ponemos una clave única.
+	\item Por último necesitamos descargar un pequeño archivo, lo añadiremos el bin al $PATH$.
+	\item Para acabar deberemos entrar a la consola a la ubicación donde se encuentre nuestro proyecto, copiaremos el comando que nos ha creado en la página y lo pegamos en la consola. Esto analizará nuestro código y ya sabremos si tenemos un buen código o necesitamos modificarlo.
+\end{itemize}
+
+Nuestro proyecto tiene una  calidad de A, ya que no tiene errores o código duplicado, solo tenemos unas advertencias en que algunos nombres de las variables, no son los adecuados. Aunque la guía de estilos de Python y Pep que hemos seguido si que considera válidos esos nombres, por eso no los cambiaremos.
 
 \section{Compilación, instalación y ejecución del proyecto}
 

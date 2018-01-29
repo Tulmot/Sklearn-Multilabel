@@ -1,42 +1,25 @@
 \capitulo{2}{Objetivos del proyecto}
 
-En este apartado se explica cuales son los objetivos que se persiguen con la realización del proyecto, y que han motivado a su realización.
+En este apartado,  se explica los objetivos que se quieren conseguir al final, la meta que pretendemos lograr y los motivos que me han llevado a realizar este proyecto.
 
 \section{Objetivos}
 A continuación se muestra el esquema con todos los puntos a tratar en este proyecto.
 \begin{itemize}
-\item Implementar el algoritmo Disturbing Neighbors en Scikit-learn:
+\item Implementar los algoritmos Disturbing Neighbors~\cite{disturbingneighbors}, Random Oracles~\cite{randomoracles} y Rotation Forest~\cite{rotationforest} en Scikit-learn:
 	\begin{itemize}
-		\item Que sirva para datos Single-Label o Multi-Label
+		\item Que sirva para datos Single-Label o Multi-Label.
 		\item Crear el método \texttt{fit} para entrenar un conjunto de datos.
 		\item Crear el método \texttt{predict} para predecir según el entrenamiento de unos datos.
 		\item Crear el método \texttt{predict\_proba} para predecir probabilidades según el entrenamiento de unos datos.
-		\item Probar que la clase funciona correctamente.
+		\item o	Evaluar el correcto funcionamiento de la clases.
 	\end{itemize}
 	
-\item Implementar el algoritmo Random Oracles en Scikit-learn:
+\item Crear diversos notebooks para mostrar el funcionamiento de los algoritmos:
 	\begin{itemize}
-		\item Que sirva para datos Single-Label o Multi-Label
-		\item Crear el método \texttt{fit} para entrenar un conjunto de datos.
-		\item Crear el método \texttt{predict} para predecir según el entrenamiento de unos datos.
-		\item Crear el método \texttt{predict\_proba} para predecir probabilidades según el entrenamiento de unos datos.
-		\item Probar que la clase funciona correctamente.
-	\end{itemize}
-	
-\item Implementar el algoritmo Rotation Forest en Scikit-learn:
-	\begin{itemize}
-		\item Que sirva para datos Single-Label o Multi-Label
-		\item Crear el método \texttt{fit} para entrenar un conjunto de datos.
-		\item Crear el método \texttt{predict} para predecir según el entrenamiento de unos datos.
-		\item Crear el método \texttt{predict\_proba} para predecir probabilidades según el entrenamiento de unos datos.
-		\item Probar que la clase funciona correctamente.
-	\end{itemize}
-\item Crear un notebook para mostrar:
-	\begin{itemize}
-		\item Los resultados en notebooks de jupyter de los distintos algoritmos.
-		\item Usar una semilla para que los datos no cambien y poder compararlos.
-		\item Mostrar en un árbol la clasificación del conjunto.
-		\item Mostrar gráficas para comparar como se dividen los datos y ver cual de los algoritmos es mejor en cada caso.
+		\item Posibilidad de seleccionar el algoritmo.
+		\item Permitir utilizar conjuntos reales.
+		\item Mostrar su funcionamiento mediante el dibujado del árbol de decisión.
+		\item Mostrar el funcionamiento mediante gráficas en dos dimensiones con conjuntos de datos de <<juguete>>.
 		\item Mostrar resultados al usar validación cruzada.
 	\end{itemize}
 \end{itemize}

@@ -1,14 +1,26 @@
 \capitulo{3}{Conceptos teóricos}
 
-Este apartado va tratar sobre la explicación de los conceptos necesarios para poder entender el proyecto.
+Este apartado va a explicar los conceptos teóricos necesarios para poder entender el proyecto.
 
 \section{Minería de Datos}
-Es conocida la frase <<los datos en bruto raramente son beneficiosos directamente>>. Aunque puede tener valor, ya que podemos extraer información útil para la toma de decisiones o exploración, y también para la compresión del fenómeno dominante en el conjunto de datos~\cite{mineria}.
+Es conocida la frase <<los datos en bruto raramente son beneficiosos directamente>>. Puede tener valor, ya que podemos extraer información útil para la toma de decisiones o exploración, y también para la compresión del fenómeno dominante en el conjunto de datos\quote{mineria}.
 
-La finalidad de esto es descubrir unos patrones, una similitud o una propensión que expliquen el comportamiento de los datos. Para hacer esto utiliza los métodos de la inteligencia artificial, estadística y redes neuronales.
-El objetivo del proceso de minería de datos consiste en extraer información de un conjunto de datos, luego se interpreta esta información para un uso posterior. ~\cite{wiki:datamining}.
+La finalidad de esto es descubrir unos patrones, una similitud o una propensión que expliquen el comportamiento de los datos. Para hacer esto utiliza los métodos de la inteligencia artificial y estadística.
+El objetivo del proceso de minería de datos consiste en extraer información de un conjunto de datos, luego se interpreta esta información para un uso posterior~\cite{wiki:datamining}.
 
-La minería de datos es conocida como un sinónimo de KDD (Descubrimiento del conocimiento de los datos): Es el proceso del descubrimiento del conocimiento de los datos tiene una secuencia de pasos~\cite{mineria_KDD}:
+La minería de datos está basada en el aprendizaje automático, para ello se considera un conjunto con $n$ muestras y se intenta predecir las propiedades de los datos desconocidos. Podemos separar los problemas de aprendizaje principalmente en dos~\cite{scikitlearn2}:
+	\begin{itemize}
+		\item Aprendizaje supervisado: Consiste en que a partir de un conjunto de datos, hacer predicciones basadas en el comportamiento o las características de dichos datos. Nos permite buscar patrones en datos históricos. Dos de las tareas más comunes del aprendizaje supervisado son la clasificación y la regresión:
+		
+		\begin{itemize}
+		 	\item Clasificación: El programa debe aprender a predecir en que categoría o clase irán los nuevos datos, según las nuevas observaciones, por ejemplo, predecir si el precio de una acción bajará o subirá.
+		 	\item Regresión: El programa debe predecir el valor de una variable de respuesta continua, por ejemplo, predecir las ventas de un nuevo producto.
+		\end{itemize}
+		
+		\item Aprendizaje no supervisado: Usa datos históricos que no están etiquetados. El objetivo es explorarlos para encontrar alguna forma de organizarlos.
+	\end{itemize}
+
+La minería de datos es conocida como sinónimo de KDD (Knowledge Discovery in Databases, Descubrimiento del conocimiento en bases de datos) Este proceso tiene una secuencia de pasos~\cite{mineria_KDD}:
 
 \begin{enumerate}[1.]
 	\item Limpieza de datos. Eliminación del ruido y la inconsistencia de los datos.
@@ -29,128 +41,69 @@ Aunque el proceso de la minería de datos consta de más etapas nosotros nos cen
 \end{itemize}
 
 \section{Multi-Label}
-Un clasificador se utiliza para referirnos a un algoritmo, para asignar un dato entrante no etiquetado a una categoría concreta. Dicho algoritmo, permite clasificar por clases los datos entrantes, a partir de unas ciertas características de estos.
-La clasificación multi-label es una técnica de minería de datos, nos permite que de un conjunto de instancias de entrenamiento, podamos determinar a partir de unos atributos esenciales de dichas instancias para crear unas reglas que posteriormente se usarán para clasificar nuevas instancias \cite{multilabel}.    
+Una investigación en aprendizaje supervisado trata con el análisis de datos de Single-Label donde los ejemplos de entrenamiento son asociados con un Single-Label de un conjunto de disjuntos labels. Sin embargo, los ejemplos de entrenamiento en varios dominios de un aplicación, son asociado un conjunto de labels, a los que llamaremos Multi-Label~\cite{multilabel2}.
+
+La clasificación Multi-Label es una técnica de minería de datos, la cual nos permite que de un conjunto de instancias de entrenamiento, podamos determinar a partir de unos atributos esenciales de dichas instancias para crear unas reglas que posteriormente se usarán para clasificar nuevas instancias~\cite{multilabel}. Como por ejemplo en el etiquetado de imágenes: en el que una imagen puede tener a la vez las etiquetas <<árbol>>, <<montaña>> y <<mar>>.   
 
 \section{Ensemble}
-Los métodos de ensembles combinan las predicciones de unos estimadores base, que están construidos mediante un algoritmo de aprendizaje para mejorar la solidez de un solo estimador \cite{ensemble}.
-Se distinguen dos clases de métodos de ensembles:
-	\begin{itemize}
-		\item En los métodos de promedio, se construyen varios estimadores de forma independiente y luego se calcula su promedio para las predicciones. En general el estimador combinado es mejor que un estimador de base única.
-		\item En los métodos de impulso, se construyen los estimadores secuencialmente y se trata de reducir el sesgo del estimador combinado. El objetivo es combinar varios modelos débiles para conseguir un conjunto fuerte.
-	\end{itemize}
-
-\section{Scikit-learn}
-Es una librería de Python que contiene algoritmos de aprendizaje automático para problemas supervisados y no supervisados. Es una herramienta enfocada a la minería de datos y al análisis de datos~\cite{scikitlearn2}. Como se ha mencionado anteriormente está basada en el aprendizaje automático, para ello se considera un conjunto con n muestras y se intenta predecir las propiedades de los datos desconocidos~\cite{scikitlearn}. Podemos separar los problemas de aprendizaje principalmente en dos~\cite{scikitlearn2}:
-	\begin{itemize}
-		\item Aprendizaje supervisado: Consiste en que a partir de un conjunto de datos, hacer predicciones basadas en el comportamiento o las características de dichos datos. Nos permite buscar patrones en datos históricos. Dos de las tareas más comunes del aprendizaje supervisado son la clasificación y la regresión:
-		
-		\begin{itemize}
-		 	\item Clasificación: El programa debe aprender a predecir en que categoría o clase irán los nuevos datos, según las nuevas observaciones, por ejemplo, predecir si el precio de una acción bajará o subirá.
-		 	\item Regresión: El programa debe predecir el valor de una variable de respuesta continua, por ejemplo, predecir las ventas de un nuevo producto.
-		\end{itemize}
-		
-		\item Aprendizaje no supervisado: Usa datos históricos que no están etiquetados. El objetivo es explorarlos para encontrar alguna forma de organizarlos.
-	\end{itemize}
-
-
-\section{Disturbing Neighbors}
-Está organizado de la siguiente manera. La subsección 1 se explica la introducción. La subsección 2 describe el método del vecino molestón. La subsección 3 analiza experimentalmente nuestro método aplicado a los conjuntos representativos del estado del arte de SVM. La subsección 4 contiene la conclusión.
-\subsection{Introducción}
 Un ensemble es un esquema de combinación de predicciones individuales llamados clasificadores base. El éxito de un ensemble requiere tanto exactitud como diversidad de sus clasificadores base. La diversidad representa como diferente son las predicciones de los clasificadores base. Si los clasificadores base siempre están de acuerdo podría no haber diferencia entre usar sólo un clasificador base o varios combinado por un método de ensemble. Entonces el poder de usar un conjunto de clasificadores base consiste en la posibilidad que algunos de ellos pueden corregir una predicción incorrecta de otros.
 
-Es normal obtener estos clasificadores base en un ensemble usando el mismo algoritmo, así que en esta situación el proceso de entrenamiento realizado por el ensemble es la principal fuente de diversidad. La diversidad de Bagging proviene de elegir al azar diferentes instancias para entrenar a cada clasificador de base. El método Random Subspaces elige diferentes subconjuntos de atributos para entrenar a cada clasificador base. Boosting entrena de forma iterativa el conjunto de clasificadores base, modificando los pesos de las instancias para entrenar al clasificador actual. Estos nuevos pesos se calculan a partir del error de entrenamiento en el clasificador base anterior, por lo que cada nuevo clasificador de base llega más especializado en instancias que han sido
-mal clasificados antes. A veces los clasificadores base son muy estables y el  algoritmo de entrenamiento del ensemble no es suficiente para proporcionar el nivel deseado de diversidad.
+Es normal obtener estos clasificadores base en un ensemble usando el mismo algoritmo, así que en esta situación el proceso de entrenamiento realizado por el ensemble es la principal fuente de diversidad. La diversidad de Bagging proviene de elegir al azar diferentes instancias para entrenar a cada clasificador de base. El método Random Subspaces elige diferentes subconjuntos de atributos para entrenar a cada clasificador base. Boosting entrena de forma iterativa el conjunto de clasificadores base, modificando los pesos de las instancias para entrenar al clasificador actual. Estos nuevos pesos se calculan a partir del error de entrenamiento en el clasificador base anterior, por lo que cada nuevo clasificador de base llega más especializado en instancias que han sido mal clasificados antes. A veces los clasificadores base son muy estables y el  algoritmo de entrenamiento del ensemble no es suficiente para proporcionar el nivel deseado de diversidad~\cite{disturbingneighbors}.
 
-SVM (Support Vector Machine) calcula un hiperplano óptimo que separa
-el espacio de entrada en dos regiones correspondientes a las clases de un conjunto de datos de dos clases. Si el conjunto de datos no es separable linealmente, el hiperplano puede construirse sin tal problema en el espacio de características dado por una función kernel. Cuando no se usa kernel, se dice que el kernel es lineal. El kernel lineal es más apropiado para datasets linealmente separables. Sin embargo, también es una opción interesante para otros conjuntos de datos, ya que es el más rápido y existen implementaciones optimizadas. Además, si no es posible la separación completa, pueden introducirse variables de holgura para permitir errores de entrenamiento. Por lo tanto, el kernel lineal es una opción muy competitiva cuando se deben construir numerosos SVM, como ocurre con los ensambles. Por esa razón, este documento está enfocado solo en SVM lineal. Sin embargo, algunas de sus conclusiones podrían ser válidas para otros kernels.
-Se sabe que SVM es un clasificador muy estable, por lo que se espera que los conjuntos de SVM se beneficien de estrategias que contribuyan a aumentar su diversidad.
+Los métodos de ensembles combinan las predicciones de unos estimadores base, que están construidos mediante un algoritmo de aprendizaje para mejorar la solidez de un solo estimador~\cite{ensemble}.
+Se distinguen dos clases de métodos de ensembles:
+	\begin{itemize}
+		\item En los métodos de Bagging~\cite{bagging}, se construyen varios estimadores de forma independiente y luego se calcula su promedio para las predicciones.
+		\item En los métodos de Boosting~\cite{boosting}, se construyen los estimadores secuencialmente y se trata de reducir el sesgo del estimador combinado. 
+	\end{itemize}
 
-Los Disturbing Neighbors (DN) o vecinos molestones se han utilizado con éxito para mejorar la diversidad en los bosques. DN usa un clasificador de 1-Nearest Neighbour (1-NN) para construir un conjunto de características adicionales que se agregan al conjunto de datos de entrenamiento de cada clasificador base. Este clasificador 1-NN es diferente para cada clasificador base. Las características compiladas son la predicción 1-NN más un conjunto booleano de características que indican cuál es el vecino más cercano. El conjunto de datos de entrenamiento original se transforma en un conjunto de datos aumentados, que es diferente para cada clasificador base, independientemente del esquema de conjunto en el que se va a utilizar.
+\section{Disturbing Neighbors}
 
-A diferencia de SVM, los árboles de decisión son muy sensibles a pequeños cambios en el conjunto de datos de capacitación. La motivación de este documento es probar DN dentro de conjuntos SVM para ver si la precisión y la diversidad aumentan, al igual que en los bosques, a pesar de la estabilidad SVM. 
-\subsection{Método}
+Los Disturbing Neighbors (DN) o vecinos molestones se han utilizado con éxito para mejorar la diversidad en los bosques~\cite{disturbingneighbors}.
+
 El método DN trabaja en cada clasificador base de la siguiente manera:
-\begin{enumerate}
+\begin{itemize}
     \item m instancias son seleccionadas aleatoriamente de el conjunto de datos de entrenamiento para construir un clasificador 1-NN. El valor m usa valores muy pequeños.
     \item Dimensiones usadas para calcular distancia euclidea en el clasificador 1-NN son también seleccionadas aleatoriamente. Al menos el 50\% de los atributos son seleccionados.
     \item Luego m+1 nuevas características son añadidas al conjunto de entrenamiento. Una de las características adicionales es la clase predecida por el clasificador 1-NN para cada instancia x, y la otra m son características booleanas, todos los conjuntos falsos excepto uno corresponden al vecino más cercano para esa instancia.
     \item El clasificador base está entrenado usando las características originales mas las nuevas características de m+1. 
-\end{enumerate}
+\end{itemize}
 Por lo tanto, el proceso normal de entrenamiento de los clasificadores básicos se altera añadiendo estas nuevas características del clasificador 1-NN. Es por eso que el método se llama vecinos molestones. La aleatoriedad aumenta la diversidad y se debe a:
 \begin{itemize}
 \item Los vecinos utilizados en cada clasificador 1-NN se seleccionan aleatoriamente. Por lo tanto, sus predicciones y las características booleanas son diferentes para cada clasificador base.
 \item Las dimensiones utilizadas para calcular las distancias euclidianas también se eligen de forma aleatoria, así que si dos clasificadores básicos tienen al menos los mismos m vecinos, las predicciones 1-NN y las características booleanas podrían ser diferentes.
 \end{itemize}
-El valor m es muy pequeño ya que el objetivo no es crear un clasificador 1-NN muy preciso, sino uno diferente cada vez. Las características m booleanas pueden ser tenidas en cuenta por el SVM resultante, por lo que se espera que cada SVM sea diferente.
-Como las predicciones de clase 1-NN son nominales, deben transformarse en binarias
-características para ser calculadas por el algoritmo de entrenamiento SVM. Estas características binarias también dividen el espacio de entrada en regiones cuyo número es igual o menor que el número de clases. En realidad, cada región resultante de esta nueva división es la unión de las regiones de Voronoi correspondientes a los vecinos que comparten la misma clase. Así que otra vez, tenemos un conjunto de atributos booleanos que pueden cambiar los coeficientes de SVM.
-Por lo tanto, las dimensiones adjuntas por DN pueden ser utilizadas por cada SVM en el ensemble. La aleatoriedad introducida hace que estas dimensiones sean diferentes para cada SVM, por lo que se obtienen diversos hiperplanos cada vez.
-\subsection{Conclusión}
-Disturbing Neighbors es un método para alterar el proceso de entrenamiento normal de los clasificadores base en un ensemble, mejorando su diversidad y mejorando la precisión general del ensemble. Disturbing Neighbors crea nuevas características utilizando un clasificador 1-NN. Estas características son la salida 1-NN más un conjunto de atributos booleanos que indican cuál es el vecino más cercano. El clasificador 1-NN se crea utilizando un pequeño subconjunto de instancias de entrenamiento seleccionadas al azar del conjunto de datos original. Las dimensiones utilizadas para calcular la distancia euclidiana también se seleccionan de forma aleatoria. Estas dos fuentes de aleatoriedad son las razones por las que las características creadas son diferentes cada vez, por lo que cuando estas nuevas características se usan para entrenar clasificadores base, la diversidad aumenta.
-La estadística de Kappa y los diagramas de movimiento de Kappa muestran que DN proporciona una diversidad adicional a los alumnos de base de SVM. La validación experimental también muestra que DN-SVM no mejora significativamente la precisión de SVM, mientras que los conjuntos de SVM que usan DN son significativamente mejores que las versiones sin DN. De modo que esta mejora solo puede venir del incremento en diversidad obtenido al aplicar DN.
 
-\section{Referencias}
+Disturbing Neighbors es un método para alterar el proceso de entrenamiento normal de los clasificadores base en un ensemble, mejorando su diversidad y mejorando la precisión general del ensemble.
 
-Las referencias se incluyen en el texto usando cite \cite{wiki:latex}. Para citar webs, artículos o libros \cite{koza92}.
+\section{Random Oracles}
 
+Random Oracles son mini-ensembles formados por dos modelos, pueden usarse como modelos base para otros métodos ensemble. El objetivo de usar Random Oracles es tener más diversidad entre los modelos base que forman un ensemble~\cite{randomoracles}.
 
-\section{Imágenes}
-
-Se pueden incluir imágenes con los comandos standard de \LaTeX, pero esta plantilla dispone de comandos propios como por ejemplo el siguiente:
-
-\imagen{escudoInfor}{Autómata para una expresión vacía}
-
-
-
-\section{Listas de items}
-
-Existen tres posibilidades:
-
+Dado un método base, el entrenamiento de un Random Oracle consiste en:
 \begin{itemize}
-	\item primer item.
-	\item segundo item.
+
+	\item Seleccionar aleatoriamente un Random Oracle.
+	\item Dividir los datos de entrenamiento en dos subconjuntos usando el Random Oracle.
+	\item Para cada subconjunto de datos de entrenamiento, se construye un modelo. El modelo Random Oracle está formado por un par de modelos  y el propio oráculo.
+\end{itemize}
+La predicción del test de una instancia se realiza de la siguiente manera: 
+\begin{itemize}
+	\item Usa el Random Oracle para seleccionar uno de los dos modelos.
+	\item Devuelve la predicción obtenida por el modelo seleccionado.
 \end{itemize}
 
-\begin{enumerate}
-	\item primer item.
-	\item segundo item.
-\end{enumerate}
+Se pueden considerar diferentes tipos de Oracles. En este trabajo, se utiliza el Linear Random Oracle. Este oráculo divide el espacio en dos subespacios utilizando un hiperplano. Para construir el oráculo, dos objetos de entrenamiento diferentes se seleccionan aleatoriamente, cada objeto de entrenamiento restante se asigna al subespacio del objeto de entrenamiento seleccionado que está más cerca.
 
-\begin{description}
-	\item[Primer item] más información sobre el primer item.
-	\item[Segundo item] más información sobre el segundo item.
-\end{description}
-	
+\section{Rotation Forest}
+
+Rotation Forests, tiene como objetivo construir clasificadores precisos y diversos. La heurística principal consiste en aplicar la extracción de características a subconjuntos de características y reconstruir un conjunto completo de características para cada clasificador en el conjunto. Elegimos el Análisis de Componentes Principales (PCA)~\cite{rotationforest}.
+
+Para construir el clasificador se siguen los siguientes pasos:
 \begin{itemize}
-\item 
+	\item Dividir el conjunto de datos en $K$ subconjuntos. Para maximizar la diversidad se eligen subconjuntos disjuntos. 
+	\item Para cada subconjunto se selecciona aleatoriamente una muestra del tamaño del 75\%. Se ejecuta PCA sobre cada una de las muestras.
+	\item De las clases se seleccionan las que son distintas, y de estas se selecciona una muestra del 80\%. Se eligen las instancias que contienen estas clases, y sobre estas se hace el PCA.
 \end{itemize}
 
-\section{Tablas}
-
-Igualmente se pueden usar los comandos específicos de \LaTeX o bien usar alguno de los comandos de la plantilla.
-
-\tablaSmall{Herramientas y tecnologías utilizadas en cada parte del proyecto}{l c c c c}{herramientasportipodeuso}
-{ \multicolumn{1}{l}{Herramientas} & App AngularJS & API REST & BD & Memoria \\}{ 
-HTML5 & X & & &\\
-CSS3 & X & & &\\
-BOOTSTRAP & X & & &\\
-JavaScript & X & & &\\
-AngularJS & X & & &\\
-Bower & X & & &\\
-PHP & & X & &\\
-Karma + Jasmine & X & & &\\
-Slim framework & & X & &\\
-Idiorm & & X & &\\
-Composer & & X & &\\
-JSON & X & X & &\\
-PhpStorm & X & X & &\\
-MySQL & & & X &\\
-PhpMyAdmin & & & X &\\
-Git + BitBucket & X & X & X & X\\
-Mik\TeX{} & & & & X\\
-\TeX{}Maker & & & & X\\
-Astah & & & & X\\
-Balsamiq Mockups & X & & &\\
-VersionOne & X & X & X & X\\
-} 
+De esta forma, se construyen clasificadores individuales precisos.
