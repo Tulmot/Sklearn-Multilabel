@@ -1,19 +1,19 @@
 \capitulo{6}{Trabajos relacionados}
-En este apartado vamos hablar y comparar nuestro proyecto con otros relacionados. Lo dividiremos en 3 partes, una en la que hablaremos de otras librerías ensembles, otra parte sobre librerías de aprendizaje automático y una última de servicios de computación en la nube.
+En este apartado vamos a analizar y comparar nuestro proyecto con otros relacionados. Lo dividiremos en tres partes, una en la que hablaremos de otras librerías ensembles, otra parte sobre librerías de aprendizaje automático y una última de servicios de computación en la nube.
 
 \section{Librerías ensemble}
-A parte de de la librería que hemos usado de Scikit-Learn, existen librerías similares, hablaremos sobre alguna de ellas y las compararemos con Scikit-Learn.
+A parte de de la librería que hemos usado de Scikit-Learn, existen librerías similares. A continuación, analizaremos algunas de ellas.
 
 \subsection{EnsembleSVM}
-Es un aprendizaje automático de software libre. Esta librería nos ofrece la funcionalidad para llevar a cabo el aprendizaje de ensembles utilizando modelos base de la máquina de vectores de soporte(SVM). Permite entrenar eficientemente modelos para grandes conjuntos de datos~\cite{ensembleSVM}.
+Esta biblioteca de aprendizaje automático es de software libre. Esta librería nos ofrece la funcionalidad para llevar a cabo el aprendizaje de ensembles utilizando modelos base de la máquina de vectores de soporte (SVM). Permite entrenar eficientemente modelos para grandes conjuntos de datos~\cite{ensembleSVM}.
 
-\subsection{H2O Ensemble}
+\subsection{$H_2O$ \textit{Ensemble}}
 Es una librería de R, que nos proporciona funcionalidad para crear conjuntos a partir de algoritmos básicos de aprendizaje que podemos acceder a través de este paquete. Este tipo de aprendizaje de ensembles se conoce como <<súper aprendizaje>>. Este algoritmos aprende de la combinación óptima de los entrenamientos~\cite{ensembleh2o}.
 
 \section{Librerías de aprendizaje automático}
 Vamos a ver diferentes librerías de aprendizaje automático.
 \subsection{Weka}
-Es una colección de algoritmos de aprendizaje automático para tareas de minería de datos. Los algoritmos se pueden aplicar sobre un conjunto de datos o llamar desde su propio código de java. Contiene herramientas para el preprocesamiento de datos, clasificación, clustering, reglas de asociación y visualización.Es un software de código abierto con la licencia de GNU~\cite{weka}. 
+Es una colección de algoritmos de aprendizaje automático para tareas de minería de datos. Los algoritmos se pueden aplicar sobre un conjunto de datos o llamar desde su propio código de java. Contiene herramientas para el preprocesamiento de datos, clasificación, clustering, reglas de asociación y visualización. Es un software de código abierto con la licencia de GNU~\cite{weka}. 
 
 \subsection{Meka}
 Proporciona una implementación de código abierto de métodos para aprendizaje y evaluación de Multi-Label. En la clasificación Multi-Label, queremos predecir múltiples variables de salida para cada instancia de entrada. Esto es diferente del caso estándar que involucra solo una única variable objetivo. MEKA se basa en Weka, incluye docenas de métodos Multi-Label de la literatura científica, y esta relacionado con el framework de MULAN~\cite{meka}.
@@ -24,7 +24,7 @@ Es una herramienta de software de código abierto de Java, que se puede utilizar
 Permite realizar un análisis completo de nuevas propuestas de inteligencia computacional en comparación con las existentes~\cite{keel}.
 
 \subsection{TensorFlow}
-Es una librería de computación numérica que compute gradientes automáticamente. Es un sistema flexible y se puede utilizar para gran variedad de algoritmos, incluidos de entrenamiento e inferencia para modelos de redes neuronales. Se ha utilizado para realizar investigaciones y para implementar sistemas de aprendizaje automático en diferentes áreas~\cite{tensorflow}.
+Es una librería de computación numérica que computa gradientes automáticamente. Es un sistema flexible y se puede utilizar para gran variedad de algoritmos, incluidos de entrenamiento e inferencia para modelos de redes neuronales. Se ha utilizado para realizar investigaciones y para implementar sistemas de aprendizaje automático en diferentes áreas~\cite{tensorflow}.
 
 Ha sido desarrollada por Google, y la utilizan empresas como Dropbox, Uber y Snapchat~\cite{libraries}.
 
@@ -32,6 +32,26 @@ Ha sido desarrollada por Google, y la utilizan empresas como Dropbox, Uber y Sna
 Es una biblioteca de aprendizaje de máquina de código abierto para Python que permite un crecimiento rápido de Deep Learning. Su mayor característica es que utiliza grafos computacionales dinámicos.
 
 Ha sido desarrollado principalmente por el grupo de investigación de inteligencia artificial de Facebook, y por ejemplo el software "Pyro" de Uber para la programación probabilística se basa en él~\cite{wiki:pytorch}.
+
+\subsection{Mulan}
+Es una biblioteca de código abierto de Java para aprender de conjuntos de datos Multi-Label. Actualmente, esta biblioteca incluye una variedad de algoritmos para realizar unas tareas principales de aprendizaje Multi-Label~\cite{mulan}:
+\begin{itemize}
+	\item Clasificación: Esta tarea se refiere a la salida de una bipartición de los labels relevantes e irrelevantes de una instancia de entrada.
+	\item Ranking: Esta tarea es el orden de salida de los labels, de acuerdo con su relevancia para un elemento de datos.
+	\item Clasificación y ranking: Mezcla de las dos tareas anteriores.
+\end{itemize}
+Esta biblioteca también nos ofrece dos características:
+\begin{itemize}
+	\item Selección de características.
+	\item Evaluación.
+\end{itemize}
+
+\subsection{Scikit-Multilearn}
+Es una implementación de Python de una variedad de algoritmos de clasificación Multi-Label.
+Se implementa una clase de Meka, para dar acceso a todos los métodos disponibles de Meka, Mulan y Weka~\cite{scikit-multilearn}.
+
+\subsection{Mldr}
+Esta librería hace un análisis exploratorio de datos y funciones de manipulación para conjuntos de datos Mult-Label, para ello usa una aplicación interactiva llamada Shiny para facilitar si uso~\cite{mldr}.
 
 \section{Servicios de computación en la nube}
 A continuación se exponen distintos servicios de computación en la nube que nos sirven para procesar conjuntos de datos.
@@ -41,9 +61,12 @@ Es un servicio de Apache Haddop, Spark, Pig y Hive para procesar grandes conjunt
 
 Podemos cambiar el tamaño de los clústeres en cualquier momento. Cada acción de clúster tarda muy poco tiempo, así podemos dedicar más tiempo a información valiosa porque necesitamos menos tiempo revisando la infraestructura.
 
-Podemos obtener más información en \url{https://cloud.google.com/dataproc/?hl=es}.
+Más información en \url{https://cloud.google.com/dataproc/?hl=es}.
 
 \subsection{Azure}
+Microsoft Azure Machine Learning Studio es una herramienta que se puede usar para crear, probar y desplegar soluciones de análisis predictivo en sus datos. Machine Learning Studio publica modelos como servicios web que pueden ser ejecutados fácilmente por aplicaciones personalizadas o herramientas como Excel.
+
+Más información en \url{https://docs.microsoft.com/en-us/azure/machine-learning/studio/what-is-ml-studio}.
 
 \subsection{AWS}
 En AWS el aprendizaje automático, los algoritmos controlan muchos de nuestros sistemas. Nos ofrece las siguientes características:
@@ -54,3 +77,5 @@ En AWS el aprendizaje automático, los algoritmos controlan muchos de nuestros s
 	\item Análisis completo.
 	\item Seguridad
 \end{itemize}
+
+Más información en \url{https://aws.amazon.com/es/machine-learning/}.	

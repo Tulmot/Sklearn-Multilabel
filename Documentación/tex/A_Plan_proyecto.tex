@@ -318,10 +318,10 @@ Esta semana, se ha avanzado con la memoria, se han hecho algunas correcciones y 
 		\item En Random Oracles ver porque no funciona al dibujar la gráfica.
 		\item En las clases ensemble modificar el base\_estimator.
 	\end{itemize}
-\item Memoria correcciones. Corregir las partes de la memoria y anexos, que me han dicho los tutores..
+\item Memoria correcciones. Corregir las partes de la memoria y anexos, que me han dicho los tutores.
 \item Comentar ensembles. Comentar los métodos ensembles, corregir los base, ya que estos no son ensembles.
-\item Mejorar el cómo detectar si es o no Multi-Label. En vez de la comprobación que hago, utilizar el método is\_multilabel.
-\item \texttt{predict\_proba} Random Oracles. Error encontrado en el \texttt{predict\_proba}, no devuelve los valores de forma correcta..
+\item Mejorar el cómo detectar si es o no Multi-Label. En vez de la comprobación que hago, utilizar el método \texttt{is\_multilabel}.
+\item \texttt{predict\_proba} Random Oracles. Error encontrado en el \texttt{predict\_proba}, no devuelve los valores de forma correcta.
 \end{itemize}
 
 Esta semana se han cumplido todas las tareas, en la tarea de las correcciones mínimas he tenido que dedicar más tiempo del esperado.
@@ -335,10 +335,137 @@ En la figura~\ref{fig:Milestone15} se muestra el gráfico del Sprint 14.
 \label{fig:Milestone15}
 \end{figure}
 
-\section{Estudio de viabilidad}
+\subsection{Sprint 15 (16/01/18 - 22/01/18)}
+Esta semana, se ha avanzado con la memoria y los anexos, y se han hecho algunas correcciones y mejoras:
+\begin{itemize}
+\item Diagrama de clases. Hacer los diagramas de clases que muestre las clases que hemos implementado.
+\item Gráfica Random Oracle. La gráfica de RO no está bien, hay que buscar en que parte de nuestro algoritmo está el error.
+\item Diagrama de secuencias. Hacer un diagrama de secuencias de uno de los notebook, en concreto el de los ensembles.
+\item Memoria: Introducción. Mejorar la introducción, añadiendo cosas como que se ha seguido el estilo de Sklearn, y añadir que la minería de datos dentro tiene aprendizaje automático y dentro de este supervisado.
+\item Añadir citas. Añadimos citas a los distintos algoritmos en el código.
+\item Añadir ejemplos de uso. Añadir ejemplos de uso a los clasificadores, tomar como referencia el de \textbf{DecisionTreeClassifier}.
+\item Hacer un notebook de las gráficas.A partir del python de las gráficas, crear un notebook en jupyter con ellas.
+\item Notebook base classifiers. Pequeñas correciones, como todo en inglés o que falla un clasificador al dibujar el árbol.
+\item Mejoras en los notebooks. Una misma cabecera para todos, poner un índice, comprobar que todos los notebooks funcionan correctamente.
+\item Mejoras en el código. Algunos comentarios que no están correctos o faltan, mejorar la comprobación de cuando el conjunto de datos que nos pasan es Multi-Label. 
+\item Árbol random oracles. Al intentar dibujar el árbol sale un error. El problema es que como este clasificador base tiene dos o más clasificadores(en función del número de oráculos), solo podemos dibujar un árbol.
+\item Mejoras en conceptos teóricos. Mejoramos los conceptos teóricos de Scikit-Learn, Multi-Label y Ensembles.
+\item Anexos: Añadir sprints. Añadir los sprints hasta el día de hoy.
+\item Rellenar el README.md. 
+\item Memoria: RO y RF. En conceptos teóricos documentar los ensembles Random Oracles y Rotation Forest.
+\item Revisar la guía de estilo PEP8. Revisar la guía de estilos PEP8, para los notebooks.
 
+\end{itemize}
+
+Esta semana se han cumplido todas las tareas, y se han hecho en el tiempo estimado.
+
+En la figura~\ref{fig:Milestone16} se muestra el gráfico del Sprint 15.
+
+\begin{figure}
+\centering
+\includegraphics[width=0.95\textwidth]{Milestone16}
+\caption{Burndown del sprint 15}
+\label{fig:Milestone16}
+\end{figure}
+
+\subsection{Sprint 16 (23/01/18 - 30/01/18)}
+Esta semana, se ha avanzado con la memoria y los anexos, se ha utilizado la herramienta SonarQube y se han hecho pruebas para probar los algoritmos:
+\begin{itemize}
+\item SonarQube. Utilizar la aplicación SonarQube para ver que no hay código duplicado.
+\item Añadir técnicas y herramientas. Añadir nuevas técnicas y herramientas como por ejemplo Graphviz, Zenhub o Python.
+\item Aspectos relevantes. Añadir aspectos relevantes como por ejemplo:
+\begin{itemize}
+	\item Leer documentación científica.
+	\item Implementar algoritmos.
+	\item Scikit-Learn.
+	\item Generados notebooks.
+\end{itemize}
+\item Hacer pruebas. Hacemos pruebas para ver el correcto funcionamiento.
+Las hacemos sobre \textbf{DecisionTreeClassifier} comparado con nuestros tres algoritmos mediante la validación cruzada.
+\item Mejorar conceptos teóricos. Mejorar los conceptos teóricos de minería de datos, \textit{ensembles} y Multi-Label.
+\item Manual del programador. Incluir en el Anexo de manual del programador: cómo he incluido el proyecto en SonarQube, la URL, y los comentarios (Porque no he seguido las recomendaciones de SonarQube).
+\item Anexos: Diseño arquitectónico. Vamos acabar la parte de diseño del anexo realizando la parte de diseño arquitectónico, en la que se mostrará la estructura de nuestro proyecto.
+\item Problemas en notebooks. En los notebooks de \textit{Graphics} y el de \textit{DT vs ensembles} corregir fallos.
+\end{itemize}
+
+Esta semana se han cumplido todas las tareas, aunque como el notebook en el que realizamos las pruebas había algún error, tuvimos que dedicar algo más de tiempo del estimado.
+
+En la figura~\ref{fig:Milestone17} se muestra el gráfico del Sprint 16.
+
+\begin{figure}
+\centering
+\includegraphics[width=0.95\textwidth]{Milestone17}
+\caption{Burndown del sprint 16}
+\label{fig:Milestone17}
+\end{figure}
+
+\section{Estudio de viabilidad}
+En esta sección vamos a realizar un estudio de viabilidad económica de nuestro proyecto y su viabilidad legal, ya que son los dos aspectos mas relevantes.
 \subsection{Viabilidad económica}
+Se va a hacer un estudio de viabilidad económica del proyecto. Se van a analizar los gastos que hubiera supuesto, si fuese un proyecto real, para una empresa, en cuanto al tiempo requerido de programación e infraestructura.
+\subsubsection{Costes de personal}
+Este proyecto ha sido realizado por un programador que ha estado durante cuatro meses y medio trabajando en él.
+Las hora que se han ido realizado han sido detalladas en la herramienta ZenHub podemos estimar que el proyecto consta de 366 Horas a 10\euro~la hora:
+
+\[10\euro /\textsf{Hora}*366\textsf{Horas}=3660 \euro \]
+
+Por otro lado también vamos a incluir las horas de reuniones semanales con nuestro equipo de proyecto, los tutores, este aspecto serian 18 horas extra en reuniones y otras 15 horas aproximadamente en consultas con ellos.
+\[10{\euro} /\textsf{Hora}*33\textsf{Horas}=330{\euro} \]
+
+A esta cuantía debemos añadirle el valor que se debería llevar la Seguridad Social que equivaldría a:
+\begin{itemize}
+\item 23,6\%: Por Seguridad Social.
+\item 5,5\%: Por desempleo.
+\item 0,6\%: Por formación profesional.
+\item 0,2\%: Por Fogasa.
+\item Total: 29,9\% 
+\end{itemize}
+Y esto equivale a: 
+\[5060\euro{}*0.299=1193\euro{}\]
+\subsubsection{Costes de material}
+Como el software utilizado es libre no tenemos ningún coste de licencias. La parte de hardware he usado mi propio ordenador que tiene un valor de 650\euro, se considera que un ordenador se amortiza en cinco años y como nosotros lo hemos usado cuatro meses y medio, el coste de hardware ha sido:
+\[\frac{650\euro}{(12\textsf{Meses}*5\textsf{Periodos})}*4.5\textsf{MesesDeUso}=49\euro\]
+\subsubsection{Costes totales}
+Como costes totales sumaremos todos los anteriores, como se puede observar en la tabla \ref{tab:costes}.
+
+\begin{table}[]
+\centering
+\caption{Tabla de los costes totales}
+\label{tab:costes}
+\rowcolors {2}{gray!35}{}
+%\resizebox{0.5\textwidth}{!}{
+\begin{tabular}{p{4cm} p{2cm}}
+\toprule
+Costes & Importe \\ \midrule
+Personal         & 3\,660 \euro{}   \\ 
+Seguridad Social & 1\,193\euro{} \\ 
+Material         & 49\euro{}   \\ 
+Totales             & 4\,902\euro{} \\ \bottomrule
+\end{tabular}
+%}
+\end{table}
 
 \subsection{Viabilidad legal}
+Se va hacer un análisis de las librerías que hemos usado en nuestro proyecto. Buscar los tipos de licencias que tienen cada uno, luego analizar, dependiendo de las compatibilidades, que tipos de licencia podemos aplicar nuestro proyecto y seleccionaremos la más restrictiva.
+
+\begin{table}[]
+	\centering
+	\caption{Tabla de librerías y sus licencias}
+	\label{tabla:Licencias}
+	\rowcolors {2}{gray!35}{}
+	\begin{tabular}{l l l l}
+	\toprule
+	Librería     & Versión & Descripción                                                     & Licencia                \\ 	\midrule                     \\ 	
+	Numpy        & 1.13  & \begin{tabular}[c]{@{}l@{}}Procesamiento de arrays para\\ números, strings y objetos.\end{tabular} & BSD                     \\ 
+	Scikit-Learn & 0.19.1  & \begin{tabular}[c]{@{}l@{}}Librería para minería de datos y análisis de datos.\end{tabular}	               & BSD                     \\
+	Matplotlib   & 1.5.3   & \begin{tabular}[c]{@{}l@{}}Librería Python para mostrar\\ gráficos 2D.\end{tabular}                      & PSF-based               \\ 
+	Graphviz     & 2.38    & \begin{tabular}[c]{@{}l@{}}Librería para visualizar árboles. 
+\end{tabular}                      & MIT  
+\\ \bottomrule
+\end{tabular}
+\end{table}
+
+
+Aunque las licencias BSD y MIT son permisivas entre sí, como la mayor parte del software utilizado es BSD, nuestro software llevará dicha licencia.
 
 
