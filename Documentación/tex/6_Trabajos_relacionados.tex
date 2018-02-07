@@ -1,7 +1,7 @@
 \capitulo{6}{Trabajos relacionados}
 En este apartado vamos a analizar y comparar nuestro proyecto con otros relacionados. Lo dividiremos en tres partes, una en la que hablaremos de otras librerías ensembles, otra parte sobre librerías de aprendizaje automático y una última de servicios de computación en la nube.
 
-\section{Librerías ensemble}
+\section{Librerías con implementaciones de \textit{ensembles}}
 A parte de de la librería que hemos usado de Scikit-Learn, existen librerías similares. A continuación, analizaremos algunas de ellas.
 
 \subsection{EnsembleSVM}
@@ -10,13 +10,10 @@ Esta biblioteca de aprendizaje automático es de software libre. Esta librería 
 \subsection{$H_2O$ \textit{Ensemble}}
 Es una librería de R, que nos proporciona funcionalidad para crear conjuntos a partir de algoritmos básicos de aprendizaje que podemos acceder a través de este paquete. Este tipo de aprendizaje de ensembles se conoce como <<súper aprendizaje>>. Este algoritmos aprende de la combinación óptima de los entrenamientos~\cite{ensembleh2o}.
 
-\section{Librerías de aprendizaje automático}
-Vamos a ver diferentes librerías de aprendizaje automático.
+\section{Librerías de aprendizaje automático Single-Label}
+Vamos a ver diferentes librerías de aprendizaje automático para Single-Label.
 \subsection{Weka}
 Es una colección de algoritmos de aprendizaje automático para tareas de minería de datos. Los algoritmos se pueden aplicar sobre un conjunto de datos o llamar desde su propio código de java. Contiene herramientas para el preprocesamiento de datos, clasificación, clustering, reglas de asociación y visualización. Es un software de código abierto con la licencia de GNU~\cite{weka}. 
-
-\subsection{Meka}
-Proporciona una implementación de código abierto de métodos para aprendizaje y evaluación de Multi-Label. En la clasificación Multi-Label, queremos predecir múltiples variables de salida para cada instancia de entrada. Esto es diferente del caso estándar que involucra solo una única variable objetivo. MEKA se basa en Weka, incluye docenas de métodos Multi-Label de la literatura científica, y esta relacionado con el framework de MULAN~\cite{meka}.
 
 \subsection{Keel}
 Es una herramienta de software de código abierto de Java, que se puede utilizar para una gran cantidad de tareas de descubrimiento de datos de conocimiento diferentes. Proporciona una GUI simple basada en el flujo de datos para diseñar experimentos con diferentes conjuntos de datos y algoritmos de inteligencia computacional, con el fin de evaluar el comportamiento de los algoritmos. Contiene una amplia variedad de algoritmos clásicos de extracción de conocimiento, técnicas de preprocesamiento, algoritmos de aprendizaje basados en inteligencia computacional, modelos híbridos...
@@ -31,7 +28,12 @@ Ha sido desarrollada por Google, y la utilizan empresas como Dropbox, Uber y Sna
 \subsection{Pytorch}
 Es una biblioteca de aprendizaje de máquina de código abierto para Python que permite un crecimiento rápido de Deep Learning. Su mayor característica es que utiliza grafos computacionales dinámicos.
 
-Ha sido desarrollado principalmente por el grupo de investigación de inteligencia artificial de Facebook, y por ejemplo el software "Pyro" de Uber para la programación probabilística se basa en él~\cite{wiki:pytorch}.
+Ha sido desarrollado principalmente por el grupo de investigación de inteligencia artificial de Facebook, y por ejemplo el software <<Pyro>> de Uber para la programación probabilística se basa en él~\cite{wiki:pytorch}.
+
+\section{Librerías de aprendizaje automático Multi-Label}
+Vamos a ver diferentes librerías de aprendizaje automático para Multi-Label.
+\subsection{Meka}
+Proporciona una implementación de código abierto de métodos para aprendizaje y evaluación de Multi-Label. En la clasificación Multi-Label, queremos predecir múltiples variables de salida para cada instancia de entrada. Esto es diferente del caso estándar que involucra solo una única variable objetivo. MEKA se basa en Weka, incluye docenas de métodos Multi-Label de la literatura científica, y esta relacionado con el framework de MULAN~\cite{meka}.
 
 \subsection{Mulan}
 Es una biblioteca de código abierto de Java para aprender de conjuntos de datos Multi-Label. Actualmente, esta biblioteca incluye una variedad de algoritmos para realizar unas tareas principales de aprendizaje Multi-Label~\cite{mulan}:
@@ -51,13 +53,13 @@ Es una implementación de Python de una variedad de algoritmos de clasificación
 Se implementa una clase de Meka, para dar acceso a todos los métodos disponibles de Meka, Mulan y Weka~\cite{scikit-multilearn}.
 
 \subsection{Mldr}
-Esta librería hace un análisis exploratorio de datos y funciones de manipulación para conjuntos de datos Mult-Label, para ello usa una aplicación interactiva llamada Shiny para facilitar si uso~\cite{mldr}.
+Esta librería hace un análisis exploratorio de datos y funciones de manipulación para conjuntos de datos Multi-Label, para ello usa una aplicación interactiva llamada Shiny para facilitar si uso~\cite{mldr}.
 
 \section{Servicios de computación en la nube}
 A continuación se exponen distintos servicios de computación en la nube que nos sirven para procesar conjuntos de datos.
 
 \subsection{Google Cloud Dataproc}
-Es un servicio de Apache Haddop, Spark, Pig y Hive para procesar grandes conjuntos de datos con poco esfuerzo y bajo coste. Se pueden crear clústeres y desactivarlos cuando acabemos para  controlar los gastos.
+Es un servicio de Apache Hadoop, Spark, Pig y Hive para procesar grandes conjuntos de datos con poco esfuerzo y bajo coste. Se pueden crear clústeres y desactivarlos cuando acabemos para  controlar los gastos.
 
 Podemos cambiar el tamaño de los clústeres en cualquier momento. Cada acción de clúster tarda muy poco tiempo, así podemos dedicar más tiempo a información valiosa porque necesitamos menos tiempo revisando la infraestructura.
 

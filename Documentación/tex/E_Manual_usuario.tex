@@ -1,5 +1,5 @@
 \apendice{Documentación de usuario}
-
+\label{fig:graphviz}
 \section{Introducción}
 Ene esta sección se explica como ejecutar los algoritmos de forma sencilla e intuitiva.
 
@@ -10,7 +10,7 @@ Lo primero para que un usuario pueda ejecutar nuestro algoritmos necesitará ten
 	\item Instalaremos Anaconda, que es una aplicación que contiene herramientas como spyder o Jupyter, que usaremos en nuestro entorno de trabajo, esta aplicación incluye la versión de Python 3.6 requerida y nos facilita el uso de este lenguaje y la instalación de distintas librerías.
 	\begin{itemize}
 		\item Podemos seguir los pasos de este enlace para instalarlo \url{https://anaconda.org/anaconda/python}.		
-    	\item Será necesario tenerlo instalado en la carpeta principal de nuestro usuario \textit{C:\textbackslash Users\textbackslash Usuario}.
+    	\item Será necesario tenerlo instalado en la carpeta principal de nuestro usuario \texttt{C:\textbackslash Users\textbackslash Usuario}.
 	\end{itemize}
 \item Tener el proyecto descargado o clonado con los fuentes: 
 
@@ -20,9 +20,16 @@ Se puede descargar a través del siguiente enlace \url{https://github.com/Tulmot
 \section{Instalación}
 En esta parte explicaremos como instalar Anaconda de una forma sencilla por si a través del enlace no se entendió. Y también deberemos tener el proyecto ya descargado. Los pasos a seguir son:
 \begin{itemize}
-	\item Anaconda se puede instalar en tres sistemas operativos (Windows, Linux y Mac Os), podemos elegir el que más nos guste, este proyecto se realizó en Windows 10. Para instalarlo es tan sencillo como abrir ejecutar (tecla Windows + r), y escribir cmd, con esto se nos abrirá una ventana con la consola. Por defecto, ya estaremos en el directorio \textit{C:\textbackslash Users\textbackslash Usuario}, que es donde instalaremos la aplicación. Para ello ejecutaremos el comando \textbf{conda install -c anaconda python}, y le damos a enter. Esto puede tardar unos minutos. Una vez acabado ya tendremos instalado Anaconda en nuestra computadora.
-	\item Ahora abriremos la aplicación, ya que Jupyter es una herramienta que Anaconda no trae instalada por defecto, lo único que tendremos que hacer al abrir la aplicación, es buscar la herramienta Jupyter que nos aparece al inicio y darle a \textit{install}. Con esto ya tendremos esta herramienta instalada.
-	\item Como uno de los notebooks muestra árboles para que sea más visual, necesitaremos instalar también una extension llamada \textbf{Graphviz}, tendremos que hacer lo mismo que para instalar anaconda, iremos a la consola (tecla Windows + r), y escribir \textit{cmd}, cuando se haya abierto escribiremos el comando \textit{conda install python-graphviz}, pulsamos enter y se nos instalará esta extensión. 
+	\item \textbf{Anaconda} se puede instalar en tres sistemas operativos (Windows, Linux y Mac Os), podemos elegir el que más nos guste, este proyecto se realizó en Windows 10. Para instalarlo es tan sencillo como abrir ejecutar (tecla Windows + r), y escribir cmd, con esto se nos abrirá una ventana con la consola. Por defecto, ya estaremos en el directorio \texttt{C:\textbackslash Users\textbackslash Usuario}, que es donde instalaremos la aplicación. Para ello ejecutaremos el comando \textbf{conda install -c anaconda python}, y le damos a enter. Esto puede tardar unos minutos. Una vez acabado ya tendremos instalado Anaconda en nuestra computadora.
+	\item Ahora abriremos la aplicación, ya que \textbf{Jupyter} es una herramienta que Anaconda no trae instalada por defecto, lo único que tendremos que hacer al abrir la aplicación, es buscar la herramienta Jupyter que nos aparece al inicio y darle a \textit{install}. Con esto ya tendremos esta herramienta instalada.
+	\item Como uno de los notebooks muestra árboles para que sea más visual, necesitaremos instalar también una extension llamada \textbf{Graphviz}, tendremos que hacer lo mismo que para instalar anaconda, iremos a la consola (tecla Windows + r), y escribir \textit{cmd}, cuando se haya abierto escribiremos el comando \textit{conda install python-graphviz}, pulsamos enter y se nos instalará esta extensión.
+	\item En uno de los notebooks utilizamos datos reales, y para ello usamos un fichero .arff, para poder abrir dicho fichero tenemos que instalar el paquete \textbf{arff}. Tenemos 3 maneras de instalarlo:
+	\begin{itemize}
+		\item Via pip: \textit{install liac-arff}
+		\item Via easy\_install: \textit{easy\_install liac-arff}
+		\item Manually: \textit{python setup.py install}
+	\end{itemize}
+	Si tenemos alguna duda podemos ver como instalarlo en \url{https://pypi.python.org/pypi/liac-arff}
 	\item Por último, una vez descargado el proyecto, lo tendremos que descomprimir en la carpeta que deseemos.
 \end{itemize}
 Después de esto ya podremos ejecutar nuestro proyecto.
@@ -43,7 +50,7 @@ Después de realizar cualquiera de las dos opciones se nos abrirá en el navegad
 \label{fig:Jupyter}
 \end{figure}
 
-En este caso nos encontramos en el directorio del usuario \textit{C:\textbackslash Users\textbackslash Usuario}, así que veremos las carpetas y otros archivos que contenga ese directorio.
+En este caso nos encontramos en el directorio del usuario \texttt{C:\textbackslash Users\textbackslash Usuario}, así que veremos las carpetas y otros archivos que contenga ese directorio.
 
 Como es la primera vez que entramos necesitaremos subir los notebooks al directorio en el que vamos a querer ejecutar nuestros notebooks. 
 Para hacer esto arriba a la derecha clickaremos en el botón que pone \textit{upload}, y buscaremos donde hayamos descomprimido el proyecto descargado anteriormente. Dentro de él abriremos la carpeta \textit{src}, y seleccionaremos todos los notebooks, que son aquellos con extensión \textit{.ipynb}, también tendremos que subir el fichero \textit{flags.arff} que es un ejemplo con datos reales que usamos en el notebook \texttt{Example with real ML data set}.

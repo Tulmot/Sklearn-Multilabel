@@ -45,7 +45,7 @@ Aunque el proceso de la minería de datos consta de más etapas nosotros nos cen
 \section{Multi-Label}
 Al principio el aprendizaje supervisado trataba con el análisis de datos de Single-Label donde los ejemplos de entrenamiento son asociados con un Single-Label de un conjunto que no tiene nada en común con otros conjuntos. Sin embargo, los ejemplos de entrenamiento a veces se pueden asociar a un conjunto de labels, a los que llamaremos Multi-Label~\cite{multilabel2}.
 
-La clasificación Multi-Label es una técnica de minería de datos, la cual nos permite que a partir de un conjunto de instancias de entrenamiento, podamos determinar a través de unos atributos esenciales de dichas instancias, crear unas reglas que posteriormente se usarán para clasificar nuevas instancias~\cite{multilabel}. Como por ejemplo en el etiquetado de imágenes: en el que una imagen puede tener a la vez las etiquetas <<árbol>>, <<montaña>> y <<mar>>.   
+La clasificación Single-Label y Multi-Label son unas técnicas de minería de datos, la cual nos permite que a partir de un conjunto de instancias de entrenamiento, podamos determinar a través de unos atributos esenciales de dichas instancias, crear unas reglas que posteriormente se usarán para clasificar nuevas instancias~\cite{multilabel}. Como por ejemplo en el etiquetado de imágenes: en el que una imagen puede tener a la vez las etiquetas <<árbol>>, <<montaña>> y <<mar>>.   
 
 \section{\textit{Ensemble}}
 Un \textit{ensemble} es un esquema de combinación de clasificadores base con los que obtenemos unas predicciones individuales . El éxito de un \textit{ensemble} requiere tanto exactitud como diversidad de sus clasificadores base. La diversidad representa como de diferente son las predicciones de los clasificadores base. Si los clasificadores base siempre están de acuerdo podría no haber diferencia entre usar sólo un clasificador base o varios combinado por un método de \textit{ensemble}. Entonces la ventaja de usar un \textit{ensemble} de clasificadores base consiste en la posibilidad que algunos de ellos pueden corregir una predicción incorrecta de otros, por lo que cuantos más clasificadores tengamos mas precisas serán las predicciones. 
@@ -70,7 +70,7 @@ El método DN trabaja en cada clasificador base de la siguiente manera:
     \item Luego $m+1$ nuevas características son añadidas al conjunto de entrenamiento. Una de las características adicionales es la clase predecida por el clasificador 1-NN para cada instancia \textbf{x}, y la otra $m$ son características booleanas, todos los conjuntos falsos excepto uno corresponden al vecino más cercano para esa instancia.
     \item El clasificador base está entrenado usando las características originales mas las nuevas características de $m+1$. 
 \end{itemize}
-Por lo tanto, el proceso normal de entrenamiento de los clasificadores básicos se altera añadiendo estas nuevas características del clasificador 1-NN. Es por eso que el método se llama vecinos molestones. La aleatoriedad aumenta la diversidad y se debe a:
+Por lo tanto, el proceso normal de entrenamiento de los clasificadores base se altera añadiendo estas nuevas características del clasificador 1-NN. Es por eso que el método se llama vecinos molestones. La aleatoriedad aumenta la diversidad y se debe a:
 \begin{itemize}
 \item Los vecinos utilizados en cada clasificador 1-NN se seleccionan aleatoriamente. Por lo tanto, sus predicciones y las características booleanas son diferentes para cada clasificador base.
 \item Las dimensiones utilizadas para calcular las distancias euclidianas también se eligen de forma aleatoria, así que si dos clasificadores básicos tienen al menos los mismos m vecinos, las predicciones 1-NN y las características booleanas podrían ser diferentes.
@@ -80,7 +80,7 @@ En resumen, Disturbing Neighbors es un método para alterar el proceso de entren
 
 \section{Random Oracles}
 
-Random Oracles son mini-ensembles formados por dos modelos, pueden usarse como modelos base para otros métodos \textit{ensemble}. El objetivo de usar Random Oracles es tener más diversidad entre los modelos base que forman un \textit{ensemble}~\cite{randomoracles}.
+Random Oracles son mini-ensembles formados por dos o más modelos, pueden usarse como modelos base para otros métodos \textit{ensemble}. El objetivo de usar Random Oracles es tener más diversidad entre los modelos base que forman un \textit{ensemble}~\cite{randomoracles}.
 
 Dado un método base, el entrenamiento de un Random Oracle consiste en:
 \begin{itemize}

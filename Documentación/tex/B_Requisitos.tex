@@ -93,7 +93,9 @@ Este caso de uso se extiende en otros tres, que serían el de entrenamiento de l
 \label{fig:DiagramCase3}
 \end{figure}
 
-A partir del diagrama principal y los demás diagramas, se han diseñado las siguientes tablas de los diagramas de casos de uso, se muestran en las siguientes figuras, \ref{tab:tablacaso1}, \ref{tab:tablacaso2}, \ref{tab:tablacaso3}, \ref{tab:tablacaso4}, \ref{tab:tablacaso5}, \ref{tab:tablacaso6} y este se subdivide en \ref{tab:tablacaso1.1}, \ref{tab:tablacaso1.2}, \ref{tab:tablacaso1.3}, \ref{tab:tablacaso2.1}, \ref{tab:tablacaso2.2} y \ref{tab:tablacaso2.3}.
+A partir del diagrama principal y los demás diagramas, se han diseñado las siguientes tablas de los diagramas de casos de uso, se muestran en las siguientes figuras, entrenar clasificadores base \ref{tab:tablacaso1}, predecir clasificadores base\ref{tab:tablacaso2}, predecir probabilidades clasificador base\ref{tab:tablacaso3}, entrenar ensemble\ref{tab:tablacaso4}, predecir ensemble\ref{tab:tablacaso5}, predecir probabilidades ensemble\ref{tab:tablacaso6}. 
+
+Dichas tablas se subdividen en entrenar Disturbing Neighbors\ref{tab:tablacaso1.1}, entrenar Random Oracle\ref{tab:tablacaso1.2}, entrenar Rotation Forest\ref{tab:tablacaso1.3}, predecir Disturbing Neighbors\ref{tab:tablacaso2.1}, predecir Random Oracle \ref{tab:tablacaso2.2}, predecir Rotation Forest\ref{tab:tablacaso2.3}, predecir probabilidades Random Oracle \ref{tab:tablacaso3.2}. Predecir probabilidades Disturbing Neighbors y predecir probabilidades Rotation Forest, como son similares al caso de predecir, no se dibujan sus tablas.
 
 \begin{table}[]
 \centering
@@ -102,19 +104,19 @@ A partir del diagrama principal y los demás diagramas, se han diseñado las sig
 \begin{tabular}{@{}
 >{\columncolor[HTML]{FFFFFF}}p {.25\textwidth} p {.75\textwidth}@{}}
 \toprule
-\textbf{Caso de uso 1}   & Entrenar los clasificadores base \\ \midrule
+\textbf{Caso de uso 1}   & Entrenar los clasificadores base.
+\\ \midrule
 \textbf{Versión}         & 1.0                                                                                                                                                                           \\ \midrule
-\textbf{Autor}           & Eduardo Tubilleja Calvo                                                                                                                                                             \\ \midrule
 \textbf{Requisitos}      & \begin{tabular}[c]{@{}l@{}}RF-1\\ RF-1.1\\ RF-1.2\\ RF-1.3\end{tabular}                                                                                                                  \\ \midrule
 \textbf{Descripción}     & \begin{tabular}[c]{@{}l@{}}El usuario podrá entrenar un conjunto de datos a través\\ de un clasificador base.
 \end{tabular}            \\ \midrule
-\textbf{Precondiciones}  & No tiene                                                                                                                                                                        \\ \midrule
-\textbf{Acciones}        & \begin{tabular}[c]{@{}l@{}}1 Ejecutar Jupyter.\\ 2 Seleccionar el notebook.\\ 3 Crear el conjunto de datos.\\ 4 Seleccionar el clasificador.\\ 5 Entrenar el conjunto de datos.
+\textbf{Precondiciones}  & Un conjunto de datos de entrenamiento.                                                                                                                                                                        \\ \midrule
+\textbf{Acciones}        & \begin{tabular}[c]{@{}l@{}}1 Elegir el clasificador con el que entrenar.\\ 2 Entrenar el conjunto de datos.
 \end{tabular} \\ \midrule
 \textbf{Postcondiciones} & El clasificador base entrenado.                                                                                                                                   \\ \midrule
-\textbf{Excepciones}     & Ninguna
+\textbf{Excepciones}     & No recibir un conjunto de datos. \\ No recibir el conjunto de datos de forma correcta.
 \\ \midrule
-\textbf{Importancia}     & Baja                                                                                                                                                                            \\ \bottomrule
+\textbf{Importancia}     & Media                                                                                                                                                                            \\ \bottomrule
 \end{tabular}
 \end{table}
 
@@ -127,17 +129,16 @@ A partir del diagrama principal y los demás diagramas, se han diseñado las sig
 \toprule
 \textbf{Caso de uso 1}   & Predecir los clasificadores base \\ \midrule
 \textbf{Versión}         & 1.0                                                                                                                                                                           \\ \midrule
-\textbf{Autor}           & Eduardo Tubilleja Calvo                                                                                                                                                             \\ \midrule
 \textbf{Requisitos}      & \begin{tabular}[c]{@{}l@{}}RF-2\\ RF-2.1\\ RF-2.2\\ RF-2.3\end{tabular}                                                                                                                  \\ \midrule
 \textbf{Descripción}     & \begin{tabular}[c]{@{}l@{}}El usuario podrá predecir un conjunto de datos a través\\ de un clasificador base.
 \end{tabular}            \\ \midrule
-\textbf{Precondiciones}  & Haber entrenado el clasificador.                                                                                                                                                                        \\ \midrule
-\textbf{Acciones}        & \begin{tabular}[c]{@{}l@{}}1 Ejecutar Jupyter.\\ 2 Seleccionar el notebook.\\ 3 Crear el conjunto de datos.\\ 4 Seleccionar el clasificador.\\ 5 Predecir el conjunto de datos.
+\textbf{Precondiciones}  & Haber entrenado el clasificador.\\ Un conjunto de datos de test.                                                                                             \\ \midrule
+\textbf{Acciones}        & \begin{tabular}[c]{@{}l@{}}1 Elegir el clasificador con el que predeciremos.\\ 2 Predecir el conjunto de datos.
 \end{tabular} \\ \midrule
-\textbf{Postcondiciones} & El clasificador base tiene una predicción.                                                                                                                                   \\ \midrule
-\textbf{Excepciones}     & Ninguna
+\textbf{Postcondiciones} & El clasificador base devuelve una predicción.                                                                                                                                   \\ \midrule
+\textbf{Excepciones}     & No haber entrenador el clasificador.\\ No recibir un conjunto de test.
 \\ \midrule
-\textbf{Importancia}     & Baja                                                                                                                                                                            \\ \bottomrule
+\textbf{Importancia}     & Media                                                                                                                                                                            \\ \bottomrule
 \end{tabular}
 \end{table}
 
@@ -150,17 +151,16 @@ A partir del diagrama principal y los demás diagramas, se han diseñado las sig
 \toprule
 \textbf{Caso de uso 1}   & Predecir la probabilidad de los clasificadores base \\ \midrule
 \textbf{Versión}         & 1.0                                                                                                                                                                           \\ \midrule
-\textbf{Autor}           & Eduardo Tubilleja Calvo                                                                                                                                                             \\ \midrule
 \textbf{Requisitos}      & \begin{tabular}[c]{@{}l@{}}RF-3\\ RF-3.1\\ RF-3.2\\ RF-3.3\end{tabular}                                                                                                                  \\ \midrule
 \textbf{Descripción}     & \begin{tabular}[c]{@{}l@{}}El usuario podrá predecir las probabilidades de un\\ conjunto de datos a través de un clasificador base.
 \end{tabular}            \\ \midrule
-\textbf{Precondiciones}  & Haber entrenado el clasificador.                                                                                                                                                                        \\ \midrule
-\textbf{Acciones}        & \begin{tabular}[c]{@{}l@{}}1 Ejecutar Jupyter.\\ 2 Seleccionar el notebook.\\ 3 Crear el conjunto de datos.\\ 4 Seleccionar el clasificador.\\ 5 Predecir probabilidades del conjunto de datos.
+\textbf{Precondiciones}  & Haber entrenado el clasificador.\\ Un conjunto de datos de test.                                                                                                                                                                                                                                                        \\ \midrule
+\textbf{Acciones}        & \begin{tabular}[c]{@{}l@{}}1 Elegir el clasificador con el que predeciremos las probabilidades.\\ 2 Predecir las probabilidades del conjunto de datos.
 \end{tabular} \\ \midrule
-\textbf{Postcondiciones} & El clasificador base saca unas probabilidades.                                                                                                                                   \\ \midrule
-\textbf{Excepciones}     & Ninguna
+\textbf{Postcondiciones} & El clasificador base devuelve unas probabilidades.                                                                                                                                   \\ \midrule
+\textbf{Excepciones}     & No haber entrenador el clasificador.\\ No recibir un conjunto de test.
 \\ \midrule
-\textbf{Importancia}     & Baja                                                                                                                                                                            \\ \bottomrule
+\textbf{Importancia}     & Media                                                                                                                                                                            \\ \bottomrule
 \end{tabular}
 \end{table}
 
@@ -173,17 +173,17 @@ A partir del diagrama principal y los demás diagramas, se han diseñado las sig
 \toprule
 \textbf{Caso de uso 1}   & Entrenar ensemble \\ \midrule
 \textbf{Versión}         & 1.0                                                                                                                                                                           \\ \midrule
-\textbf{Autor}           & Eduardo Tubilleja Calvo                                                                                                                                                             \\ \midrule
 \textbf{Requisitos}      & \begin{tabular}[c]{@{}l@{}}RF-4\end{tabular}                                                                                                                  \\ \midrule
 \textbf{Descripción}     & \begin{tabular}[c]{@{}l@{}}El usuario podrá entrenar un conjunto de datos, a\\ través de un ensemble de clasificadores base.
 \end{tabular}            \\ \midrule
-\textbf{Precondiciones}  & No tiene                                                                                                                                                                        \\ \midrule
-\textbf{Acciones}        & \begin{tabular}[c]{@{}l@{}}1 Ejecutar Jupyter.\\ 2 Seleccionar el notebook.\\ 3 Crear el conjunto de datos.\\ 4 Seleccionar el ensemble.\\ 5 Entrenar el conjunto de datos.
+\textbf{Precondiciones}  & Un conjunto de datos de entrenamiento.
+\\ \midrule
+\textbf{Acciones}        & \begin{tabular}[c]{@{}l@{}}1 Elegir el ensemble con el que entrenar.\\ 2 Entrenar el conjunto de datos.
 \end{tabular} \\ \midrule
 \textbf{Postcondiciones} & El ensemble de clasificadores base entrenado.                                                                                                                                   \\ \midrule
-\textbf{Excepciones}     & Ninguna
+\textbf{Excepciones}     & No recibir un conjunto de datos. \\ No recibir el conjunto de datos de forma correcta.
 \\ \midrule
-\textbf{Importancia}     & Baja                                                                                                                                                                            \\ \bottomrule
+\textbf{Importancia}     & Media                                                                                                                                                                            \\ \bottomrule
 \end{tabular}
 \end{table}
 
@@ -196,18 +196,17 @@ A partir del diagrama principal y los demás diagramas, se han diseñado las sig
 \toprule
 \textbf{Caso de uso 1}   & Predecir ensemble \\ \midrule
 \textbf{Versión}         & 1.0                                                                                                                                                                           \\ \midrule
-\textbf{Autor}           & Eduardo Tubilleja Calvo                                                                                                                                                             \\ \midrule
 \textbf{Requisitos}      & \begin{tabular}[c]{@{}l@{}}RF-5\end{tabular}                                                                                                                  \\ \midrule
 \textbf{Descripción}     & \begin{tabular}[c]{@{}l@{}}El usuario podrá predecir un conjunto de datos, a través\\ de un ensemble de clasificadores base.
 \end{tabular}            \\ \midrule
-\textbf{Precondiciones}  & Haber entrenado el ensemble.
+\textbf{Precondiciones}  & Haber entrenado el ensemble.\\ Un conjunto de datos de test.
 \\ \midrule
-\textbf{Acciones}        & \begin{tabular}[c]{@{}l@{}}1 Ejecutar Jupyter.\\ 2 Seleccionar el notebook.\\ 3 Crear el conjunto de datos.\\ 4 Seleccionar el ensemble.\\ 5 Predecir el conjunto de datos.
+\textbf{Acciones}        & \begin{tabular}[c]{@{}l@{}}1 Elegir el ensemble con el que predeciremos.\\ 2 Predecir el conjunto de datos.
 \end{tabular} \\ \midrule
-\textbf{Postcondiciones} & El ensemble de clasificadores base con predicciones.                                                                                                                                   \\ \midrule
-\textbf{Excepciones}     & Ninguna
+\textbf{Postcondiciones} & El ensemble de clasificadores base devuelve unas predicciones.                                                                                                                                   \\ \midrule
+\textbf{Excepciones}     & No haber entrenador el clasificador.\\ No recibir un conjunto de test.
 \\ \midrule
-\textbf{Importancia}     & Baja                                                                                                                                                                            \\ \bottomrule
+\textbf{Importancia}     & Media                                                                                                                                                                            \\ \bottomrule
 \end{tabular}
 \end{table}
 
@@ -220,17 +219,17 @@ A partir del diagrama principal y los demás diagramas, se han diseñado las sig
 \toprule
 \textbf{Caso de uso 1}   & Predecir ensemble \\ \midrule
 \textbf{Versión}         & 1.0                                                                                                                                                                           \\ \midrule
-\textbf{Autor}           & Eduardo Tubilleja Calvo                                                                                                                                                             \\ \midrule
 \textbf{Requisitos}      & \begin{tabular}[c]{@{}l@{}}RF-6\end{tabular}                                                                                                                  \\ \midrule
 \textbf{Descripción}     & \begin{tabular}[c]{@{}l@{}}El usuario podrá predecir las probabilidades de un\\ conjunto de datos, a través de un ensemble de\\ clasificadores base.
 \end{tabular}            \\ \midrule
 \textbf{Precondiciones}  & Haber entrenado el ensemble.                                                                                                                                                                        \\ \midrule
-\textbf{Acciones}        & \begin{tabular}[c]{@{}l@{}}1 Ejecutar Jupyter.\\ 2 Seleccionar el notebook.\\ 3 Crear el conjunto de datos.\\ 4 Seleccionar el ensemble.\\ 5 Predecir probabilidades del conjunto de datos.
+\textbf{Acciones}        & \begin{tabular}[c]{@{}l@{}}1 Elegir el ensemble con el que predeciremos las probabilidades.\\ 2 Predecir las probabilidades del conjunto de datos.
 \end{tabular} \\ \midrule
-\textbf{Postcondiciones} & El ensemble de clasificadores base con probabilidades.                                                                                                                                   \\ \midrule
+\textbf{Postcondiciones} & No haber entrenador el clasificador.\\ No recibir un conjunto de test.
+\\ \midrule
 \textbf{Excepciones}     & Ninguna
 \\ \midrule
-\textbf{Importancia}     & Baja                                                                                                                                                                            \\ \bottomrule
+\textbf{Importancia}     & Media                                                                                                                                                                            \\ \bottomrule
 \end{tabular}
 \end{table}
 
@@ -243,7 +242,6 @@ A partir del diagrama principal y los demás diagramas, se han diseñado las sig
 \toprule
 \textbf{Caso de uso 1}   & Entrenar Disturbing Neighbors \\ \midrule
 \textbf{Versión}         & 1.0                                                                                                                                                                           \\ \midrule
-\textbf{Autor}           & Eduardo Tubilleja Calvo                                                                                                                                                             \\ \midrule
 \textbf{Requisitos}      & \begin{tabular}[c]{@{}l@{}}RF-1.1\end{tabular}                                                                                                                  \\ \midrule
 \textbf{Descripción}     & \begin{tabular}[c]{@{}l@{}}El usuario podrá entrenar un conjunto de datos a través\\ del clasificador base Disturbing Neighbors.
 \end{tabular}            \\ \midrule
@@ -251,9 +249,9 @@ A partir del diagrama principal y los demás diagramas, se han diseñado las sig
 \textbf{Acciones}        & \begin{tabular}[c]{@{}l@{}}1 Calcular número de características.\\ 2 Seleccionar aleatoriamente las características.\\ 3 Seleccionar aleatoriamente las instancias.\\ 4 Calcular la matriz de los vecinos molestones.\\ 5 Calcular los vecinos mas cercanos.\\ 7 Concatenar el conjunto de datos con la matriz de\\ vecinos más cercanos.\\ 8 Entrenar.
 \end{tabular} \\ \midrule
 \textbf{Postcondiciones} & Disturbing Neigbors entrenado.                                                                                                                                   \\ \midrule
-\textbf{Excepciones}     & Número de instancias menor que el número de  vecinos molestones
+\textbf{Excepciones}     & Número de instancias menor que el número de  vecinos molestones.
 \\ \midrule
-\textbf{Importancia}     & Alta                                                                                                                                                                            \\ \bottomrule
+\textbf{Importancia}     & Media                                                                                                                                                                            \\ \bottomrule
 \end{tabular}
 \end{table}
 
@@ -266,7 +264,6 @@ A partir del diagrama principal y los demás diagramas, se han diseñado las sig
 \toprule
 \textbf{Caso de uso 1}   & Entrenar Random Oracle \\ \midrule
 \textbf{Versión}         & 1.0                                                                                                                                                                           \\ \midrule
-\textbf{Autor}           & Eduardo Tubilleja Calvo                                                                                                                                                             \\ \midrule
 \textbf{Requisitos}      & \begin{tabular}[c]{@{}l@{}}RF-1.2\end{tabular}                                                                                                                  \\ \midrule
 \textbf{Descripción}     & \begin{tabular}[c]{@{}l@{}}El usuario podrá entrenar un conjunto de datos a través\\ del clasificador base Random Oracle.
 \end{tabular}            \\ \midrule
@@ -274,9 +271,9 @@ A partir del diagrama principal y los demás diagramas, se han diseñado las sig
 \textbf{Acciones}        & \begin{tabular}[c]{@{}l@{}}1 Comprobar si es Single-Label o Multi-Label.\\ 2 Seleccionar aleatoriamente las instancias.\\ 3 Calcular la matriz de los oráculos.\\ 4 Calcular los oráculos mas cercanos.\\ 5 Entrenar cada oráculo.
 \end{tabular} \\ \midrule
 \textbf{Postcondiciones} & Random Oracle entrenado.                                                                                                                                   \\ \midrule
-\textbf{Excepciones}     & Ninguna
+\textbf{Excepciones}     & Número de instancias menor que el número de oráculos. 
 \\ \midrule
-\textbf{Importancia}     & Baja
+\textbf{Importancia}     & Media
  \\ \bottomrule
 \end{tabular}
 \end{table}
@@ -290,7 +287,6 @@ A partir del diagrama principal y los demás diagramas, se han diseñado las sig
 \toprule
 \textbf{Caso de uso 1}   & Entrenar Rotation Forest \\ \midrule
 \textbf{Versión}         & 1.0                                                                                                                                                                           \\ \midrule
-\textbf{Autor}           & Eduardo Tubilleja Calvo                                                                                                                                                             \\ \midrule
 \textbf{Requisitos}      & \begin{tabular}[c]{@{}l@{}}RF-1.3\end{tabular}                                                                                                                  \\ \midrule
 \textbf{Descripción}     & \begin{tabular}[c]{@{}l@{}}El usuario podrá entrenar un conjunto de datos a través\\ del clasificador base Rotation Forest.
 \end{tabular}            \\ \midrule
@@ -298,9 +294,9 @@ A partir del diagrama principal y los demás diagramas, se han diseñado las sig
 \textbf{Acciones}        & \begin{tabular}[c]{@{}l@{}}1 Seleccionar aleatoriamente las características.\\ 2 Seleccionar las distintas clases.\\ 3 Elegir una muestra de las clases seleccionada.\\ 4 Obtener las instancias de la muestra de clases.\\ 5 Dividir el conjunto de datos en partes.\\ 6 Entrenar PCA para cada una de los subgrupos.\\ 7 Transformar cada subgrupo con su respectivo PCA.\\ 8 Concatenar todos los subgrupos.\\ 9 Entrenar.
 \end{tabular} \\ \midrule
 \textbf{Postcondiciones} & Rotation Forest entrenado.                                                                                                                                   \\ \midrule
-\textbf{Excepciones}     & Ninguna
+\textbf{Excepciones}     & Número de instancias menor que el número de grupos. 
 \\ \midrule
-\textbf{Importancia}     & Baja
+\textbf{Importancia}     & Media
  \\ \bottomrule
 \end{tabular}
 \end{table}
@@ -314,17 +310,16 @@ A partir del diagrama principal y los demás diagramas, se han diseñado las sig
 \toprule
 \textbf{Caso de uso 1}   & Predecir Disturbing Neighbors \\ \midrule
 \textbf{Versión}         & 1.0                                                                                                                                                                           \\ \midrule
-\textbf{Autor}           & Eduardo Tubilleja Calvo                                                                                                                                                             \\ \midrule
 \textbf{Requisitos}      & \begin{tabular}[c]{@{}l@{}}RF-2.1\end{tabular}                                                                                                                  \\ \midrule
 \textbf{Descripción}     & \begin{tabular}[c]{@{}l@{}}El usuario podrá predecir un conjunto de datos a través\\ del clasificador base Disturbing Neighbors.
 \end{tabular}            \\ \midrule
-\textbf{Precondiciones}  & Haber entrenado el clasificador.                                                                                                                                                                        \\ \midrule
+\textbf{Precondiciones}  & Haber entrenado el clasificador.\\ Un conjunto de datos de test.                                                                                                                                                                        \\ \midrule
 \textbf{Acciones}        & \begin{tabular}[c]{@{}l@{}}1 Calcular los vecinos mas cercanos.\\ 2 Concatenar el conjunto de datos con la matriz de\\ vecinos más cercanos.\\ 3 Predecir.
 \end{tabular} \\ \midrule
-\textbf{Postcondiciones} & Disturbing Neigbors tiene una predicción.                                                                                                                                   \\ \midrule
-\textbf{Excepciones}     & Ninguna
+\textbf{Postcondiciones} & Disturbing Neighbors devuelve una predicción.                                                                                                                                   \\ \midrule
+\textbf{Excepciones}     & No recibir un conjunto de datos de test.
 \\ \midrule
-\textbf{Importancia}     & Baja                                                                                                                                                                            \\ \bottomrule
+\textbf{Importancia}     & Media                                                                                                                                                                            \\ \bottomrule
 \end{tabular}
 \end{table}
 
@@ -337,17 +332,16 @@ A partir del diagrama principal y los demás diagramas, se han diseñado las sig
 \toprule
 \textbf{Caso de uso 1}   & Predecir Random Oracle \\ \midrule
 \textbf{Versión}         & 1.0                                                                                                                                                                           \\ \midrule
-\textbf{Autor}           & Eduardo Tubilleja Calvo                                                                                                                                                             \\ \midrule
 \textbf{Requisitos}      & \begin{tabular}[c]{@{}l@{}}RF-2.2\end{tabular}                                                                                                                  \\ \midrule
 \textbf{Descripción}     & \begin{tabular}[c]{@{}l@{}}El usuario podrá predecir un conjunto de datos a través\\ del clasificador base Random Oracle.
 \end{tabular}            \\ \midrule
 \textbf{Precondiciones}  & Haber entrenado el clasificador.                                                                                                                                                                        \\ \midrule
 \textbf{Acciones}        & \begin{tabular}[c]{@{}l@{}}1 Concatenar el conjunto de datos con los oráculos más\\ cercanos.\\ 2 Predecir instancias con el oráculo correspondiente más\\ cercano.
 \end{tabular} \\ \midrule
-\textbf{Postcondiciones} & Random Oracle tiene una predicción.                                                                                                                                   \\ \midrule
-\textbf{Excepciones}     & Ninguna
+\textbf{Postcondiciones} & Random Oracle devuelve una predicción.                                                                                                                                   \\ \midrule
+\textbf{Excepciones}     & No recibir un conjunto de datos de test.
 \\ \midrule
-\textbf{Importancia}     & Baja                                                                                                                                                                            \\ \bottomrule
+\textbf{Importancia}     & Media                                                                                                                                                                            \\ \bottomrule
 \end{tabular}
 \end{table}
 
@@ -360,16 +354,37 @@ A partir del diagrama principal y los demás diagramas, se han diseñado las sig
 \toprule
 \textbf{Caso de uso 1}   & Predecir Rotation Forest \\ \midrule
 \textbf{Versión}         & 1.0                                                                                                                                                                           \\ \midrule
-\textbf{Autor}           & Eduardo Tubilleja Calvo                                                                                                                                                             \\ \midrule
 \textbf{Requisitos}      & \begin{tabular}[c]{@{}l@{}}RF-2.3\end{tabular}                                                                                                                  \\ \midrule
 \textbf{Descripción}     & \begin{tabular}[c]{@{}l@{}}El usuario podrá predecir un conjunto de datos a través\\ del clasificador base Rotation Forest.
 \end{tabular}            \\ \midrule
 \textbf{Precondiciones}  & Haber entrenado el clasificador.                                                                                                                                                                        \\ \midrule
 \textbf{Acciones}        & \begin{tabular}[c]{@{}l@{}}1 Predecir, después de concatenar los subgrupos\\ transformados por PCA.
 \end{tabular} \\ \midrule
-\textbf{Postcondiciones} & Random Oracle tiene una predicción.                                                                                                                                   \\ \midrule
-\textbf{Excepciones}     & Ninguna
+\textbf{Postcondiciones} & Random Oracle devuelve una predicción.                                                                                                                                   \\ \midrule
+\textbf{Excepciones}     & No recibir un conjunto de datos de test.
 \\ \midrule
-\textbf{Importancia}     & Baja                                                                                                                                                                            \\ \bottomrule
+\textbf{Importancia}     & Media                                                                                                                                                                            \\ \bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[]
+\centering
+\caption{Tabla del caso de uso 3.2}
+\label{tab:tablacaso3.2}
+\begin{tabular}{@{}
+>{\columncolor[HTML]{FFFFFF}}p {.25\textwidth} p {.75\textwidth}@{}}
+\toprule
+\textbf{Caso de uso 1}   & Predecir probabilidades Random Oracle \\ \midrule
+\textbf{Versión}         & 1.0                                                                                                                                                                           \\ \midrule
+\textbf{Requisitos}      & \begin{tabular}[c]{@{}l@{}}RF-3.2\end{tabular}                                                                                                                  \\ \midrule
+\textbf{Descripción}     & \begin{tabular}[c]{@{}l@{}}El usuario podrá predecir unas probabilidades de un\\ conjunto de datos a través del clasificador base\\ Random Oracle.
+\end{tabular}            \\ \midrule
+\textbf{Precondiciones}  & Haber entrenado el clasificador.                                                                                                                                                                        \\ \midrule
+\textbf{Acciones}        & \begin{tabular}[c]{@{}l@{}}1 Concatenar el conjunto de datos con los oráculos más\\ cercanos.\\ 2 Predecir instancias con el oráculo correspondiente más\\ cercano.\\2.1 Se calcula mediante el método \texttt{predict}.\\2.2 Se calcula mediante la función \texttt{predict\_proba} del clasificador.
+\end{tabular} \\ \midrule
+\textbf{Postcondiciones} & Random Oracle devuelve una probabilidad.                                                                                                                                   \\ \midrule
+\textbf{Excepciones}     & No recibir un conjunto de datos de test.
+\\ \midrule
+\textbf{Importancia}     & Media                                                                                                                                                                            \\ \bottomrule
 \end{tabular}
 \end{table}
