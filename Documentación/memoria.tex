@@ -354,7 +354,7 @@
 \newcommand{\nombre}{Eduardo Tubilleja Calvo} %%% cambio de comando
 
 % Datos de portada
-\title{Ensembles de clasificadores multi-label en Scikit-Learn}
+\title{Ensembles de clasificadores Multi-Label en Scikit-Learn}
 \author{\nombre}
 \tutor{Dr. Álvar Arnaiz González\\y Dr. Juan José Rodríguez Díez}
 \date{\today}
@@ -424,6 +424,8 @@ D. Juan José Rodríguez Díez
 La minería de datos es un campo de las ciencias de la computación, que consisten en el análisis de grandes cantidades de datos para descubrir patrones.
 Para ello se puede utilizar el aprendizaje automático, éste pertenece a un subcampo de las ciencias de computación y de la rama de inteligencia artificial, el objetivo del aprendizaje automático es desarrollar unas técnicas que permitan que las máquinas aprendan~\cite{wiki:datamining}.
 
+En la actualidad, lo más habitual es usar Single-Label, es decir, los conjuntos de datos solo pueden pertenecer a una clase. Nosotros nos enfrentaremos a Multi-Label, en el que el conjunto de datos pueden pertenecer a más de una clase, como por ejemplo en el etiquetado de imágenes en el que una imagen puede tener a la vez las etiquetas <<árbol>>, <<montaña>> y <<mar>>. 
+
 En este proyecto vamos a tratar de implementar diversos algoritmos de multi-clasificadores (\textit{ensembles}), para Multi-Label sobre la biblioteca de Python~\cite{python} Scikit-Learn~\cite{scikitlearn}. Se ha seguido la guía de estilo de Python (PeP~\cite{pep}) y las convecciones que se han observado en Sklearn (Scikit-Learn). Para que se entienda mejor y sea más gráfico, se han dibujado árboles y gráficas, mostrando los resultados al ejecutar dichos algoritmos sobre unos conjuntos de datos. Los algoritmos en los que nos vamos a centrar son Disturbing Neighbors~\cite{disturbingneighbors}, Random Oracles~\cite{randomoracles} y Rotation Forest~\cite{rotationforest}.
 \end{abstract}
 
@@ -437,9 +439,11 @@ Python, Scikit-Learn, Ensembles, Multi-Label, Minería de datos, Aprendizaje aut
 % Abstract en inglés
 \renewcommand*\abstractname{Abstract}
 \begin{abstract}
-Data mining is a area of computer science, which involves the analysis of large data sets to discover patterns. To do this you can use machine learning, it belongs to a subarea of computer science and the  artificial intelligence, the objective of machine learning is to develop techniques that allow machines to learn~\cite{wiki:datamining}.
+Data mining is an area of computer science, which involves the analysis of large data sets to discover patterns. To do this you can use machine learning, it belongs to a subarea of computer science and the  artificial intelligence, the objective of machine learning is to develop techniques that allow machines to learn~\cite{wiki:datamining}.
 
-In this project we will implement some multi-classifier algorithms (\textit{ensembles}), for Multi-Label on the Python library~\cite{python} Scikit-Learn~\cite{scikitlearn}. It has followed the Python style guide (PeP~\cite{pep}) and the convections that have been observed in Sklearn (Scikit-Learn). To make it better understand and more graphic, trees and graphs have been drawn, showing the results when executing those algorithms on some data sets. The algorithms we are going to focus on are Disturbing Neighbors~\cite{disturbingneighbors}, Random Oracles~\cite{randomoracles} and Rotation Forest~\cite{rotationforest}.
+Currently, the most common is to use Single-Label, that is, the data sets can only belong to one class. We will challenge Multi-Label, in which the data set can belong to more than one class, for example in the labeling of images in which An image can have both tags <<tree>>, <<mountain>> and <<sea>>.
+
+In this project we will implement some multi-classifier algorithms (\textit{ensembles}), for Multi-Label on the Python library~\cite{python} Scikit-Learn~\cite{scikitlearn}. It has followed the Python style guide (PeP~\cite{pep}) and the conventions that have been observed in Sklearn (Scikit-Learn). To make it better understand and more graphic, trees and graphs have been drawn, showing the results when executing those algorithms on some data sets. The algorithms we are going to focus on are Disturbing Neighbors~\cite{disturbingneighbors}, Random Oracles~\cite{randomoracles} and Rotation Forest~\cite{rotationforest}.
 \end{abstract}
 
 \renewcommand*\abstractname{Keywords}
