@@ -36,8 +36,8 @@ Esta semana se han cumplido todas las tareas, aunque como todavía no sabía uti
 \subsection{Sprint 1 (26/09/17 - 02/10/17)}
 Esta semana, se ha dedicado a la documentación del funcionamiento de bagging y empezar con el primer clasificador Disturbing Neighbors, las tareas son:
 \begin{itemize}
-\item Reducir el conjunto de datos. Reducimos el conjunto de datos para quedarnos sólo con los datos que valoraremos para entrenar, estos datos se eligen mediante un subespacio aleatorio (un array aleatorio de 0 y 1).
-\item Calculamos las distancias al vecino más cercano para ello en nuestro caso utilizaremos la distancia de euclides. Los vecinos sobre los que calculamos dichas distancias son unas instancias del conjunto elegidas al azar. 
+\item Reducir el conjunto de datos. Reducimos el conjunto de datos para quedarnos sólo con los datos que usaremos para entrenar, estos datos se eligen mediante un subespacio aleatorio (un array aleatorio de 0 y 1).
+\item Calculamos las distancias al vecino más cercano para ello en nuestro caso utilizaremos la distancia de Euclides. Los vecinos sobre los que calculamos dichas distancias son unas instancias del conjunto elegidas al azar. 
 \item Funcionamiento del BaggingClassifier. Como nosotros también vamos a hacer un clasificador, entender como se usa el fit, predict y precict\_proba.
 \item Entrenamiento. Entrenamos los datos mediante el método \texttt{fit} que tenemos que programar.
 \item Crear la clase Disturbing Neighbors. Es la clase en la que programaremos nuestro clasificador.
@@ -104,7 +104,7 @@ Esta semana, se ha dedicado mayormente a empezar a documentar en la memoria, a p
 \item Memoria: Introducción. Sobre que va ir nuestro proyecto, una breve explicación.
 \item Memoria: Objetivos del proyecto. Los objetivos que cumpliremos en el proyecto.
 \item Memoria: Conceptos teóricos. Los conceptos necesarios para poder entender y trabajar en el proyecto.
-\item Anexo: Manual del programador. La información que necesitara un programador que quiera seguir con el proyecto.
+\item Anexo: Manual del programador. La información que necesitará un programador que quiera seguir con el proyecto.
 \item Anexo: Manual del usuario. Información que necesitará un usuario para poder usar las funcionalidad del proyecto.
 \end{itemize}
 
@@ -230,7 +230,7 @@ En la figura~\ref{fig:Milestone11} se muestra el gráfico del Sprint 10.
 \end{figure}
 
 \subsection{Sprint 11 (12/12/17 - 18/12/17)}
-Esta semana, se ha termina algunos detalles del Random Oracles, y se se ha empezado con el siguiente clasificador Random Forest:
+Esta semana, se ha terminado algunos detalles del Random Oracles, y se se ha empezado con el siguiente clasificador Rotation Forest:
 \begin{itemize}
 \item Artículo Rotation Forest~\cite{rotationforest}. Leer el artículo Rotation Forest, para entender el nuevo algoritmo que vamos realizar.
 \item Notebooks. Mejorar los notebooks, creando una función que según un parámetro nos llame al clasificador Disturbing Neighbors o al Random Oracles.
@@ -314,9 +314,9 @@ Esta semana, se ha avanzado con la memoria, se han hecho algunas correcciones y 
 \item Corregir los notebook. Corregir los notebook para que funcionen correctamente, ya que al descargarlos de Github no encuentra bien las librerías.
 \item Correcciones menores. Corregir fallos menores, entre ellos:
 	\begin{itemize}
-		\item En Rotation Forest utilizar el conjunto reducido según las clases (instance\_classes).
+		\item En Rotation Forest utilizar el conjunto reducido según las clases (\texttt{instance\_classes}).
 		\item En Random Oracles ver porque no funciona al dibujar la gráfica.
-		\item En las clases ensemble modificar el base\_estimator.
+		\item En las clases ensemble modificar el \texttt{base\_estimator}.
 	\end{itemize}
 \item Memoria correcciones. Corregir las partes de la memoria y anexos, que me han dicho los tutores.
 \item Comentar ensembles. Comentar los métodos ensembles, corregir los base, ya que estos no son ensembles.
@@ -383,7 +383,7 @@ Esta semana, se ha avanzado con la memoria y los anexos, se ha utilizado la herr
 \item Hacer pruebas. Hacemos pruebas para ver el correcto funcionamiento.
 Las hacemos sobre \textbf{DecisionTreeClassifier} comparado con nuestros tres algoritmos mediante la validación cruzada.
 \item Mejorar conceptos teóricos. Mejorar los conceptos teóricos de minería de datos, \textit{ensembles} y Multi-Label.
-\item Manual del programador. Incluir en el Anexo de manual del programador: cómo he incluido el proyecto en SonarQube, la URL, y los comentarios (Porque no he seguido las recomendaciones de SonarQube).
+\item Manual del programador. Incluir en el Anexo de manual del programador: cómo he incluido el proyecto en SonarQube, la URL, y los comentarios (porque no he seguido las recomendaciones de SonarQube).
 \item Anexos: Diseño arquitectónico. Vamos acabar la parte de diseño del anexo realizando la parte de diseño arquitectónico, en la que se mostrará la estructura de nuestro proyecto.
 \item Problemas en notebooks. En los notebooks de \textit{Graphics} y el de \textit{DT vs ensembles} corregir fallos.
 \end{itemize}
@@ -399,13 +399,64 @@ En la figura~\ref{fig:Milestone17} se muestra el gráfico del Sprint 16.
 \label{fig:Milestone17}
 \end{figure}
 
+\subsection{Sprint 17 (31/01/18 - 06/02/18)}
+Esta semana, se ha avanzado con la memoria y los anexos:
+\begin{itemize}
+\item Trabajos relacionados.Como pueden ser librerías ensembles, librerías de aprendizaje automático y servicios de computación en la nube.
+\item Correcciones de la memoria. Se van a realizar distintas correcciones en la memoria. Las más relevantes son:
+\begin{itemize}
+	\item Introducción. Añadir más citas y explicar mejor la parte de los ensembles.
+	\item Conceptos teóricos. Explicar mejor Multi-Label, en Ensemble mejorar alguna parte, falta explicar la predicción de Rotation Forest.
+	\item Trabajos relacionados. Falta completar y corregir alguno de los ya escritos.
+\end{itemize}
+\item Anexos correcciones. Se van a realizar distintas correcciones en los anexos, aunque las más relevante es en la especificación del diseño. Donde haremos referencias las figuras y explicar las clases. Y luego correcciones menores.
+\item Anexos. Planificación temporal. Añadir los 3 últimos sprints.
+\item Anexos. Estudio de viabilidad. En la sección de plan de proyecto, hacer la parte de estudio de viabilidad, con sus correspondientes viabilidad económica y legal.
+\item Anexos. Especificación de requisitos. Se especifican los requisitos, y se hacen los diagramas de caso de uso para ellos.
+\item Anexos. Documentación técnica de programación. En esta sección se añadirán las partes de Compilación, instalación y ejecución del proyecto, y Pruebas del sistema.
+\item Anexos. Documentación de usuario. Esta sección hay que hacer los requisitos de usuario, instalación y manual de usuario.
+\item Notebook DT vs ensembles. Hacer conjuntos de datos más fáciles para que sea mejor la precisión y añadir alguna medida.
+\end{itemize}
+
+Esta semana se han cumplido todas las tareas, y se ha tardado el tiempo estimado.
+
+En la figura~\ref{fig:Milestone18} se muestra el gráfico del Sprint 17.
+
+\begin{figure}
+\centering
+\includegraphics[width=0.95\textwidth]{Milestone18}
+\caption{Burndown del sprint 17}
+\label{fig:Milestone18}
+\end{figure}
+
+\subsection{Sprint 18 (07/02/18 - 11/02/18)}
+Esta semana, se han realizado las ultimas correcciones en documentación y notebooks:
+\begin{itemize}
+\item Correcciones memoria. Corregir las partes que me han dicho los tutores.
+\item Completar memoria. Completar las secciones de resumen, abstract y conclusiones.
+\item Correcciones y completar anexos. Correcciones indicadas en la tutoría, y también falta añadir alguna parte en alguna sección.
+\item Mejoras notebooks. Dejarles terminados correctamente.
+\item Dibujar gráficas para Multi-Label. Dibujar gráficas Multi-Label para los distintos algoritmos ensembles.
+\end{itemize}
+
+Esta última semana se han acabado todas las tareas menos la de dibujar gráficas Multi-Label, se ha dedicado más del tiempo estimado pero aun así no se ha conseguido realizar así que se deja como una mejora para el futuro.
+
+En la figura~\ref{fig:Milestone19} se muestra el gráfico del Sprint 18.
+
+\begin{figure}
+\centering
+\includegraphics[width=0.95\textwidth]{Milestone19}
+\caption{Burndown del sprint 18}
+\label{fig:Milestone19}
+\end{figure}
+
 \section{Estudio de viabilidad}
 En esta sección vamos a realizar un estudio de viabilidad económica de nuestro proyecto y su viabilidad legal, ya que son los dos aspectos mas relevantes.
 \subsection{Viabilidad económica}
 Se va a hacer un estudio de viabilidad económica del proyecto. Se van a analizar los gastos que hubiera supuesto, si fuese un proyecto real, para una empresa, en cuanto al tiempo requerido de programación e infraestructura.
 \subsubsection{Costes de personal}
 Este proyecto ha sido realizado por un programador que ha estado durante cuatro meses y medio trabajando en él.
-Las hora que se han ido realizado han sido detalladas en la herramienta ZenHub podemos estimar que el proyecto consta de 366 Horas a 10 \euro~la hora:
+Las horas que se han ido realizado han sido detalladas en la herramienta ZenHub podemos estimar que el proyecto consta de 385 Horas a 10 \euro~la hora:
 
 \[10~{\mbox{\euro}} /\textsf{Hora}*385\textsf{Horas}=3850~{\mbox{\euro}}\]
 
@@ -423,9 +474,9 @@ A esta cuantía debemos añadirle el valor que se debería llevar la Seguridad S
 Y esto equivale a: 
 \[4180~{\mbox{\euro}}*0.299=1250~{\mbox{\euro}}\]
 
-Estos porcentajes se han sacado se la Seguridad Social\footnote{\url{http://www.seg-social.es/Internet_1/Trabajadores/CotizacionRecaudaci10777/Regimenes/RegimenGeneraldelaS10957/TablasResumendebase9932/TiposdeCotizacion/index.htm}}
+Estos porcentajes se han sacado de la Seguridad Social\footnote{\url{http://www.seg-social.es/Internet_1/Trabajadores/CotizacionRecaudaci10777/Regimenes/RegimenGeneraldelaS10957/TablasResumendebase9932/TiposdeCotizacion/index.htm}}
 \subsubsection{Costes de material}
-Como el software utilizado es libre no tenemos ningún coste de licencias. La parte de hardware he usado mi propio ordenador que tiene un valor de 650 \euro, se considera que un ordenador se amortiza en cinco años y como nosotros lo hemos usado cuatro meses y medio, el coste de hardware ha sido:
+Como el software utilizado (las aplicaciones o herramientas)es libre no tenemos ningún coste de licencias. La parte de hardware he usado mi propio ordenador que tiene un valor de 650 \euro, se considera que un ordenador se amortiza en cinco años y como nosotros lo hemos usado cuatro meses y medio, el coste de hardware ha sido:
 \[\frac{650~{\mbox{\euro}}}{(12\textsf{Meses}*5\textsf{Periodos})}*4.5\textsf{MesesDeUso}=49~{\mbox{\euro}}\]
 \subsubsection{Costes totales}
 Como costes totales sumaremos todos los anteriores, como se puede observar en la tabla \ref{tab:costes}.

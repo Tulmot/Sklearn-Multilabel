@@ -1,4 +1,4 @@
-\apendice{Documentación técnica de programación}
+\chapter[Documentación del programador]{Documentación técnica de programación}
 
 \section{Introducción}
 Esta sección está dedicada para futuros desarroladores que quieran intención de continuar con este proyecto. Se describen el funcionamiento del proyecto, el software necesario, y los aspectos que se podrían mejorar.
@@ -21,17 +21,17 @@ Esta carpeta contiene los ficheros código fuente del proyecto.
 	\item \texttt{Example of base classifiers}: Notebook en el que podemos ejecutar los clasificadores base.
 	\item \texttt{Example of ensembles classifiers}: Notebook donde ejecutamos los ensembles de cada uno de los clasficadores base.
 	\item \texttt{Example with real ML data set}: Notebook donde probamos la ejecución de nuestros clasificadores en un conjunto de datos reales.
-	\item \texttt{Graphics}: Notebook en el que podemos ver las gráficas de la comparación de los 3 clasificadores base realizados, en los que se puede ver como se dividen los datos.
-	\item flags: Fichero con los datos reales. Este u otros conjuntos de datos podemos descargarlos de \url{mulan.sourceforge.net/datasets.html}
-	\item sklearn\_ubu: Esta carpeta contiene los ficheros  con los códigos fuente de los algoritmos, sus clasificadores base y sus ensembles:
+	\item \texttt{Decision area Single-Label}: Notebook en el que podemos ver las gráficas de la comparación de los 3 clasificadores base realizados, en los que se puede ver como se dividen los datos.
+	\item \texttt{flags}: Fichero con los datos reales. Este u otros conjuntos de datos podemos descargarlos de \url{mulan.sourceforge.net/datasets.html}
+	\item \texttt{sklearn\_ubu}: Esta carpeta contiene los ficheros  con los códigos fuente de los algoritmos, sus clasificadores base y sus ensembles:
 	\begin{itemize}
-		\item base\_disturbing\_neighbors.py
-		\item base\_random\_oracles.py
-		\item base\_rotation\_forest.py
-		\item disturbing\_neighbors.py
-		\item random\_oracles.py
-		\item rotation\_forest.py
-		\item homogeneous\_ensemble.py
+		\item \texttt{base\_disturbing\_neighbors.py}
+		\item \texttt{base\_random\_oracles.py}
+		\item \texttt{base\_rotation\_forest.py}
+		\item \texttt{disturbing\_neighbors.py}
+		\item \texttt{random\_oracles.py}
+		\item \texttt{rotation\_forest.py}
+		\item \texttt{homogeneous\_ensemble.py}
 	\end{itemize}
 \end{itemize}
 
@@ -39,37 +39,39 @@ Esta carpeta contiene los ficheros código fuente del proyecto.
 En esta sección vamos a describir como instalar las diferentes herramientas necesarias para realizar el proyecto.
 
 \subsection{SonarQube}
-Para analizar la calidad del código se ha analizado mediante la herramienta web de SonarQube.
+Para analizar la calidad del código se ha comprobado mediante la herramienta web de SonarQube.
 Si queremos comprobar nuestro código con esta herramienta hay que seguir una serie de pasos:
 \begin{itemize}
 	\item Entrar en \url{https://www.sonarqube.org/}, podemos elegir entre descargarla o usar online, nosotros elegiremos esta segunda, que nos redirigirá a la página de \url{https://about.sonarcloud.io/}. Para poder utilizarla necesitamos loguearnos, para ello podemos hacerlo con nuestra cuenta de GitHub.
 	\item Una vez estemos dentro, en la cabecera clickamos en el icono de la <<?>>, que nos abrirá una ventana emergente. Y en el menú de la izquierda, pinchamos en tutorials, y dentro en el link de analizar un nuevo proyecto.
-	\item En la primera opción elegiremos la opción por defecto de organización personal, porque hay está el proyecto que queremos analizar.
+	\item En la primera opción elegiremos la opción por defecto de organización personal, porque ahí está el proyecto que queremos analizar.
 	\item En la segunda opción para generar el token, ponemos un nombre cualquiera.
 	\item En la siguiente opción elegiremos el lenguaje y sistema operativo utilizados, en nuestro caso Python y Windows, y ponemos una clave única.
 	\item Por último necesitamos descargar un pequeño archivo, lo añadiremos el bin al $PATH$.
 	\item Para acabar deberemos entrar a la consola a la ubicación donde se encuentre nuestro proyecto, copiaremos el comando que nos ha creado en la página y lo pegamos en la consola. Esto analizará nuestro código y ya sabremos si tenemos un buen código o necesitamos modificarlo.
 \end{itemize}
 
-Nuestro proyecto tiene una  calidad de A, ya que no tiene errores o código duplicado, solo tenemos unas advertencias en que algunos nombres de las variables, no son los adecuados. Aunque estos nombres no los cambiaremos, a continuación veremos las razones. Dichas variables son $X$, según las convenciones de Scikit-Learn, usa esa variable para los conjuntos de datos, por ello no la cambiaremos. Otras de las variables son $Xp$, $pos_subX$, $tuple_pos_subX$ y $subX$,  como todas ellas son parte de $X$, se entiende mejor dejando el mismo nombre con el que nos referimos al conjunto de datos.
+Nuestro proyecto tiene una  calidad de A, ya que no tiene errores o código duplicado, solo tenemos unas advertencias en que algunos nombres de las variables, no son los adecuados. Aunque estos nombres no los cambiaremos, a continuación veremos las razones. Dichas variables son $X$, según las convenciones de Scikit-Learn, usa esa variable para los conjuntos de datos, por ello no la cambiaremos. Otras de las variables son $Xp$, $pos\_subX$, $tuple\_pos_subX$ y $subX$,  como todas ellas son parte de $X$, se entiende mejor dejando el mismo nombre con el que nos referimos al conjunto de datos.
 
 
 \section{Compilación, instalación y ejecución del proyecto}
 \subsection{Compilación}
-En Python no hace falta compilar el proyecto ya que es un lenguaje interpretado. Necesitaremos únicamente tener Python instalado, por medio de alguna distribución como puede ser Anaconda, aunque vale cualquier otra que sea de Python.
+En Python no hace falta compilar el proyecto ya que es un lenguaje interpretado. Necesitaremos únicamente tener Python instalado, por medio de alguna distribución como puede ser Anaconda \url{https://anaconda.org/}, aunque vale cualquier otra que sea de Python.
 
 Necesitamos tener Python 3.6. junto con las librerías usadas, pero instalar una a una dichas librerías es un trabajo complejo, para un usuario. Por eso se ha usado Anaconda, que contiene todas las librerías necesarias para ejecutar nuestro proyecto.
 
 \subsection{Instalación}
-Para poder ejecutar deberemos instalar primero Anaconda, para ello accederemos a la consola y al directorio \textrm{C\textbackslash Users\textbackslash Usuario}, es el directorio predefinido de Anaconda y ejecutaremos el siguiente comando \textrm{conda install -c anaconda python}. Después de esto ya tendremos instalado Anaconda para poder trabajar.
+Para poder ejecutar deberemos instalar primero Anaconda, para ello accederemos a la consola y al directorio \texttt{C:\textbackslash Users\textbackslash Usuario}, es el directorio predefinido de Anaconda.
+
+Ejecutaremos el siguiente comando \texttt{conda install -c anaconda python}. Después de esto ya tendremos instalado Anaconda para poder trabajar.
 
 También será necesario instalar Graphviz para dibujar árboles y Liac-arff para poder abrir ficheros arff, para su instalación podemos seguir los pasos en~\ref{fig:graphviz}
 
 \subsection{Ejecución del proyecto}
-Para poder ejecutar nuestro código Anaconda trae una herramienta llamada \textit{Spyder} que es el entorno que nos servirá para poder abrir nuestros ficheros Python, y desde allí mismo ejecutar el fichero en la propia consola que trae la herramienta.
+Para poder ejecutar nuestro código, Anaconda trae una herramienta llamada \textit{Spyder} que es el entorno que nosotros usaremos para poder abrir nuestros ficheros Python, aunque se puede usa otro entorno de desarrollo. Desde \textit{Spyder} podremos ejecutaremos el fichero en la propia consola que trae la herramienta.
 
 \section{Pruebas del sistema}
-En esta sección vamos a explicar como ejecutar los notebooks que contiene la carpeta src, para ver los resultados de los algoritmos. 
+En esta sección vamos a explicar como ejecutar los notebooks que contiene la carpeta \texttt{src}, para ver los resultados de los algoritmos. 
 
 Se han realizado 5 notebooks para comprobar el correcto funcionamiento de los algoritmos, y su eficacia con diferentes medidas que se han calculado. Cada uno con sus correspondientes comentarios para entender que hace cada parte del notebook. Se dividen en:
 \begin{itemize}

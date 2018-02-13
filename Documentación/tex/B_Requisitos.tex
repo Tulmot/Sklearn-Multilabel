@@ -93,9 +93,9 @@ Este caso de uso se extiende en otros tres, que serían el de entrenamiento de l
 \label{fig:DiagramCase3}
 \end{figure}
 
-A partir del diagrama principal y los demás diagramas, se han diseñado las siguientes tablas de los diagramas de casos de uso, se muestran en las siguientes figuras, entrenar clasificadores base \ref{tab:tablacaso1}, predecir clasificadores base\ref{tab:tablacaso2}, predecir probabilidades clasificador base\ref{tab:tablacaso3}, entrenar ensemble\ref{tab:tablacaso4}, predecir ensemble\ref{tab:tablacaso5}, predecir probabilidades ensemble\ref{tab:tablacaso6}. 
+A partir del diagrama principal y los demás diagramas, se han diseñado las siguientes tablas de los diagramas de casos de uso, se muestran en las siguientes figuras, entrenar clasificadores base  \ref{tab:tablacaso1}, predecir clasificadores base \ref{tab:tablacaso2}, predecir probabilidades clasificador base \ref{tab:tablacaso3}, entrenar ensemble \ref{tab:tablacaso4}, predecir ensemble \ref{tab:tablacaso5}, predecir probabilidades ensemble \ref{tab:tablacaso6}. 
 
-Dichas tablas se subdividen en entrenar Disturbing Neighbors\ref{tab:tablacaso1.1}, entrenar Random Oracle\ref{tab:tablacaso1.2}, entrenar Rotation Forest\ref{tab:tablacaso1.3}, predecir Disturbing Neighbors\ref{tab:tablacaso2.1}, predecir Random Oracle \ref{tab:tablacaso2.2}, predecir Rotation Forest\ref{tab:tablacaso2.3}, predecir probabilidades Random Oracle \ref{tab:tablacaso3.2}. Predecir probabilidades Disturbing Neighbors y predecir probabilidades Rotation Forest, como son similares al caso de predecir, no se dibujan sus tablas.
+Dichas tablas se subdividen en entrenar Disturbing Neighbors \ref{tab:tablacaso1.1}, entrenar Random Oracle \ref{tab:tablacaso1.2}, entrenar Rotation Forest \ref{tab:tablacaso1.3}, predecir Disturbing Neighbors\ref{tab:tablacaso2.1}, predecir Random Oracle \ref{tab:tablacaso2.2}, predecir Rotation Forest \ref{tab:tablacaso2.3}, predecir probabilidades Random Oracle \ref{tab:tablacaso3.2}. Predecir probabilidades Disturbing Neighbors y predecir probabilidades Rotation Forest, como son similares al caso de predecir, no se dibujan sus tablas.
 
 \begin{table}[]
 \centering
@@ -155,7 +155,7 @@ Dichas tablas se subdividen en entrenar Disturbing Neighbors\ref{tab:tablacaso1.
 \textbf{Descripción}     & \begin{tabular}[c]{@{}l@{}}El usuario podrá predecir las probabilidades de un\\ conjunto de datos a través de un clasificador base.
 \end{tabular}            \\ \midrule
 \textbf{Precondiciones}  & Haber entrenado el clasificador.\\ Un conjunto de datos de test.                                                                                                                                                                                                                                                        \\ \midrule
-\textbf{Acciones}        & \begin{tabular}[c]{@{}l@{}}1 Elegir el clasificador con el que predeciremos las probabilidades.\\ 2 Predecir las probabilidades del conjunto de datos.
+\textbf{Acciones}        & \begin{tabular}[c]{@{}l@{}}1 Elegir el clasificador con el que predeciremos las\\ probabilidades.\\ 2 Predecir las probabilidades del conjunto de datos.
 \end{tabular} \\ \midrule
 \textbf{Postcondiciones} & El clasificador base devuelve unas probabilidades.                                                                                                                                   \\ \midrule
 \textbf{Excepciones}     & No haber entrenador el clasificador.\\ No recibir un conjunto de test.
@@ -223,7 +223,7 @@ Dichas tablas se subdividen en entrenar Disturbing Neighbors\ref{tab:tablacaso1.
 \textbf{Descripción}     & \begin{tabular}[c]{@{}l@{}}El usuario podrá predecir las probabilidades de un\\ conjunto de datos, a través de un ensemble de\\ clasificadores base.
 \end{tabular}            \\ \midrule
 \textbf{Precondiciones}  & Haber entrenado el ensemble.                                                                                                                                                                        \\ \midrule
-\textbf{Acciones}        & \begin{tabular}[c]{@{}l@{}}1 Elegir el ensemble con el que predeciremos las probabilidades.\\ 2 Predecir las probabilidades del conjunto de datos.
+\textbf{Acciones}        & \begin{tabular}[c]{@{}l@{}}1 Elegir el ensemble con el que predeciremos las\\ probabilidades.\\ 2 Predecir las probabilidades del conjunto de datos.
 \end{tabular} \\ \midrule
 \textbf{Postcondiciones} & No haber entrenador el clasificador.\\ No recibir un conjunto de test.
 \\ \midrule
@@ -246,7 +246,7 @@ Dichas tablas se subdividen en entrenar Disturbing Neighbors\ref{tab:tablacaso1.
 \textbf{Descripción}     & \begin{tabular}[c]{@{}l@{}}El usuario podrá entrenar un conjunto de datos a través\\ del clasificador base Disturbing Neighbors.
 \end{tabular}            \\ \midrule
 \textbf{Precondiciones}  & No tiene                                                                                                                                                                        \\ \midrule
-\textbf{Acciones}        & \begin{tabular}[c]{@{}l@{}}1 Calcular número de características.\\ 2 Seleccionar aleatoriamente las características.\\ 3 Seleccionar aleatoriamente las instancias.\\ 4 Calcular la matriz de los vecinos molestones.\\ 5 Calcular los vecinos mas cercanos.\\ 7 Concatenar el conjunto de datos con la matriz de\\ vecinos más cercanos.\\ 8 Entrenar.
+\textbf{Acciones}        & \begin{tabular}[c]{@{}l@{}}1 Calcular número de características.\\ 2 Seleccionar aleatoriamente las características.\\ 3 Seleccionar aleatoriamente las instancias.\\ 4 Calcular la matriz de los vecinos molestones.\\ 5 Calcular los vecinos más cercanos.\\ 7 Concatenar el conjunto de datos con la matriz de\\ vecinos más cercanos.\\ 8 Entrenar.
 \end{tabular} \\ \midrule
 \textbf{Postcondiciones} & Disturbing Neigbors entrenado.                                                                                                                                   \\ \midrule
 \textbf{Excepciones}     & Número de instancias menor que el número de  vecinos molestones.
@@ -380,7 +380,7 @@ Dichas tablas se subdividen en entrenar Disturbing Neighbors\ref{tab:tablacaso1.
 \textbf{Descripción}     & \begin{tabular}[c]{@{}l@{}}El usuario podrá predecir unas probabilidades de un\\ conjunto de datos a través del clasificador base\\ Random Oracle.
 \end{tabular}            \\ \midrule
 \textbf{Precondiciones}  & Haber entrenado el clasificador.                                                                                                                                                                        \\ \midrule
-\textbf{Acciones}        & \begin{tabular}[c]{@{}l@{}}1 Concatenar el conjunto de datos con los oráculos más\\ cercanos.\\ 2 Predecir instancias con el oráculo correspondiente más\\ cercano.\\2.1 Se calcula mediante el método \texttt{predict}.\\2.2 Se calcula mediante la función \texttt{predict\_proba} del clasificador.
+\textbf{Acciones}        & \begin{tabular}[c]{@{}l@{}}1 Concatenar el conjunto de datos con los oráculos más\\ cercanos.\\ 2 Predecir instancias con el oráculo correspondiente más\\ cercano.\\2.1 Se calcula mediante el método \texttt{predict}.\\2.2 Se calcula mediante la función \texttt{predict\_proba} del\\ clasificador.
 \end{tabular} \\ \midrule
 \textbf{Postcondiciones} & Random Oracle devuelve una probabilidad.                                                                                                                                   \\ \midrule
 \textbf{Excepciones}     & No recibir un conjunto de datos de test.

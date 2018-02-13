@@ -20,26 +20,26 @@ Se puede descargar a través del siguiente enlace \url{https://github.com/Tulmot
 \section{Instalación}
 En esta parte explicaremos como instalar Anaconda de una forma sencilla por si a través del enlace no se entendió. Y también deberemos tener el proyecto ya descargado. Los pasos a seguir son:
 \begin{itemize}
-	\item \textbf{Anaconda} se puede instalar en tres sistemas operativos (Windows, Linux y Mac Os), podemos elegir el que más nos guste, este proyecto se realizó en Windows 10. Para instalarlo es tan sencillo como abrir ejecutar (tecla Windows + r), y escribir cmd, con esto se nos abrirá una ventana con la consola. Por defecto, ya estaremos en el directorio \texttt{C:\textbackslash Users\textbackslash Usuario}, que es donde instalaremos la aplicación. Para ello ejecutaremos el comando \textbf{conda install -c anaconda python}, y le damos a enter. Esto puede tardar unos minutos. Una vez acabado ya tendremos instalado Anaconda en nuestra computadora.
+	\item \textbf{Anaconda} se puede instalar en tres sistemas operativos (Windows, Linux y Mac Os), podemos elegir el que más nos guste, este proyecto se realizó en Windows 10. Para instalarlo es tan sencillo como abrir ejecutar (tecla Windows + r), y escribir cmd, con esto se nos abrirá una ventana con la consola. Por defecto, ya estaremos en el directorio \texttt{C:\textbackslash Users\textbackslash Usuario}, que es donde instalaremos la aplicación. Para ello ejecutaremos el comando \texttt{conda install -c anaconda python}, y le damos a enter. Esto puede tardar unos minutos. Una vez acabado ya tendremos instalado Anaconda en nuestra computadora.
 	\item Ahora abriremos la aplicación, ya que \textbf{Jupyter} es una herramienta que Anaconda no trae instalada por defecto, lo único que tendremos que hacer al abrir la aplicación, es buscar la herramienta Jupyter que nos aparece al inicio y darle a \textit{install}. Con esto ya tendremos esta herramienta instalada.
-	\item Como uno de los notebooks muestra árboles para que sea más visual, necesitaremos instalar también una extension llamada \textbf{Graphviz}, tendremos que hacer lo mismo que para instalar anaconda, iremos a la consola (tecla Windows + r), y escribir \textit{cmd}, cuando se haya abierto escribiremos el comando \textit{conda install python-graphviz}, pulsamos enter y se nos instalará esta extensión.
+	\item Como uno de los notebooks muestra árboles para que sea más visual, necesitaremos instalar también una extension llamada \textbf{Graphviz}, tendremos que hacer lo mismo que para instalar anaconda, iremos a la consola (tecla Windows + r), y escribir \texttt{cmd}, cuando se haya abierto escribiremos el comando \texttt{conda install python-graphviz}, pulsamos enter y se nos instalará esta extensión.
 	\item En uno de los notebooks utilizamos datos reales, y para ello usamos un fichero .arff, para poder abrir dicho fichero tenemos que instalar el paquete \textbf{arff}. Tenemos 3 maneras de instalarlo:
 	\begin{itemize}
-		\item Via pip: \textit{install liac-arff}
-		\item Via easy\_install: \textit{easy\_install liac-arff}
-		\item Manually: \textit{python setup.py install}
+		\item Via pip: \texttt{install liac-arff}
+		\item Via easy\_install: \texttt{easy\_install liac-arff}
+		\item Manually: \texttt{python setup.py install}
 	\end{itemize}
 	Si tenemos alguna duda podemos ver como instalarlo en \url{https://pypi.python.org/pypi/liac-arff}
 	\item Por último, una vez descargado el proyecto, lo tendremos que descomprimir en la carpeta que deseemos.
 \end{itemize}
 Después de esto ya podremos ejecutar nuestro proyecto.
 
-Hay que tener especial cuidado en cuando se realizan estos pasos tener conexión a Internet, y instalar correctamente la aplicación Anaconda en el directorio indicado.
+Hay que tener especial cuidado en cuando se realizan estos pasos tener conexión a Internet, e instalar correctamente la aplicación Anaconda en el directorio indicado.
 \section{Manual del usuario}
 Una vez tengamos todo instalado y configurado, como lo que queremos es ejecutar los notebooks para poder ejecutar los resultados, para poder hacerlo tenemos que abrir Jupyter para ello hay dos formas:
 \begin{itemize}
-	\item Abrir la consola, para ello la tecla Windows + r, se nos abre ejecutar, y hay escribimos \textit{cmd}. Allí solo tendremos que escribir \textbf{jupyter notebook} y pulsar enter.
-	\item Abrir la aplicación Anaconda y desde hay lanzar el Jupyter.
+	\item Abrir la consola, para ello la tecla Windows + r, se nos abre ejecutar, y hay escribimos \texttt{cmd}. Allí solo tendremos que escribir \textbf{jupyter notebook} y pulsar enter.
+	\item Abrir la aplicación Anaconda y desde ahí lanzar el Jupyter.
 \end{itemize}
 Después de realizar cualquiera de las dos opciones se nos abrirá en el navegador una ventana con Jupyter, si entramos con la primera opción nos aparecerá el directorio desde el cual ejecutamos el comando \textit{jupyter notebook}, mientras que si lo hacemos con la segunda opción veremos el directorio de Documentos. Es recomendable entrar siempre desde el mismo sitio para abrir el mismo directorio, ya que ahí se alojarán nuestros notebooks. La ventana inicial que veremos, tendrá un aspecto como el que se ve en la figura \ref{fig:Jupyter}.
 
@@ -59,21 +59,21 @@ Una vez subidos todos los notebooks y el fichero con datos reales. Ya podremos e
 
 Para ir ejecutando cada celda en la parte superior tenemos un <<play>> que nos ira ejecutando celda a celda todas las partes.
 \begin{itemize}
-	\item Lo primero que veremos es el índice que podremos ver las partes en las que se divide el notebook. Podemos verlo en la siguiente figura\ref{fig:indiceJupyter}.
+	\item Lo primero que veremos es el índice que podremos ver las partes en las que se divide el notebook. Podemos verlo en la siguiente figura \ref{fig:indiceJupyter}.
 	\begin{figure}
 	\centering
 	\includegraphics[width=0.3\textwidth]{indiceJupyter}
 	\caption{Índice del notebook}
 	\label{fig:indiceJupyter}
 	\end{figure}
-	\item En la siguiente parte veremos una breve explicación de que funciones va realizar el notebook, y se importan las librerías necesarias\ref{fig:importJupyter}.
+	\item En la siguiente parte veremos una breve explicación de que funciones va realizar el notebook, y se importan las librerías necesarias, se puede ver en la siguiente figura \ref{fig:importJupyter}.
 	\begin{figure}
 	\centering
 	\includegraphics[width=0.95\textwidth]{importJupyter}
 	\caption{Explicación e imports del notebook}
 	\label{fig:importJupyter}
 	\end{figure}
-	\item Ahora ya empieza la parte que más afecta al usuario ya que es la que podrá modificar. Tenemos distintos parámetros que podremos modificar el conjunto de datos que crearemos\ref{fig:parametrosJupyter}.
+	\item Ahora ya empieza la parte que más afecta al usuario ya que es la que podrá modificar. Tenemos distintos parámetros que podremos modificar el conjunto de datos que crearemos, se puede ver en la siguiente figura \ref{fig:parametrosJupyter}.
 	\begin{figure}
 	\centering
 	\includegraphics[width=0.25\textwidth]{parametrosJupyter}
@@ -89,42 +89,42 @@ Para ir ejecutando cada celda en la parte superior tenemos un <<play>> que nos i
 		\item Test\_size: Es el porcentaje del conjunto de datos que utilizaremos para testear.
 		\item Test\_train: Es el porcentaje del conjunto de datos que utilizaremos para entrenar.
 	\end{itemize}
-	\item Según el conjunto de datos que queremos crear si es Single-Label o Multi-Label, deberemos ejecutar solo la celda deseada. Posteriormente se divide el conjunto de datos en una parte de entrenamiento y otra de pruebas\ref{fig:crearDatosJupyter}.
+	\item Según el conjunto de datos que queremos crear si es Single-Label o Multi-Label, deberemos ejecutar solo la celda deseada. Posteriormente se divide el conjunto de datos en una parte de entrenamiento y otra de pruebas, se puede ver en la figura \ref{fig:crearDatosJupyter}.
 	\begin{figure}
 	\centering
 	\includegraphics[width=0.95\textwidth]{crearDatosJupyter}
 	\caption{Seleccionar Single-Label o Multi-Label}
 	\label{fig:crearDatosJupyter}
 	\end{figure}
-  	\item Ahora tenemos tres clasificadores para elegir, como en el paso anterior solo debemos ejecutar la celda del clasificador que deseamos usar\ref{fig:classifierJupyter}.
+  	\item Ahora tenemos tres clasificadores para elegir, como en el paso anterior solo debemos ejecutar la celda del clasificador que deseamos usar, se puede ver en la figura \ref{fig:classifierJupyter}.
   	\begin{figure}
 	\centering
 	\includegraphics[width=0.8\textwidth]{classifierJupyter}
 	\caption{Seleccionar el clasificador}
 	\label{fig:classifierJupyter}
 	\end{figure}
-	\item En la siguiente figura\ref{fig:trainJupyter} se entrena el conjunto de datos con el clasificador seleccionado.
+	\item En la siguiente figura \ref{fig:trainJupyter} se entrena el conjunto de datos con el clasificador seleccionado.
   	\begin{figure}
 	\centering
 	\includegraphics[width=0.4\textwidth]{trainJupyter}
 	\caption{Entrenamos el clasificador}
 	\label{fig:trainJupyter}
 	\end{figure}
-	\item Una vez el clasificador entrenado ya podemos predecir con él\ref{fig:predictJypyter}.
+	\item Una vez el clasificador entrenado ya podemos predecir con él, se puede ver en la figura \ref{fig:predictJypyter}.
   	\begin{figure}
 	\centering
 	\includegraphics[width=0.95\textwidth]{predictJypyter}
 	\caption{Predecimos con el clasificador entrenado}
 	\label{fig:predictJypyter}
 	\end{figure}
-	\item Ya que hemos acabado de entrenar y predecir nuestro conjunto de datos ahora queremos ver algunas medidas para ver los resultados\ref{fig:medidasJupyter}.
+	\item Ya que hemos acabado de entrenar y predecir nuestro conjunto de datos ahora queremos ver algunas medidas para ver los resultados, se puede ver en la figura \ref{fig:medidasJupyter}.
   	\begin{figure}
 	\centering
 	\includegraphics[width=0.8\textwidth]{medidasJupyter}
 	\caption{Resultados}
 	\label{fig:medidasJupyter}
 	\end{figure}
-	\item Para acabar dibujamos un árbol de nuestro clasificador entrenado para que sea mas visual\ref{fig:arbolJupyter}.
+	\item Para acabar dibujamos un árbol de nuestro clasificador entrenado para que sea mas visual, se puede ver en la figura \ref{fig:arbolJupyter}.
   	\begin{figure}
 	\centering
 	\includegraphics[width=0.95\textwidth]{arbolJupyter}
